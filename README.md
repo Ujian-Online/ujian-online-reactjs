@@ -7,7 +7,12 @@
 ```
 $ npm install 
 ```
-this will install all the required dependencies 
+this will install all the required dependencies
+
+* create a new file .env and fill the file with following text
+```
+REACT_APP_API_URL=https://jsonplaceholder.typicode.com
+```
 
 * run your project using the following command 
 
@@ -17,7 +22,9 @@ $ npm start
  
  * your project will run on http://localhost:3000/
 
+
 git flow
+
 
 * main : branch production
 * development : branch staging
