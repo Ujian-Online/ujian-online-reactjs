@@ -1,45 +1,25 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getDataFromApi } from "./redux/actions/fetchDataActions/fetchDataAction";
-import "./assets/styles/App.css";
-import logo from './assets/images/logo.svg';
+import { lazy, Suspense } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+const HomePage = lazy(() => import('./components/home/HomePage'))
+const RegisterPage = lazy(() => import('./components/register/RegisterPage'))
 
-/**
- * functional component App.js
- */
-const App = () => {
-  const content = useSelector(state => state.main);
-  const dispatch = useDispatch();
-
-  /** equivalent to componentDidMount with second params as [] */
-  useEffect(() => {
-    dispatch(getDataFromApi());
-    console.log(content)
-  }, []);
-
+function App() {
   return (
-    <div>
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React/Redux starter Kit</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-      <div>
-        {content.loading ? (
-          <h2>Loading...</h2>
-        ) : (
-          <div>
-            {content.data.map(element => (        
-              <li key={content.data.indexOf(element)}>{element.title}</li>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+    <Router>
+      <Suspense fallback={<div>Loading...</div>} >
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/pemegang-sertifikat" component={HomePage} />
+          <Route path="/Petunjuk" component={HomePage} />
+          <Route path="/registrasi" component={RegisterPage} />
+        </Switch>
+      </Suspense>
+    </Router>
   );
-};
+}
+
 export default App;
