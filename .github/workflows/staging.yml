@@ -1,0 +1,90 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Deploy Staging Branch
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create commit comment
+        uses: peter-evans/commit-comment@v1
+        with:
+          body: |
+            Commit telah kami terima, saat ini code terbaru akan di Deploy secara automatis ke:
+            - Domain: **https://sertifikasi-staging.lsp-mpsdm.com**
+            - Deploy Status: **https://github.com/Ujian-Online/ujian-online-reactjs/actions**
+
+            Anda akan menerima notifikasi jika deploy telah selesai dilakukan, harap menunggu notifikasi selanjutnya.!
+
+  build:
+    runs-on: ubuntu-latest
+    needs: check
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Load Dependencies Cache
+        uses: c-hive/gha-npm-cache@v1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build ReactJS Artifact
+        run: npm run build
+
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
+        with:
+          name: react-github-actions-build
+          path: build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: react-github-actions-build
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          port: 21
+          protocol: ftp
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./react-github-actions-build/
+          server-dir: /frontend_staging/
+          log-level: minimal
+          security: loose
+
+  done:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Create commit comment
+        uses: peter-evans/commit-comment@v1
+        with:
+          body: |
+            Deploy sukses, anda bisa mengecek preview website di:
+            - Domain: **https://sertifikasi-staging.lsp-mpsdm.com**
+            - Deploy Status: **https://github.com/Ujian-Online/ujian-online-reactjs/actions**
+
+            Jika ada kendala, jangan ragu untuk menghubungi team devops.!
