@@ -1,3 +1,4 @@
+![Deploy Staging Branch](https://github.com/Ujian-Online/ujian-online-reactjs/workflows/Deploy%20Staging%20Branch/badge.svg)
 
 ## Installation
 

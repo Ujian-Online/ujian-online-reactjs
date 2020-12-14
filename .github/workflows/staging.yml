@@ -17,7 +17,7 @@ jobs:
           body: |
             Commit telah kami terima, saat ini code terbaru akan di Deploy secara automatis ke:
             - Domain: **https://sertifikasi-staging.lsp-mpsdm.com**
-            - Deploy Status: **https://github.com/Ujian-Online/backend/actions**
+            - Deploy Status: **https://github.com/Ujian-Online/ujian-online-reactjs/actions**
 
             Anda akan menerima notifikasi jika deploy telah selesai dilakukan, harap menunggu notifikasi selanjutnya.!
 
@@ -85,6 +85,6 @@ jobs:
           body: |
             Deploy sukses, anda bisa mengecek preview website di:
             - Domain: **https://sertifikasi-staging.lsp-mpsdm.com**
-            - Deploy Status: **https://github.com/Ujian-Online/backend/actions**
+            - Deploy Status: **https://github.com/Ujian-Online/ujian-online-reactjs/actions**
 
             Jika ada kendala, jangan ragu untuk menghubungi team devops.!
