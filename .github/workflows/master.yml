@@ -42,6 +42,8 @@ jobs:
         run: npm install
 
       - name: Build ReactJS Artifact
+        env:
+          CI: false
         run: npm run build
 
       - name: Share artifact inside workflow
