@@ -38,9 +38,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Load Dependencies Cache
-        uses: c-hive/gha-npm-cache@v1
-
       - name: Install Dependencies
         run: npm install
 
