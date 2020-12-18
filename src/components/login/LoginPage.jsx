@@ -10,9 +10,6 @@ const useStyles = createUseStyles({
         backgroundSize : '100% 100%',
         
     },
-    logo:{
-        height:"100px"
-    }
 })
 
 const LoginPage = () => {
@@ -20,7 +17,7 @@ const LoginPage = () => {
     return (<div className={`container-fluid ${classes.container} `}  >
         <div className='row h-100'>
             <div className={`col-md-5 ${classes.sidebar}`} >
-                <img className={`m-2 mt-lg-3 ml-lg-4 ${classes.logo}`} src='/assets/img/logo.png'  alt='logo' />
+                <img className='m-2 mt-lg-3 ml-lg-4' src='/assets/img/bg-logo.png'  alt='logo' />
             </div>
             <div className='col-md-7'>
                 <LoginForm />
