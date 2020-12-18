@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
 
     const [ isDisplayMenu , toggleMenu ] = useState(false)
-
+ 
     return (
         <nav className="navbar row navbar-expand-lg navbar-light bg-white">
             <Link className="navbar-brand" to="/">Navbar w/ text</Link>
