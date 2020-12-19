@@ -11,14 +11,13 @@ const LoginForm = () => {
             </div>
             <div className="form-group">
                 <div className="d-flex">
-                <div className="justify-content-start">
-                <label className="">Password</label>
+                    <div className="justify-content-start">
+                        <label>Password</label>
+                    </div>
+                    <div className="justify-content-end ml-auto">
+                        <Link to='/forget-Password'>Forget Password?</Link>
+                    </div>
                 </div>
-                <div className="justify-content-end ml-auto">
-                <Link to='/forget-Password' className="justify-content-end">Forget Password ?</Link>
-                </div>
-                </div>
-                
                 <input type="password" className="form-control" id="password" />
             </div>
             <div className="form-group form-check">
@@ -27,8 +26,6 @@ const LoginForm = () => {
                     Remember me
                 </label>
             </div>
-            
-            
             <div className="form-group col-sm-6 col-md-4 ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>                
             </div>            
