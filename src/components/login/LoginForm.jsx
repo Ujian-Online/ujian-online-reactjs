@@ -2,8 +2,8 @@ import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import { loginUserAction } from '../../redux/actions/auth.action'
 import { Link } from 'react-router-dom'
-import { createUseStyles } from 'react-jss'
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const LoginForm = () => {
     const dispatch = useDispatch()
@@ -28,6 +28,10 @@ const useStyles = createUseStyles({
 
 const LoginForm = () => {
     const classes={useStyles}
+>>>>>>> ft-ui-login
+=======
+
+const LoginForm = () => {
 >>>>>>> ft-ui-login
     return (
         <form className="p-lg-5"  >
