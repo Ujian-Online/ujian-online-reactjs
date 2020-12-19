@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom'
-import { createUseStyles } from 'react-jss'
 
-const useStyles = createUseStyles({
-   
-})
 
 const LoginForm = () => {
-    const classes={useStyles}
     return (
         <form className="p-lg-5">
             <h2 className="text-center mb-3 mb-lg-5">Login Account</h2>
