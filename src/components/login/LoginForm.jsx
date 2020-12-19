@@ -2,7 +2,9 @@ import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import { loginUserAction } from '../../redux/actions/auth.action'
 import { Link } from 'react-router-dom'
+import { createUseStyles } from 'react-jss'
 
+<<<<<<< HEAD
 const LoginForm = () => {
     const dispatch = useDispatch()
     
@@ -19,9 +21,18 @@ const LoginForm = () => {
         e.preventDefault()
         dispatch(loginUserAction(user))
     }
+=======
+const useStyles = createUseStyles({
+   
+})
+
+const LoginForm = () => {
+    const classes={useStyles}
+>>>>>>> ft-ui-login
     return (
         <form className="p-lg-5"  >
             <h2 className="text-center mb-3 mb-lg-5">Login Account</h2>
+<<<<<<< HEAD
             <div class="form-group">
                 <label for="username" className="col-md-6">Username / Email</label>
                 <input type="text" 
@@ -41,13 +52,32 @@ const LoginForm = () => {
                 onChange={onChangeState('password')}
                 value={ user.password }
                 />
+=======
+            <div className="form-group">
+                <label htmlFor="username">Username / Email</label>
+                <input type="username" className="form-control" id="username" />
             </div>
-            <div class="form-group form-check">
-                <input class="form-check-input" type="checkbox" id="aggrement" required />
-                <label class="form-check-label" for="aggrement">
-                    Ingat saya 
+            <div className="form-group">
+                <div className="d-flex">
+                <div className="justify-content-start">
+                <label className="">Password</label>
+                </div>
+                <div className="justify-content-end ml-auto">
+                <Link to='/forget-Password' className="justify-content-end">Forget Password ?</Link>
+                </div>
+                </div>
+                
+                <input type="password" className="form-control" id="password" />
+>>>>>>> ft-ui-login
+            </div>
+            <div className="form-group form-check">
+                <input className="form-check-input" type="checkbox" id="aggrement" />
+                <label className="form-check-label">
+                    Remember me
                 </label>
             </div>
+            
+            
             <div className="form-group col-sm-6 col-md-4 ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary btn-block" onSubmit={onSubmit}>Sign In</button>                
             </div>            
