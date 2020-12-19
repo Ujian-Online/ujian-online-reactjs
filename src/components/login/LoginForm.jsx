@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import { loginUserAction } from '../../redux/actions/auth.action'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 const LoginForm = () => {
     const dispatch = useDispatch()
     
