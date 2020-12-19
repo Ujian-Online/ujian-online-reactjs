@@ -18,22 +18,14 @@ const LoginForm = () => {
         e.preventDefault()
         dispatch(loginUserAction(user))
     }
-=======
 const useStyles = createUseStyles({
    
 })
 
 const LoginForm = () => {
-    const classes={useStyles}
->>>>>>> ft-ui-login
-=======
-
-const LoginForm = () => {
->>>>>>> ft-ui-login
     return (
         <form className="p-lg-5"  >
             <h2 className="text-center mb-3 mb-lg-5">Login Account</h2>
-<<<<<<< HEAD
             <div class="form-group">
                 <label for="username" className="col-md-6">Username / Email</label>
                 <input type="text" 
@@ -53,7 +45,6 @@ const LoginForm = () => {
                 onChange={onChangeState('password')}
                 value={ user.password }
                 />
-=======
             <div className="form-group">
                 <label htmlFor="username">Username / Email</label>
                 <input type="username" className="form-control" id="username" />
@@ -68,7 +59,6 @@ const LoginForm = () => {
                     </div>
                 </div>
                 <input type="password" className="form-control" id="password" />
->>>>>>> ft-ui-login
             </div>
             <div className="form-group form-check">
                 <input className="form-check-input" type="checkbox" id="aggrement" />
