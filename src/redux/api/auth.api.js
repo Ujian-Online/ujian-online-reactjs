@@ -13,13 +13,13 @@ export const registerAPI = async ({  name, email = '' , password = '', confirm_p
     })
 }
 
-export const loginAPI = async ({email = '' , password = ''}) => {
+export const loginAPI = async ({username = '' , password = ''}) => {
     return await API({
         url : '/api/login' ,
         method : 'POST',
         data : {
-            email,
+            username,
             password,
         }
-    })
+    }).then( res => res.data )
 }

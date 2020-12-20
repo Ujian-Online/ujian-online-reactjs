@@ -1,5 +1,6 @@
 import { registerAPI } from '../api/auth.api'
 import {loginAPI} from '../api/auth.api'
+import * as types from '../types/auth.type'
 
 export const registerUserAction = ({ name = '' , email = '' , password = '', confirm_password = '' }) => {
     return async dispatch => {
@@ -12,12 +13,18 @@ export const registerUserAction = ({ name = '' , email = '' , password = '', con
     }
 }
 
-export const loginUserAction = ({ email = '' , password = ''}) => {
+export const loginUserAction = ({ username = '' , password = ''}) => {
     return async dispatch => {
         try {
-            await loginAPI({email , password })
+            dispatch({ type : types.ON_LOGIN })
+            const response = await loginAPI({username , password })
+            dispatch({ 
+                type : types.LOGIN_SUCCESS , 
+                token : response.data && response.data.token })
         }catch(err){
-            console.error('Login api', err)
+            dispatch({ 
+                type : types.LOGIN_ERROR , 
+                errMessage : err.response && err.response.data && err.response.data.error })            
         }
         
     }
