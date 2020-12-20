@@ -1,5 +1,5 @@
 import { persistReducer } from 'redux-persist'
-import {LOGIN_SUCCESS} from '../types/auth.type'
+import * as types from '../types/auth.type'
 import storage from 'redux-persist/lib/storage'
 
 const initialState = {
@@ -15,20 +15,24 @@ const persistConfig = {
     whitelist: ['token', 'user']
 }
 
-export default persistReducer(persistConfig, (state = initialState, action) => {
-    switch(action.type) {
-        // case REQUEST_AUTH: return {
-        //     // ...state,
-        //     //  isLoading: true
-        //  }
-
-        case LOGIN_SUCCESS: return {
-             ...state,
+export default persistReducer(persistConfig, (state = initialState, action = {}) => {
+    switch (action.type) {
+        case types.ON_LOGIN: return {
+            ...state,
+            isLoading: true,
+        }
+        case types.LOGIN_SUCCESS: return {
+            ...state,
             isLoading: false,
-            user:action.user,
-            token:action.token,
-            }
-        default : return state
+            token: action.token,
+            errMessage: null
+        }
+        case types.LOGIN_ERROR: return {
+            ...state,
+            isLoading: false,
+            errMessage : action.errMessage,
+        }
+        default: return state
     }
-    
+
 })
