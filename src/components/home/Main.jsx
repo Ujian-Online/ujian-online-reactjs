@@ -1,10 +1,8 @@
 const Main = ({ children }) => {
     return(
-        <div className='row'>
-            <div className='container'>
+        <main className='row'>
                 { children }
-            </div>            
-        </div>
+        </main>
     )
 }
 
