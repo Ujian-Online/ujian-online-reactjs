@@ -7,6 +7,7 @@ import {
 const HomePage = lazy(() => import('./components/home/HomePage'))
 const RegisterPage = lazy(() => import('./components/register/RegisterPage'))
 const LoginPage = lazy(()=> import ('./components/login/LoginPage'))
+const ForgetPage = lazy(()=> import('./components/lupaPassword/ForgetPage'))
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Petunjuk" component={HomePage} />
           <Route path="/registrasi" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path='/forget-Password' component={ForgetPage} />
         </Switch>
       </Suspense>
     </Router>
