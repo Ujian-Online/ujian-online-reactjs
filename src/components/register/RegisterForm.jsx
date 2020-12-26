@@ -2,18 +2,8 @@ import { Link } from 'react-router-dom'
 
 const RegisterForm = () => {
     return (
-        <form className="p-lg-5">
+        <form className="p-lg-5 text-left">
             <h2 className="text-center mb-3 mb-lg-5">Create an Account</h2>
-            <div className="form-row">
-                <div className="form-group col-md-6">
-                    <label for="fullName">Fullname</label>
-                    <input type="text" className="form-control" id="fulName" />
-                </div>
-                <div className="form-group col-md-6">
-                    <label for="username">Username</label>
-                    <input type="text" className="form-control" id="username" />
-                </div>
-            </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" />
