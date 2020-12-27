@@ -20,6 +20,7 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
         case types.ON_LOGIN: return {
             ...state,
             isLoading: true,
+            errMessage: null
         }
         case types.LOGIN_SUCCESS: return {
             ...state,
