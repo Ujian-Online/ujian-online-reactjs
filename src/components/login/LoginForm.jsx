@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUserAction } from '../../redux/actions/auth.action'
+import { loginUserAction , closeErrorMessageAction  } from '../../redux/actions/auth.action'
 import { Link, useHistory } from 'react-router-dom'
 import { Modal, Spinner, InputGroup, FormControl } from 'react-bootstrap';
 import { MdAccountCircle , MdKeyboardHide } from 'react-icons/md'
@@ -10,7 +10,10 @@ const LoginForm = () => {
     const auth = useSelector(state => state.auth)
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
-    const handleCloseModal = () => setShowModal(false);
+    const handleCloseModal = () => {
+        setShowModal(false)
+        dispatch(closeErrorMessageAction())
+    };
     const handleShowModal = () => setShowModal(true);
 
     useEffect(() => {
@@ -54,6 +57,7 @@ const LoginForm = () => {
             <Modal.Body>{auth.errMessage}</Modal.Body>
         </Modal>
     )
+    
     return (<>
 
         <form className="p-4 p-lg-5 border" onSubmit={onSubmit} >
