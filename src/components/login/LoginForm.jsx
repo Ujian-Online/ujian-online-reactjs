@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUserAction } from '../../redux/actions/auth.action'
 import { Link, useHistory } from 'react-router-dom'
-import { Modal, Spinner } from 'react-bootstrap';
+import { Modal, Spinner, InputGroup, FormControl } from 'react-bootstrap';
+import { MdAccountCircle , MdKeyboardHide } from 'react-icons/md'
 
 const LoginForm = () => {
     const dispatch = useDispatch()
@@ -38,9 +39,9 @@ const LoginForm = () => {
     }
 
     const renderLoading = () => (
-        auth.isLoading ? <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-        </Spinner> : ''
+         <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+        </Spinner>
     )
 
     const renderModal = () => (
@@ -53,46 +54,55 @@ const LoginForm = () => {
             <Modal.Body>{auth.errMessage}</Modal.Body>
         </Modal>
     )
- 
     return (<>
-        <form className="p-lg-5" onSubmit={onSubmit} >
-            <h2 className="text-center mb-3 mb-lg-5">Login Account</h2>
+
+        <form className="p-4 p-lg-5 border" onSubmit={onSubmit} >
+            <h2 className="text-center mb-4 mb-lg-5">Login Account</h2>
             <div className="form-group">
-                <label htmlFor="username" className="col-md-6">Username / Email</label>
-                <input type="text"
-                    className="form-control"
-                    id="username"
+                <InputGroup className="mb-2">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text className='border-0'>
+                            <MdAccountCircle />
+                        </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl 
+                    className='py-4'
                     onChange={onChangeState('username')}
-                    value={user.username} />
+                    value={user.username}
+                    placeholder="Enter Username or Email" />
+                </InputGroup>
             </div>
-            <div className="form-group">
-                <label htmlFor="password" className="col-sm-7  col-lg-8 col-xs-5">
-                    Password
-                </label>
-                <Link to='/forget-Password' className='ml-xs-5'>Forget Password ?</Link>
-                <input type="password"
-                    className="form-control"
-                    id="password"
+            <div className="form-group mt-4">
+                <InputGroup className="mb-2">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text className='border-0' >
+                            <MdKeyboardHide />
+                        </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl 
+                    type='password'
+                    className='py-4' 
                     onChange={onChangeState('password')}
                     value={user.password}
-                />
+                    placeholder="Enter Password" />
+                </InputGroup>
             </div>
-            <div className="form-group form-check">
-                <input className="form-check-input" type="checkbox" id="aggrement" />
-                <label className="form-check-label" htmlFor="aggrement">
-                    Ingat saya
-                </label>
-            </div>            
-            <div className="form-group col-sm-6 col-md-4 ml-auto mr-auto">
-                <button type="submit" className="btn btn-primary btn-block" onSubmit={onSubmit}>
-                {renderLoading()} Sign In
+            <div className='d-flex justify-content-between' >
+                <small>
+                    <Link to='/registrasi' className='ml-xs-5'>Create a New Account</Link>
+                </small>
+                <small>
+                    <Link to='/forget-Password' className='ml-xs-5'>Forget Password ?</Link>
+                </small>
+            </div>
+            <hr />
+            <div className="form-group mt-3">
+                <button type="submit" className="btn btn-primary btn-block " onSubmit={onSubmit}>
+                    { auth.isLoading ? renderLoading() : 'Login' }
                 </button>
             </div>
-            <div className="col-md-5 ml-auto mr-auto text-center">
-                <p>Belum memiliki akun ? <Link to='/registrasi'>Daftar</Link></p>
-            </div>            
         </form>
-        {renderModal()}        
+        {renderModal()}
     </>
     )
 }

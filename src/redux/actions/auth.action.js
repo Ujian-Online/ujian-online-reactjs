@@ -22,9 +22,11 @@ export const loginUserAction = ({ username = '' , password = ''}) => {
                 type : types.LOGIN_SUCCESS , 
                 token : response.data && response.data.token })
         }catch(err){
+            const data = err.response && err.response.data && err.response.data
+            console.log('[login]', data)
             dispatch({ 
                 type : types.LOGIN_ERROR , 
-                errMessage : err.response && err.response.data && err.response.data.error })            
+                errMessage : data.error || data.message || 'An Error Occured' })            
         }
         
     }

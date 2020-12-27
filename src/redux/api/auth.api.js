@@ -18,7 +18,7 @@ export const loginAPI = async ({username = '' , password = ''}) => {
         url : '/api/login' ,
         method : 'POST',
         data : {
-            username,
+            email : username,
             password,
         }
     }).then( res => res.data )
