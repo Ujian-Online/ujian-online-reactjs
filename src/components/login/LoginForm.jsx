@@ -61,7 +61,9 @@ const LoginForm = () => {
             <div className="form-group">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
-                        <InputGroup.Text><MdAccountCircle /></InputGroup.Text>
+                        <InputGroup.Text className='border-0'>
+                            <MdAccountCircle />
+                        </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl 
                     className='py-4'
@@ -73,7 +75,9 @@ const LoginForm = () => {
             <div className="form-group mt-4">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
-                        <InputGroup.Text><MdKeyboardHide /></InputGroup.Text>
+                        <InputGroup.Text className='border-0' >
+                            <MdKeyboardHide />
+                        </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl 
                     type='password'
