@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
 const Navbar = () => {
 
+    const { location : { pathname } } = useHistory()
     const [isDisplayMenu, toggleMenu] = useState(false)
+    const renderActiveMenu = (pathCurrent) => pathCurrent === pathname ? 'active cursor text-primary' : ''
 
     return (
         <nav className="navbar row navbar-expand-lg navbar-light bg-white px-lg-5 ">
@@ -15,16 +18,16 @@ const Navbar = () => {
             </button>
             <div className={`${isDisplayMenu ? '' : 'collapse'} navbar-collapse`} >
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <Link className="nav-link" to='/'>
-                            Skema Sertifikasi <span className="sr-only">(current)</span>
+                    <li className='nav-item' >
+                        <Link className={`nav-link ${renderActiveMenu('/')} `} to='/'>
+                            Skema Sertifikasi 
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to='/pemegang-sertifikat' >Data Pemegang Serifikat</Link>
+                    <li className='nav-item'>
+                        <Link className={`nav-link ${renderActiveMenu('/pemegang-sertifikat')}`} to='/pemegang-sertifikat' >Data Pemegang Serifikat</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to='/petunjuk' >Petunjuk</Link>
+                    <li className='nav-item'>
+                        <Link className={`nav-link ${renderActiveMenu('/petunjuk')}`} to='/petunjuk' >Petunjuk</Link>
                     </li>
                 </ul>
                 <div>

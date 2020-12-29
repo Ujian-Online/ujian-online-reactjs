@@ -1,5 +1,6 @@
 import { Carousel , Table } from 'react-bootstrap'
 import { useState } from 'react'
+import MUIDataTable from 'mui-datatables'
 
 const Skema = () => {
     const [ schemes , setScheme ] = useState([
@@ -10,6 +11,19 @@ const Skema = () => {
         { no : 5 , skema : 'Talent Manager' , unit: '30 unit' }  
     ])
 
+    const columns = [
+        { name : 'no' , label : 'No' },
+        { name : 'skema' , label : 'Skema' },
+        { name : 'unit' , label : 'Unit' },
+    ];
+
+    const options = {
+        viewColumns : false,
+        download : false,
+        filter : false,
+        print : false,
+        selectableRows : 'none'
+    };
 
     return (
         <>
@@ -52,39 +66,18 @@ const Skema = () => {
                     </Carousel.Item>
                 </Carousel>
             </div>
-            <div className='container'>
-                <h4 className='text-center my-3 my-lg-5' >Daftar Skema Sertifikasi</h4>
-                <div className='d-flex align-items-center justify-content-between'>
-                    <button className='btn' >Filter</button>
-                    <div>
-                        <input type='search' className='form-control border' placeholder='Cari data' />
-                    </div>
-                </div>
-                <Table responsive bordered className='my-4 bg-white'>
-                    <thead>
-                        <tr className='bg-secondary text-white' >
-                            <th className='text-center' >No</th>
-                            <th >Skema Sertifikasi</th>
-                            <th className='text-center' >Unit</th>
-                            <th className='text-center' >Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            schemes.map( (scheme , index ) => (
-                                <tr key={ index } >
-                                    <td className='text-center' >{ scheme.no }</td>
-                                    <td>{ scheme.skema }</td>
-                                    <td className='text-center' >{ scheme.unit }</td>
-                                    <td className='text-center' >
-                                        <button className='btn btn-success'>Daftar Sekarang</button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </Table>
-            </div>
+            <div className='container py-4'>
+                <br />
+                <br />
+                <br />
+                <MUIDataTable
+                    title='Daftar Skema Sertifikasi'
+                    className='mb-lg-5'
+                    data={ schemes }
+                    columns={columns}
+                    options={options}
+                    />
+                 </div>
         </>
     )
 }

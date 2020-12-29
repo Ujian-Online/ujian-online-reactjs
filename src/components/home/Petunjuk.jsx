@@ -1,6 +1,6 @@
 const Petunjuk = () => {
     return(
-        <div className="container-fluid  bg-white col-md-10 col-xs-6 mb-5 mt-4 border rounded-left rounded-right ">
+        <div className="container-fluid  bg-white col-md-10 col-xs-6 mb-5 mt-4 border rounded-left rounded-right " style={{ height : 'fit-content' }} >
                     <div className="col-md-12 text-center ml-auto mr-auto mb-3 mt-3">
                         <h3>Panduan petunjuk</h3>
                         <div class="divider col-md-2 col-sm-4 col-xs-2 bg-dark text-center ml-auto mr-auto mb-3 mt-3"><hr/></div>

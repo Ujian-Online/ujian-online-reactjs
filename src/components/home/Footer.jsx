@@ -35,7 +35,7 @@ const Footer = () => {
                 </ul>
             </div>
             <div className='col-12 text-center'>
-            Copyright 2020 - All rights reserved - LSP
+             <small> Copyright 2020 - All rights reserved - LSP</small>
             </div>
         </footer>
     )
