@@ -51,7 +51,7 @@ const LoginForm = () => {
         <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    <h6>Error Login</h6>
+                    <h6>Kesalahan masuk</h6>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>{auth.errMessage}</Modal.Body>
