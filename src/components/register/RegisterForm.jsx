@@ -132,8 +132,9 @@ const RegisterForm = () => {
             </div>
             <div className="ml-auto mr-auto text-center">
 
-                <small >Already Have an Account ? <Link to='/login' >Login</Link></small>
+                <small >Sudah memiliki akun ? <Link to='/login' >Masuk</Link></small>
             </div>
+        </Form>
     )
 }
 
