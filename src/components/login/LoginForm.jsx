@@ -61,7 +61,7 @@ const LoginForm = () => {
     return (<>
 
         <form className="p-4 p-lg-5 border" onSubmit={onSubmit} >
-            <h2 className="text-center mb-4 mb-lg-5">Masuk dengan akun LSPMPSDM</h2>
+            <h2 className="text-center mb-4 mb-lg-5">Akun login</h2>
             <div className="form-group">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
@@ -73,7 +73,7 @@ const LoginForm = () => {
                     className='py-4'
                     onChange={onChangeState('username')}
                     value={user.username}
-                    placeholder="Masukan Username atau Email" />
+                    placeholder="Masukan email" />
                 </InputGroup>
             </div>
             <div className="form-group mt-4">
