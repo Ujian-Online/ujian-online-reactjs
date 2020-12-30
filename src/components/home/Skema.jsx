@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import DataTable from 'react-data-table-component'
 import { MdSearch } from 'react-icons/md'
-
+import { useHistory } from 'react-router-dom'
   
 const customStyles = {
     headCells: {
@@ -18,6 +18,7 @@ const customStyles = {
     },
     cells: {
         style: {
+            cursor : 'pointer',
             '&:nth-child(1)' : {
                 maxWidth : '50px',
               dispaly : 'flex',
@@ -30,6 +31,9 @@ const customStyles = {
 }
 
 const Skema = () => {
+
+    const history = useHistory()
+    
     const [ schemes , setScheme ] = useState([
         { no : 1 , skema : 'Supervisor Pengelolaan Sumber Daya Manusia' , unit: '29 unit' },
         { no : 2 , skema : 'Manager Pengelolaan Sumber Daya Manusia' , unit: '32 unit' },
@@ -55,6 +59,10 @@ const Skema = () => {
       </div>)
     }
   
+    const onClickRow = (row) => {
+        history.push(`/skema/${row.no}`)
+    }
+
     return (
         <>
             <div className='w-100' >
@@ -99,14 +107,7 @@ const Skema = () => {
             <div className='container py-4'>
                 <br />
                 <br />
-                <br />
-                {/* <MUIDataTable
-                    title='Daftar Skema Sertifikasi'
-                    className='mb-lg-5'
-                    data={ schemes }
-                    columns={columns}
-                    options={options}
-                    /> */}
+                <br />              
                     <DataTable
                         title='Daftar Skema Sertifikasi'
                         pagination
@@ -114,6 +115,7 @@ const Skema = () => {
                         data={schemes}
                         customStyles={customStyles}
                         subHeader
+                        onRowClicked={onClickRow}
                         subHeaderComponent={subHeaderComponent()}
                      />
                  </div>

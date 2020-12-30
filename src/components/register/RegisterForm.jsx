@@ -79,8 +79,8 @@ const RegisterForm = () => {
                         value={user.username}                        
                         placeholder="Masukan Email Anda" />
                 </InputGroup>
-            <div className="form-group">
             </div>
+            <div className="form-group">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
                         <InputGroup.Text className='border-0' >
