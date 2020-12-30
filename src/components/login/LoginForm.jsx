@@ -61,7 +61,7 @@ const LoginForm = () => {
     return (<>
 
         <form className="p-4 p-lg-5 border" onSubmit={onSubmit} >
-            <h2 className="text-center mb-4 mb-lg-5">Login Account</h2>
+            <h2 className="text-center mb-4 mb-lg-5">Masuk dengan akun LSPMPSDM</h2>
             <div className="form-group">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
@@ -73,7 +73,7 @@ const LoginForm = () => {
                     className='py-4'
                     onChange={onChangeState('username')}
                     value={user.username}
-                    placeholder="Enter Username or Email" />
+                    placeholder="Masukan Username atau Email" />
                 </InputGroup>
             </div>
             <div className="form-group mt-4">
@@ -88,15 +88,15 @@ const LoginForm = () => {
                     className='py-4' 
                     onChange={onChangeState('password')}
                     value={user.password}
-                    placeholder="Enter Password" />
+                    placeholder="Masukan Kata Sandi" />
                 </InputGroup>
             </div>
             <div className='d-flex justify-content-between' >
                 <small>
-                    <Link to='/registrasi' className='ml-xs-5'>Create a New Account</Link>
+                    <Link to='/registrasi' className='ml-xs-5'>Membuat Sebuah Akun baru</Link>
                 </small>
                 <small>
-                    <Link to='/forget-Password' className='ml-xs-5'>Forget Password ?</Link>
+                    <Link to='/forget-Password' className='ml-xs-5'>Lupa Kata Sandi ?</Link>
                 </small>
             </div>
             <hr />

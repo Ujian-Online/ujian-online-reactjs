@@ -65,7 +65,7 @@ const RegisterForm = () => {
     return (
         <>
         <Form noValidate className="p-3 p-lg-5 text-left border" onSubmit={ onSubmit } >
-            <h2 className="text-center mb-4 mb-lg-5">Create an Account</h2>
+            <h2 className="text-center mb-4 mb-lg-5">Membuat sebuah akun</h2>
             <div className="form-group">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
@@ -78,7 +78,7 @@ const RegisterForm = () => {
                         required
                         onChange={onChangeState('username')}
                         value={user.username}                        
-                        placeholder="Enter Email" />
+                        placeholder="Masukan Email Anda" />
                 </InputGroup>
             <div className="form-group">
             </div>
@@ -96,7 +96,7 @@ const RegisterForm = () => {
                         value={user.password}
                         isInvalid={ user.password !== user.confirm_password }
                         isValid={ isValidPassword() }
-                        placeholder="Enter Password" />
+                        placeholder="Masukan Kata Sandi Anda" />
                 </InputGroup>
             </div>
             <div className="form-group">
@@ -114,10 +114,10 @@ const RegisterForm = () => {
                         value={user.confirm_password}
                         isInvalid={ user.password !== user.confirm_password }
                         isValid={ isValidPassword() }
-                        placeholder="Enter Confirm Password" />
+                        placeholder="Masukan Ulang Kata Sandi Anda" />
                 </InputGroup>
             </div>
-            <div className="form-group form-check">
+            {/* <div className="form-group form-check">
                 <small >
                     <input className="form-check-input" type="checkbox" id="aggrement" required />
                     <label className="form-check-label text-dark" htmlFor="aggrement">
@@ -125,14 +125,14 @@ const RegisterForm = () => {
                     </label>
                 </small>                
             </div>
-            <hr />
+            <hr /> */}
             <div className="form-group ">
                 <button type="submit" className="btn btn-primary btn-block">
                     { auth.isLoading ? renderLoading() : 'Register' } 
                 </button>
             </div>
             <div className="ml-auto mr-auto text-center">
-                <small >Already Have an Account ? <Link to='/login' >Login</Link></small>
+                <small >Sudah memiliki Akun ? <Link to='/login' >Masuk</Link></small>
             </div>
         </Form>
         { renderModal() }

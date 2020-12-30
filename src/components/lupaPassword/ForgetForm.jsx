@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 const ForgetForm = () => {
     return (<>
         <form className="p-lg-5">
-            <h2 className="text-center mb-3 mb-lg-5">Forgot Password</h2>
+            <h2 className="text-center mb-3 mb-lg-5">Lupa Kata Sandi</h2>
             <p className="text-left xs-5 mb-lg-5 mb-5">
                 Masukkan email yang terdaftar. Kami akan mengirimkan kode verifikasi untuk atur ulang kata sandi.
             </p>
