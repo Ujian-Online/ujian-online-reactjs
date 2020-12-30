@@ -1,6 +1,33 @@
-import { Carousel , Table } from 'react-bootstrap'
+import { Carousel  } from 'react-bootstrap'
 import { useState } from 'react'
-import MUIDataTable from 'mui-datatables'
+
+import DataTable from 'react-data-table-component'
+import { MdSearch } from 'react-icons/md'
+
+  
+const customStyles = {
+    headCells: {
+        style: {
+            '&:nth-child(1)' : {
+              maxWidth : '50px',
+              dispaly : 'flex',
+              alignItems : 'center',
+              justifyContent : 'center',
+            }
+        },        
+    },
+    cells: {
+        style: {
+            '&:nth-child(1)' : {
+                maxWidth : '50px',
+              dispaly : 'flex',
+              alignItems : 'center',
+              justifyContent : 'center',
+            }
+        }
+    }
+    
+}
 
 const Skema = () => {
     const [ schemes , setScheme ] = useState([
@@ -12,19 +39,22 @@ const Skema = () => {
     ])
 
     const columns = [
-        { name : 'no' , label : 'No' },
-        { name : 'skema' , label : 'Skema' },
-        { name : 'unit' , label : 'Unit' },
+        { selector : 'no' , name : 'No' , sortable : true },
+        { selector : 'skema' , name : 'Skema' , sortable : true },
+        { selector : 'unit' , name : 'Unit' , sortable : true },
     ];
 
-    const options = {
-        viewColumns : false,
-        download : false,
-        filter : false,
-        print : false,
-        selectableRows : 'none'
-    };
-
+    const subHeaderComponent = () => {
+        return (<div className="input-group col-md-4 col-sm-6">
+        <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <div className="input-group-append">
+            <button className="btn btn-outline-secondary" type="button" >
+              <MdSearch />
+            </button>
+        </div>
+      </div>)
+    }
+  
     return (
         <>
             <div className='w-100' >
@@ -70,13 +100,22 @@ const Skema = () => {
                 <br />
                 <br />
                 <br />
-                <MUIDataTable
+                {/* <MUIDataTable
                     title='Daftar Skema Sertifikasi'
                     className='mb-lg-5'
                     data={ schemes }
                     columns={columns}
                     options={options}
-                    />
+                    /> */}
+                    <DataTable
+                        title='Daftar Skema Sertifikasi'
+                        pagination
+                        columns={columns}
+                        data={schemes}
+                        customStyles={customStyles}
+                        subHeader
+                        subHeaderComponent={subHeaderComponent()}
+                     />
                  </div>
         </>
     )

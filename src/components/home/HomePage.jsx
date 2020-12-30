@@ -3,7 +3,6 @@ import Navbar from './Navbar'
 import Main from './Main'
 import Footer from './Footer'
 import { Switch, Route } from "react-router-dom";
-import { CircularProgress } from '@material-ui/core'
 const Skema = lazy(() => import('./Skema'))
 const DataPemegang = lazy(() => import('./DataPemegang'))
 const Petunjuk = lazy(() => import('./Petunjuk'))
@@ -13,7 +12,7 @@ const HomePage = () => {
         <div className='container-fluid bg-light'>
             <Navbar />
             <Main>                
-                <Suspense fallback={<div className='d-flex justify-content-center w-100 mt-5' ><CircularProgress /></div>}>
+                <Suspense fallback={<div className='d-flex justify-content-center w-100 mt-5' >Loading ...</div>}>
                     <Switch>
                         <Route  exact path='/' component={Skema} />
                         <Route  path='/pemegang-sertifikat' component={DataPemegang} />
