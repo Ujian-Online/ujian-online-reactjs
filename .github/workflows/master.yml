@@ -38,13 +38,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Load Dependencies Cache
-        uses: c-hive/gha-npm-cache@v1
-
       - name: Install Dependencies
         run: npm install
 
       - name: Build ReactJS Artifact
+        env:
+          CI: false
         run: npm run build
 
       - name: Share artifact inside workflow
