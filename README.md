@@ -34,3 +34,6 @@ git flow
 * fix-xx-xx : branch name for fix a bug
 
 
+## Issue-20
+
+Test dari Yadi
