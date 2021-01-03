@@ -93,7 +93,7 @@ const LoginForm = () => {
             </div>
             <div className='d-flex justify-content-between' >
                 <small>
-                    <Link to='/registrasi' className='ml-xs-5'>Membuat Sebuah Akun baru</Link>
+                    <Link to='/registrasi' className='ml-xs-5'>Daftar Akun baru</Link>
                 </small>
                 <small>
                     <Link to='/forget-Password' className='ml-xs-5'>Lupa Kata Sandi ?</Link>
