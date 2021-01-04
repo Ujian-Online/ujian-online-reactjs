@@ -1,5 +1,4 @@
-import { registerAPI } from '../api/auth.api'
-import {loginAPI} from '../api/auth.api'
+import { registerAPI , loginAPI , getProfileAPI } from '../api/auth.api'
 import * as types from '../types/auth.type'
 
 export const registerUserAction = ({  email = '' , password = '' }) => {
@@ -31,7 +30,7 @@ export const loginUserAction = ({ username = '' , password = ''}) => {
                 token : response.data && response.data.token })
         }catch(err){
             const data = err.response && err.response.data && err.response.data
-            console.log('[login]', data)
+            console.error('[login]', data)
             dispatch({ 
                 type : types.ON_ERROR , 
                 errMessage : data.error || data.message || 'An Error Occured' })            
@@ -40,4 +39,19 @@ export const loginUserAction = ({ username = '' , password = ''}) => {
     }
 }
 
+export const getProfileAction = (token) => {
+    return async dispatch => {
+        try {
+            const response = await getProfileAPI(token)
+            dispatch({ type : types.SET_USER , user : response.data })
+        }catch(err) {
+            console.error('[login]', err)
+        }
+    }
+}
+
 export const closeErrorMessageAction = () => (dispatch) => dispatch({ type : types.REMOVE_ERROR })
+
+export const logoutAction = () => dispatch => {
+    return dispatch({ type : types.LOGOUT })
+}

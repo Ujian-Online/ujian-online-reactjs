@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction , logoutAction } from '../../redux/actions/auth.action'
-import { MdAccountCircle , MdPerson , MdPowerSettingsNew } from 'react-icons/md'
+import { MdAccountCircle , MdHome , MdPowerSettingsNew } from 'react-icons/md'
 
 const Navbar = () => {
 
     const dispatch = useDispatch()
     const auth = useSelector(state => state.auth)
-    const { location : { pathname } } = useHistory()
+    const history = useHistory()
+    const { location : { pathname } } = history
     const [isDisplayMenu, toggleMenu] = useState(false)
     const [isDisplayUser, toggleUser] = useState(false)
     const renderActiveMenu = (pathCurrent) => pathCurrent === pathname ? 'active cursor text-primary' : ''
 
     useEffect(() => {
+        !auth.token && history.push('/login')
         auth.token && dispatch(getProfileAction(auth.token))
     }, [])
 
@@ -31,8 +33,8 @@ const Navbar = () => {
                         <MdAccountCircle style={{ fontSize : '25px' }} /> {auth.user.email}
                     </button>
                     <div className={`dropdown-menu dropdown-menu-right ${ isDisplayUser ? 'show' : '' }`}>
-                        <Link to='/member' className="dropdown-item" >
-                            <MdPerson /> Member
+                        <Link to='/' className="dropdown-item" type="button">
+                            <MdHome /> Home
                         </Link>
                         <button className="dropdown-item" type="button" onClick={ logout } >
                             <MdPowerSettingsNew /> Logout
@@ -40,10 +42,7 @@ const Navbar = () => {
                     </div>
                 </div>)
         } else {
-            return (<div>
-                <Link className="btn btn-success mr-1" to='/login' >Login</Link>
-                <Link className="btn btn-light" to='/registrasi' >Registrasi</Link>
-            </div>)
+            return ('')
         }
 
     }
@@ -59,15 +58,24 @@ const Navbar = () => {
             <div className={`${isDisplayMenu ? '' : 'collapse'} navbar-collapse`} >
                 <ul className="navbar-nav mr-auto">
                     <li className='nav-item' >
-                        <Link className={`nav-link ${renderActiveMenu('/')} `} to='/'>
-                            Skema Sertifikasi
+                        <Link className={`nav-link ${renderActiveMenu('/member/ujian-baru')} `} to='/member/ujian-baru'>
+                           Daftar Ujian Baru
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/pemegang-sertifikat')}`} to='/pemegang-sertifikat' >Data Pemegang Serifikat</Link>
+                        <Link className={`nav-link ${renderActiveMenu('/member/apl-01')}`} to='/member/apl-01' >
+                            Isi APL 01
+                        </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/petunjuk')}`} to='/petunjuk' >Petunjuk</Link>
+                        <Link className={`nav-link ${renderActiveMenu('/member') + renderActiveMenu('/member/ujian-saya')}`} to='/member/ujian-saya' >
+                            Ujian Saya
+                        </Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link className={`nav-link ${renderActiveMenu('/member/menunggu-pembayaran')}`} to='/member/menunggu-pembayaran' >
+                            Menunggu Pembayaran
+                        </Link>
                     </li>
                 </ul>
                 {renderRightMenu()}

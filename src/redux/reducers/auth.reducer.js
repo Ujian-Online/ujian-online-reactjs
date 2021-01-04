@@ -43,6 +43,15 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
             ...state,
             errMessage : null
         }
+        case types.SET_USER: return {
+            ...state,
+            user : action.user
+        }
+        case types.LOGOUT: return {
+            ...state,
+            user : null,
+            token : null
+        }
         default: return state
     }
 

@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 const HomePage = lazy(() => import('./components/home/HomePage'))
+const MemberPage = lazy(() => import('./components/member/MemberPage'))
 const RegisterPage = lazy(() => import('./components/register/RegisterPage'))
 const LoginPage = lazy(()=> import ('./components/login/LoginPage'))
 const ForgetPage = lazy(()=> import('./components/lupaPassword/ForgetPage'))
@@ -29,6 +30,7 @@ function App() {
           <Route path="/sukses-register-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
           <Route path="/Pemesanan-berhasil" component={SuccessInvoice}/>
           <Route path="/selesai" component={Finish}/>
+          <Route path="/member" component={MemberPage}/>
         </Switch>
       </Suspense>
     </Router>

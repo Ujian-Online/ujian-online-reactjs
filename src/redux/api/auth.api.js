@@ -21,3 +21,13 @@ export const loginAPI = async ({username = '' , password = ''}) => {
         }
     }).then( res => res.data )
 }
+
+export const getProfileAPI = async (token) => {
+    return await API({
+        url : '/api/me' ,
+        method : 'GET',
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
