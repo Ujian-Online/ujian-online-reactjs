@@ -19,6 +19,7 @@ function App() {
       <Suspense fallback={<div>Loading...</div>} >
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="/skema/:id" component={HomePage} />
           <Route path="/pemegang-sertifikat" component={HomePage} />
           <Route path="/Petunjuk" component={HomePage} />
           <Route path="/registrasi" component={RegisterPage} />

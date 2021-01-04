@@ -63,7 +63,6 @@ const RegisterForm = () => {
     )
 
     return (
-        <>
         <Form noValidate className="p-3 p-lg-5 text-left border" onSubmit={ onSubmit } >
             <h2 className="text-center mb-4 mb-lg-5">Daftar akun baru</h2>
             <div className="form-group">
@@ -80,8 +79,8 @@ const RegisterForm = () => {
                         value={user.username}                        
                         placeholder="Email" />
                 </InputGroup>
-            <div className="form-group">
             </div>
+            <div className="form-group">
                 <InputGroup className="mb-2">
                     <InputGroup.Prepend>
                         <InputGroup.Text className='border-0' >
@@ -132,11 +131,10 @@ const RegisterForm = () => {
                 </button>
             </div>
             <div className="ml-auto mr-auto text-center">
-                <small >Sudah memiliki Akun ? <Link to='/login' >Masuk</Link></small>
+
+                <small >Sudah memiliki akun ? <Link to='/login' >Masuk</Link></small>
             </div>
         </Form>
-        { renderModal() }
-        </>
     )
 }
 
