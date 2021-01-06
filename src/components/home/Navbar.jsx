@@ -31,7 +31,7 @@ const Navbar = () => {
                         <MdAccountCircle style={{ fontSize : '25px' }} /> {auth.user.email}
                     </button>
                     <div className={`dropdown-menu dropdown-menu-right ${ isDisplayUser ? 'show' : '' }`}>
-                        <Link to='/member' className="dropdown-item" >
+                        <Link to='/member/ujian-baru' className="dropdown-item" >
                             <MdPerson /> Member
                         </Link>
                         <button className="dropdown-item" type="button" onClick={ logout } >
