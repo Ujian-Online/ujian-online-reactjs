@@ -13,7 +13,7 @@ const Navbar = () => {
     const { location : { pathname } } = history
     const [isDisplayMenu, toggleMenu] = useState(false)
     const [isDisplayUser, toggleUser] = useState(false)
-    const renderActiveMenu = (pathCurrent) => pathCurrent === pathname ? 'active cursor text-primary' : ''
+    const renderActiveMenu = (pathCurrent) => pathname.includes(pathCurrent) ? 'active cursor text-primary' : ''
 
     useEffect(() => {
         !auth.token && history.push('/login')
@@ -58,22 +58,22 @@ const Navbar = () => {
             <div className={`${isDisplayMenu ? '' : 'collapse'} navbar-collapse`} >
                 <ul className="navbar-nav mr-auto">
                     <li className='nav-item' >
-                        <Link className={`nav-link ${renderActiveMenu('/member/ujian-baru')} `} to='/member/ujian-baru'>
+                        <Link className={`nav-link ${renderActiveMenu('ujian-baru')} `} to='/member/ujian-baru'>
                            Daftar Ujian Baru
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/member/apl-01')}`} to='/member/apl-01' >
+                        <Link className={`nav-link ${renderActiveMenu('apl-01')}`} to='/member/apl-01' >
                             Isi APL 01
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/member') + renderActiveMenu('/member/ujian-saya')}`} to='/member/ujian-saya' >
+                        <Link className={`nav-link  ${ renderActiveMenu('ujian-saya')}`} to='/member/ujian-saya' >
                             Ujian Saya
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/member/menunggu-pembayaran')}`} to='/member/menunggu-pembayaran' >
+                        <Link className={`nav-link ${renderActiveMenu('menunggu-pembayaran')}`} to='/member/menunggu-pembayaran' >
                             Menunggu Pembayaran
                         </Link>
                     </li>
