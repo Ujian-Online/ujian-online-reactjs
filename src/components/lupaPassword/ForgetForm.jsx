@@ -1,7 +1,66 @@
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import { useEffect, useState } from 'react'
+import { Modal, Spinner } from 'react-bootstrap'
+import { EmailErrorMessageAction, forgetPasswordAction } from '../../redux/actions/auth.action'
 
 const ForgetForm = () => {
+    // const auth=useSelector(state=>state.auth)
+    // const dispatch= useDispatch()
+    // const history=useHistory();
+    // const [showModal,setShowModal]=useState(false);
+    // const handleEmailErrorModal=()=>{
+    //     setShowModal(false)
+    //     dispatch(EmailErrorMessageAction())
+    // };
+    // const handleShowModal=()=>setShowModal(true);
+
+
+    // useEffect(()=>{
+    //     if(auth.token){
+    //         <div>
+    //             <h5>Silahkan cek email anda untuk mengatur ulang kata sandi</h5>
+    //         </div>
+    //     }
+    //     if(auth.errMessage){
+    //         handleShowModal()
+    //     }
+    // },[auth.token,auth.errMessage])
+
+    // const[user,setUser]=useState({
+    //     email:''
+    // })
+
+    // const onChangeState=(name)=>(e)=>{
+    //     setUser(Object.assign({},user,{[name]:e.target.value}) )
+    // }
+
+    // const onSubmit=(e)=>{
+    //     e.preventDefault()
+    //     dispatch(
+    //         forgetPasswordAction({email:user.email})
+    //     )
+    // }
+
+    // const renderLoading=()=>(
+    //     <Spinner animation="border" role="status">
+    //         <span className="sr-only">Loading...</span>
+    //     </Spinner>
+    // )
+
+    // const renderModal=()=>(
+    //     <Modal show={showModal} onHide={handleEmailErrorModal}>
+    //         <Modal.Header closeButton>
+    //             <Modal.Title>
+    //                 <h6>Kesalahan Masuk</h6>
+    //             </Modal.Title>
+    //             <Modal.Body>{auth.errMessage}</Modal.Body>
+    //         </Modal.Header>
+    //     </Modal>
+    // )
+
     return (<>
+        {/* <form className="p-lg-5" onSubmit={onSubmit}> */}
         <form className="p-lg-5">
             <h2 className="text-center mb-3 mb-lg-5">Lupa Kata Sandi</h2>
             <p className="text-left xs-5 mb-lg-5 mb-5">
@@ -12,17 +71,21 @@ const ForgetForm = () => {
                 <input type="email"
                     className="form-control"
                     id="email"
+                    // onChange={onChangeState('email')}
+                    // value={user.email}
+                    placeholder='Email'
                 />
             </div>
             <div className="form-group col-sm-6 col-md-4 ml-auto mr-auto">
                 <button type="submit" className="btn btn-primary btn-block">
-                    Lanjut
+                    {/* {auth.isLoading?renderLoading():'Lanjut'} */} Lanjut
                 </button>
             </div>
             <div className="col-md-5 ml-auto mr-auto text-center">
                 <p>Belum punya akun ? <Link to='/registrasi'>Daftar</Link></p>
             </div>            
-        </form>     
+        </form>  
+        {/* {renderModal()}    */}
     </>
     )
 }

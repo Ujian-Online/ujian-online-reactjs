@@ -22,6 +22,16 @@ export const loginAPI = async ({username = '' , password = ''}) => {
     }).then( res => res.data )
 }
 
+export const verifiedEmailAPI = async (token) => {
+    return await API({
+        url : '/api/email/verify' ,
+        method : 'POST',
+        headers: {
+            Authorization : 'Bearer ' +token
+        }
+    }).then( res => res.data )
+}
+
 export const getProfileAPI = async (token) => {
     return await API({
         url : '/api/me' ,
@@ -31,3 +41,24 @@ export const getProfileAPI = async (token) => {
         }
     }).then( res => res.data )
 }
+
+// export const forgetPasswordAPI = async ({email=''}) => {
+//     return await API({
+//         url : '/api/email/resend' ,
+//         method : 'POST',
+//         data : {
+//             email
+//         }
+//     }).then( res => res.data )
+// }
+
+export const resendEmailAPI = async (token) => {
+    return await API({
+        url : '/api/email/resend' ,
+        method : 'POST',
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
+
