@@ -10,6 +10,7 @@ import { rootReducer } from './redux/reducers';
 import { apiMiddleware } from './redux/api/middleware.api';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const store = createStore(rootReducer, applyMiddleware(thunk, apiMiddleware))
 const persistor = persistStore(store)

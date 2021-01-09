@@ -43,6 +43,15 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
             ...state,
             errMessage : null
         }
+        case types.VERIFIED_SUCCESS : return{
+            ...state,
+            token:action.token,
+            errMessage:null
+        }
+        case types.VERIFIED_ERROR : return{
+            ...state,
+            errMessage:null
+        }
         case types.SET_USER: return {
             ...state,
             user : action.user
@@ -52,6 +61,25 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
             user : null,
             token : null
         }
+        // case types.FORGET_PASSWORD: return{
+        //     ...state,
+        //     token:action.token,
+        //     errMessage:null
+        // }
+        // case types.EMAIL_ERROR:return{
+        //     ...state,
+        //     errMessage:null
+        // }
+        case types.RESEND_EMAIL_SUCCESS : return{
+            ...state,
+            token:action.token,
+            errMessage:null
+        }
+        case types.RESEND_EMAIL_ERROR : return{
+            ...state,
+            errMessage:null
+        }
+
         default: return state
     }
 
