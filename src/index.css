@@ -22,3 +22,7 @@ input.form-control {
   padding: 25px 20px;
   border: none;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

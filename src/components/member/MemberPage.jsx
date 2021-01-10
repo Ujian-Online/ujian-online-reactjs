@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
 import Navbar from './Navbar'
 import { Switch, Route } from "react-router-dom";
-const UjianSaya = lazy(() => import('./UjianSaya'))
-const UjianSayaDetail = lazy(() => import('./UjianSayaDetail'))
+const MyExam = lazy(() => import('./exam/MyExam'))
+const MyExamDetail = lazy(() => import('./exam/MyExamDetail'))
+const Exam = lazy(() => import('./exam/Exam'))
 const SkemaDetail = lazy(() => import('./SkemaDetail'))
 const Main = lazy(() => import('./Main'))
 const DaftarUjian = lazy(() => import('./DaftarUjianBaru'))
@@ -14,9 +15,10 @@ const MemberPage = () => {
             <Main>                
                 <Suspense fallback={<div className='d-flex justify-content-center w-100 mt-5' >Loading ...</div>}>
                     <Switch>
-                        <Route  exact path='/member' component={UjianSaya} />
-                        <Route  exact path='/member/ujian-saya' component={UjianSaya} />
-                        <Route  exact path='/member/ujian-saya/:id' component={UjianSayaDetail} />
+                        <Route  exact path='/member' component={MyExam} />
+                        <Route  exact path='/member/ujian-saya' component={MyExam} />
+                        <Route  exact path='/member/ujian-saya/:id' component={MyExamDetail} />
+                        <Route  exact path='/member/ujian-saya/:id/soal' component={Exam} />
                         <Route  path='/member/detail-skema-sertifikasi/:id' component={SkemaDetail} />
                         <Route path='/member/ujian-baru' component={DaftarUjian} />
                     </Switch>

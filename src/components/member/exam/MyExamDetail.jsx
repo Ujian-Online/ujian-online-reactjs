@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory , useParams } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 
-const UjianSayaDetail = () => {
+const MyExamDetail = () => {
 
     const history = useHistory()
+    const { id } = useParams()
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
@@ -21,7 +22,7 @@ const UjianSayaDetail = () => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="default" onClick={ handleCloseModal } >Kembali</Button>
-                <Button variant="primary">Mulai</Button>
+                <Button variant="primary" onClick={ () => history.push(`/member/ujian-saya/${id}/soal`) } >Mulai</Button>
             </Modal.Footer>
         </Modal>
     )
@@ -105,4 +106,4 @@ const UjianSayaDetail = () => {
     )
 }
 
-export default UjianSayaDetail
+export default MyExamDetail

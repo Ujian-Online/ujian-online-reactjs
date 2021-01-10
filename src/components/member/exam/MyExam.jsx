@@ -32,7 +32,7 @@ const customStyles = {
 
 
 
-const UjianSaya = () => {
+const MyExam = () => {
 
     const history = useHistory()
    
@@ -128,4 +128,4 @@ const UjianSaya = () => {
     </div>)
 }
 
-export default UjianSaya
+export default MyExam
