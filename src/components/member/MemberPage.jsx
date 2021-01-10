@@ -7,6 +7,8 @@ const Exam = lazy(() => import('./exam/Exam'))
 const SkemaDetail = lazy(() => import('./SkemaDetail'))
 const Main = lazy(() => import('./Main'))
 const DaftarUjian = lazy(() => import('./DaftarUjianBaru'))
+const UploadPembayaran=lazy(()=>import('./uploadBuktiPembayaran/uploadBuktiPage'))
+const UploadPembayaranSukses=lazy(()=>import('../success/SuccessInvoice'))
 
 const MemberPage = () => {
     return(
@@ -21,6 +23,8 @@ const MemberPage = () => {
                         <Route  exact path='/member/ujian-saya/:id/soal' component={Exam} />
                         <Route  path='/member/detail-skema-sertifikasi/:id' component={SkemaDetail} />
                         <Route path='/member/ujian-baru' component={DaftarUjian} />
+                        <Route path='/member/Upload-Pembayaran-detail' component={UploadPembayaran} />
+                        <Route path='/member/upload-bukti-pembayaran-detail/sukses' component={UploadPembayaranSukses}/>
                     </Switch>
                 </Suspense>
             </Main>

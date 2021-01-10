@@ -30,9 +30,8 @@ function App() {
           <Route path="/sukses-register" component={SuccessRegister}/>
           <Route path="/sukses-register-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
           <Route path="/sukses-lupa-password" component={SuccessRegister} />
-          <Route path="/Pemesanan-berhasil" component={SuccessInvoice}/>
           <Route path="/selesai" component={Finish}/>
-          <Route path="/member" component={MemberPage}/>
+          <Route path="/member" component={MemberPage}/>  
         </Switch>
       </Suspense>
     </Router>
