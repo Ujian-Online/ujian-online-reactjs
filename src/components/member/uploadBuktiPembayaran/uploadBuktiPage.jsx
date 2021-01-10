@@ -35,7 +35,7 @@ const UploadPembayaranPage = () => {
             </div>
             <div className="form-group col-sm-6 col-md-4 mr-auto ml-auto">
                 <button type="submit" className="btn btn-light bg-gray btn-block">
-                        <Link to="/">
+                        <Link to="/member/menunggu-pembayaran">
                         Kembali
                     </Link>
                 </button>
