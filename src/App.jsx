@@ -13,6 +13,7 @@ const SuccessRegister = lazy(()=> import ('./components/success/SuccessRegister'
 const SuccessRegisterUjiSertifikasi =lazy(()=> import('./components/success/SuccessRegisterSertifikasi'))
 const SuccessInvoice = lazy(()=>import ('./components/success/SuccessInvoice'))
 const Finish =lazy(()=> import ('./components/success/Finish'))
+const UploadPembayaran=lazy(()=>import('./components/uploadBuktiPembayaran/uploadBuktiPage'))
 
 function App() {
   return (
