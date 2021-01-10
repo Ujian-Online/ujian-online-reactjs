@@ -12,6 +12,7 @@ const SuccessRegister = lazy(()=> import ('./components/success/SuccessRegister'
 const SuccessRegisterUjiSertifikasi =lazy(()=> import('./components/success/SuccessRegisterSertifikasi'))
 const SuccessInvoice = lazy(()=>import ('./components/success/SuccessInvoice'))
 const Finish =lazy(()=> import ('./components/success/Finish'))
+const UploadPembayaran=lazy(()=>import('./components/uploadBuktiPembayaran/uploadBuktiPage'))
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/sukses-register-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
           <Route path="/Pemesanan-berhasil" component={SuccessInvoice}/>
           <Route path="/selesai" component={Finish}/>
+          <Route path="/upload-bukti-pembayaran" component={UploadPembayaran} />
         </Switch>
       </Suspense>
     </Router>
