@@ -1,10 +1,8 @@
-import { Carousel  } from 'react-bootstrap'
+import { Dropdown, ButtonGroup, Button } from 'react-bootstrap'
 import { useState } from 'react'
-
 import DataTable from 'react-data-table-component'
-import { MdSearch } from 'react-icons/md'
-import {BsFilter} from 'react-icons/bs'
-import { useHistory } from 'react-router-dom'
+import { MdFilterList, MdSearch } from 'react-icons/md'
+import { useHistory, Link } from 'react-router-dom'
   
 const customStyles = {
     headCells: {
@@ -49,10 +47,11 @@ const Skema = () => {
         { selector : 'unit' , name : 'Unit' , sortable : true },
     ];
 
-    const subHeaderComponent = () => {
-        return (<div className="input-group col-md-4 col-sm-6">
+    const Search = () => {
+        return (
+                <div className="input-group col-md-4 col-sm-6 ml-auto mt-3">
         <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" />
-        <div className="input-group-append">
+        <div className="input-group-append ml-auto">
             <button className="btn btn-outline-secondary" type="button" >
               <MdSearch />
             </button>
@@ -61,22 +60,52 @@ const Skema = () => {
       )
     }
 
-   
-
-
+    const Filter=()=>
+    {return(
+        <div className="col-sm-6 mb-3">
+            <Dropdown>
+                <Dropdown.Toggle variant="light" id="dropdown-basic">
+                    <MdFilterList /> Filter
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Staff</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Manajer</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Supervisor</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+    </div>)
+    }
     
     const onClickRow = (row) => {
         history.push(`/member/detail-skema-sertifikasi/${row.no}`)
     }
+    
 
     return (
         <>
             
             <div className='container py-4'>
+                <div className="card">
+                    <div className="card-header bg-white">
+                            <h5 className="text-center">Ujian Saya</h5>
+                       {Search()} {Filter()}
+                    </div>
+                <div className="card-body">
+                    <DataTable
+                        columns={columns}
+                        data={schemes}
+                        customStyles={customStyles}
+                        onRowClicked={onClickRow}
+                        noHeader
+                        // subHeader
+                        // subHeaderComponent={subHeaderFilter()}
+                    />
+                </div>
+                </div>
                 <br />
                 <br />
                 <br />              
-                    <DataTable
+                    {/* <DataTable
                         title='Daftar Skema Sertifikasi'
                         pagination
                         columns={columns}
@@ -85,7 +114,7 @@ const Skema = () => {
                         subHeader
                         onRowClicked={onClickRow}
                         subHeaderComponent={subHeaderComponent()}
-                        />
+                        /> */}
                  </div>
         </>
     )

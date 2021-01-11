@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import Navbar from './Navbar'
+import Footer from './Footer'
 import { Switch, Route } from "react-router-dom";
 const UjianSaya = lazy(() => import('./UjianSaya'))
 const SkemaDetail = lazy(() => import('./SkemaDetail'))
@@ -20,6 +21,7 @@ const MemberPage = () => {
                     </Switch>
                 </Suspense>
             </Main>
+            <Footer />
         </div>
     )
 }
