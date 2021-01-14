@@ -1,5 +1,4 @@
 import { createUseStyles } from 'react-jss'
-import Navbar from '../home/Navbar'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'

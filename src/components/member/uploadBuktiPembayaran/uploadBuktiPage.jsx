@@ -28,19 +28,19 @@ const UploadPembayaranPage = () => {
                 <UploadForm />
             </div>
             <div className="col-md-12 mt-5">
-            <div className="form-group col-sm-4 col-md-4 ml-auto mr-auto">
-                <button type="submit" className="btn btn-primary btn-block">
-                    Upload Pembayaran
-                </button>
+                <div className="form-group col-sm-4 col-md-4 ml-auto mr-auto">
+                    <button type="submit" className="btn btn-primary btn-block">
+                        Upload Pembayaran
+                    </button>
+                </div>
+                <div className="form-group col-sm-6 col-md-4 mr-auto ml-auto">
+                    <button type="submit" className="btn btn-light bg-gray btn-block">
+                            <Link to="/member/menunggu-pembayaran">
+                            Kembali
+                        </Link>
+                    </button>
+                </div>      
             </div>
-            <div className="form-group col-sm-6 col-md-4 mr-auto ml-auto">
-                <button type="submit" className="btn btn-light bg-gray btn-block">
-                        <Link to="/member/menunggu-pembayaran">
-                        Kembali
-                    </Link>
-                </button>
-            </div>      
-        </div>
             </div>
             
     </div>)
