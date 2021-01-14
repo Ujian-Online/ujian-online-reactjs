@@ -129,18 +129,11 @@ const onChecked=()=>{
                     <div className="input-group">
                         <div className="custom-file">
                             <input type="file" className="form-control-file" id="uploadSertifikatLama"/>
-                            {/* <label className="custom-file-label" htmlFor="uploadSertifikatLama"></label> */}
                         </div>
                         <div className="input-group-append">
                             <button className="btn btn-primary" type="button" id="uploadSertifikatLama">Upload</button>
                         </div>
                     </div>
-                        {/* <div className="col-sm-4">
-                            <input type="file" className="form-control-file" id="uploadSertifikatLama"/>
-                        </div>
-                        <div className="col-sm-1 mt-3">
-                            <button type="button" className="btn btn-primary">Upload</button>
-                        </div> */}
                     </div>
             </div>
             
