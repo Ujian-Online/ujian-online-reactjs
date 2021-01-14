@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import DataTable from 'react-data-table-component'
+import Footer from './Footer';
 
 const SkemaDetail = () => {
 
@@ -17,6 +18,7 @@ const SkemaDetail = () => {
     ];
 
     return (
+        <>
         <div className='container' >
             <div className='bg-white ml-auto mr-auto py-3 px-3 my-5' >
                 <form>
@@ -40,11 +42,13 @@ const SkemaDetail = () => {
                 data={kompetensi}
                 button={true} />
             <br />
-            <div className="form-group mt-3 col-md-3 col-sm-5 mr-auto ml-auto">
+            <div className="form-group mt-3 col-md-3 col-sm-5 mr-auto ml-auto mb-5">
                 <button type="submit" className="btn btn-primary btn-block ">Daftar
                 </button>
             </div>
         </div>
+        <Footer/>
+    </>
     )
 }
 

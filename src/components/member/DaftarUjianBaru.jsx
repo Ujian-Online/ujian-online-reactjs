@@ -3,6 +3,7 @@ import { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { MdFilterList, MdSearch } from 'react-icons/md'
 import { useHistory, Link } from 'react-router-dom'
+import Footer from './Footer'
   
 const customStyles = {
     headCells: {
@@ -116,6 +117,7 @@ const Skema = () => {
                         subHeaderComponent={subHeaderComponent()}
                         /> */}
                  </div>
+                 <Footer />
         </>
     )
 }
