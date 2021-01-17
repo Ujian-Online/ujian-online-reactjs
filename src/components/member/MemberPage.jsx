@@ -12,6 +12,7 @@ const UploadPembayaran=lazy(()=>import('./uploadBuktiPembayaran/uploadBuktiPage'
 const UploadPembayaranSukses=lazy(()=>import('../success/SuccessInvoice'))
 const DaftarUjianPage=lazy(()=>import('./daftarUjian/DaftarUjianPage'))
 const DaftarUjianSukses=lazy(()=>import('../success/SuccessRegisterSertifikasi'))
+const MenungguPembayaran = lazy(()=>import('./MenungguPembayaran/MenungguPembayaran'))
 
 const MemberPage = () => {
     return(
@@ -30,6 +31,7 @@ const MemberPage = () => {
                         <Route path='/member/upload-bukti-pembayaran-detail/sukses' component={UploadPembayaranSukses}/>
                         <Route path='/member/daftar-ujian/sukses' component={DaftarUjianSukses} />
                         <Route path='/member/daftar-ujian' component={DaftarUjianPage} />
+                        <Route path="/member/menunggu-pembayaran" component={MenungguPembayaran}/>
                     </Switch>
                 </Suspense>
             </Main>
