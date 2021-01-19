@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap"
 
 const UploadForm = () => {
     return (<>
-        <form className="p-lg-5 text-left">
+        <form className="p-lg-5 text-left mr-auto ml-auto">
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">Nama</label>
                 <label className="col-md-2 col-sm-2">:</label>
@@ -34,8 +34,8 @@ const UploadForm = () => {
                 <label htmlFor='Nama'>A123456789</label>
             </div>       
         </form>
-        <h6>Transfer Melalui :</h6>
-        <table className="ml-5">
+        <h6 className="ml-lg-5">Transfer Melalui :</h6>
+        <table className="ml-lg-5">
             <tr>
                 <th><img src='/assets/img/mandiri.png' /></th>
                 <th className="ml-lg-5">
