@@ -18,7 +18,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (auth.token) {
-            history.push('/')
+            history.push('/member/ujian-baru')
         }
         if (auth.errMessage) {
             handleShowModal()

@@ -20,7 +20,7 @@ const Navbar = () => {
         auth.token && dispatch(getProfileAction(auth.token))
     }, [])
 
-    const logout = () => dispatch(logoutAction())    
+    const logout = () =>history.push('/')
 
     const renderRightMenu = () => {
         if (auth.user) {
@@ -33,10 +33,7 @@ const Navbar = () => {
                         <MdAccountCircle style={{ fontSize : '25px' }} /> {auth.user.email}
                     </button>
                     <div className={`dropdown-menu dropdown-menu-right ${ isDisplayUser ? 'show' : '' }`}>
-                        <Link to='/' className="dropdown-item" type="button">
-                            <MdHome /> Home
-                        </Link>
-                        <button className="dropdown-item" type="button" onClick={ logout } >
+                        <button className="dropdown-item" type="button" onClick={logout} >
                             <MdPowerSettingsNew /> Logout
                         </button>
                     </div>
@@ -49,7 +46,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar row navbar-expand-lg navbar-light bg-white px-lg-5 ">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/member/ujian-baru">
                 <img src='/assets/img/bg-logo.png' alt='logo' width='50px' />
             </Link>
             <button className="navbar-toggler" type="button" onClick={() => toggleMenu(!isDisplayMenu)}  >
