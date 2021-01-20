@@ -66,6 +66,20 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
             ...state,
             errMessage:null
         }
+        case types.VERIFIKASI_USER:return{
+            ...state,
+            token:action.token,
+            errMessage:null
+        }
+        case types.VERIFIKASI_ERROR:return{
+            ...state,
+            errMessage:null
+        }
+        case types.RESEND_SUCCESS:return{
+            ...state,
+            token:action.token,
+            errMessage:null
+        }
         default: return state
     }
 

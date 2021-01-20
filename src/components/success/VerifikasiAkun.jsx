@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { resendEmailAction, verifiedEmailAction, verifiedEmailErrorAction } from '../../redux/actions/auth.action'
+import { closeErrorMessageAction, resendEmailAction, verifiedEmailAction, verifiedEmailErrorAction, verifikasiAction } from '../../redux/actions/auth.action'
 import { Spinner, Modal } from 'react-bootstrap'
 
 const useStyles = createUseStyles({
@@ -19,7 +19,44 @@ const useStyles = createUseStyles({
 })
 
 const SuccessRegister = () => {
+    const dispatch = useDispatch()
+    const auth=useSelector(state=>state.auth)
+    const history=useHistory();
+    const [showModal,setShowModal]=useState(false)
+    const handleCloseModal=()=>{
+        setShowModal(false)
+        dispatch(closeErrorMessageAction())
+    };
+    const handleShowModal=()=>setShowModal(true);
+    useEffect(()=>{
+        !auth.token && handleShowModal() && history.push('/login')
+        auth.token && dispatch(verifikasiAction(auth.token)) && history.push('/sukses-register')
+    },[])
+
+    const onSubmit=(e)=>{
+        dispatch(verifikasiAction(e.auth.token))
+    }
+
+    const renderLoading = () => (
+        <Spinner animation="border" role="status">
+           <span className="sr-only">Loading...</span>
+       </Spinner>
+   )
+
+   const renderModal = () => (
+       <Modal show={showModal} onHide={handleCloseModal}>
+           <Modal.Header closeButton>
+               <Modal.Title>
+                   <h6>Kesalahan masuk</h6>
+               </Modal.Title>
+           </Modal.Header>
+           <Modal.Body>{auth.errMessage}</Modal.Body>
+       </Modal>
+   )
+
+
     const classes = useStyles()
+    
     return (
     <>
     <div className={`container-fluid ${classes.container} `}>
@@ -32,17 +69,19 @@ const SuccessRegister = () => {
                     <div className="col-sm-6 col-md-4 text-center ml-auto mr-auto">
                         <h1 className="mb-lg-5">Check email anda!</h1>
                         <p>
-                         Akun Anda berhasil didaftarkan. Untuk melengkapi proses silakan periksa email Anda untuk melakukan verifikasi.
+                            Akun Anda berhasil didaftarkan. Untuk melengkapi proses silakan periksa email Anda untuk melakukan verifikasi.
                          </p>
                     </div>
                     <div className="form-group col-md-4 col-sm-6 mr-auto ml-auto">
-                        <button type="submit" className="btn btn-primary btn-block">
-                            verifikasi akun 
+                        <button type="submit" className="btn btn-primary btn-block" onClick={()=>onSubmit}>
+                        { auth.isLoading ? renderLoading() : 'Verifikasi akun ' } 
                         </button>
                     </div>
              </div>
         </div>
+        {renderModal()}
     </div>
+    
     </>
     )
 }

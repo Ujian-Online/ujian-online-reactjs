@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { resendEmailAction, verifiedEmailAction, verifiedEmailErrorAction } from '../../redux/actions/auth.action'
+import * as actionAPI from '../../redux/actions/auth.action'
 import { Spinner, Modal } from 'react-bootstrap'
 
 const useStyles = createUseStyles({
@@ -19,6 +19,40 @@ const useStyles = createUseStyles({
 })
 
 const ResendEmail = () => {
+    const dispatch = useDispatch()
+    const auth=useSelector(state=>state.auth)
+    const history=useHistory();
+    const [showModal,setShowModal]=useState(false)
+    const handleCloseModal=()=>{
+        setShowModal(false)
+        dispatch(actionAPI.closeErrorMessageAction())
+    };
+    const handleShowModal=()=>setShowModal(true);
+    useEffect(()=>{
+        !auth.token && handleShowModal() && history.push('/login')
+        auth.token && dispatch(actionAPI.resendAction(auth.token)) && history.push('/sukses-resend')
+    },[])
+
+    const onSubmit=(e)=>{
+        dispatch(actionAPI.resendAction(auth.token))
+    }
+
+    const renderLoading = () => (
+        <Spinner animation="border" role="status">
+           <span className="sr-only">Loading...</span>
+       </Spinner>
+   )
+
+   const renderModal = () => (
+       <Modal show={showModal} onHide={handleCloseModal}>
+           <Modal.Header closeButton>
+               <Modal.Title>
+                   <h6>Kesalahan masuk</h6>
+               </Modal.Title>
+           </Modal.Header>
+           <Modal.Body>{auth.errMessage}</Modal.Body>
+       </Modal>
+   )
     const classes = useStyles()
     return (
     <>
@@ -36,7 +70,7 @@ const ResendEmail = () => {
                          </p>
                     </div>
                     <div className="form-group col-md-4 col-sm-6 mr-auto ml-auto">
-                        <button type="submit" className="btn btn-primary btn-block">
+                        <button type="submit" className="btn btn-primary btn-block" onClick={()=>onSubmit}>
                             Resend Email
                         </button>
                     </div>

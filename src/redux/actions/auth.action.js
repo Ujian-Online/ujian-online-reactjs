@@ -1,4 +1,4 @@
-import { registerAPI , loginAPI , getProfileAPI,forgetPasswordAPI,resetPasswordAPI} from '../api/auth.api'
+import { registerAPI , loginAPI , getProfileAPI,forgetPasswordAPI,resetPasswordAPI, verifikasiAPI, resendAPI} from '../api/auth.api'
 import * as types from '../types/auth.type'
 
 export const registerUserAction = ({  email = '' , password = '' }) => {
@@ -96,3 +96,26 @@ export const resetPasswordAction = ({  email = ''}) => {
 
 export const EmailErrorMessageAction=()=>(dispatch)=>dispatch({type:types.EMAIL_ERROR})
 
+export const verifikasiAction = (token) => {
+    return async dispatch => {
+        try {
+            const response = await verifikasiAPI(token)
+            dispatch({ type : types.SET_USER , token : response.data })
+        }catch(err) {
+            console.error('[verifikasi]', err)
+        }
+    }
+}
+
+export const resendAction= (token) => {
+    return async dispatch => {
+        try {
+            const response = await resendAPI(token)
+            dispatch({ type : types.SET_USER , token : response.data })
+        }catch(err) {
+            console.error('[resend]', err)
+        }
+    }
+}
+
+export const VerifikasiErrorAction=()=>(dispatch)=>dispatch({types:types.VERIFIKASI_ERROR})

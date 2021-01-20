@@ -52,3 +52,23 @@ export const resetPasswordAPI = async ({email=''}) => {
         }
     }).then( res => res.data )
 }
+
+export const verifikasiAPI = async (token) => {
+    return await API({
+        url : '/api/email/verify' ,
+        method : 'POST',
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
+
+export const resendAPI = async (token) => {
+    return await API({
+        url : '/api/email/resend' ,
+        method : 'POST',
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
