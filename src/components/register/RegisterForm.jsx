@@ -19,7 +19,7 @@ const RegisterForm = () => {
 
     useEffect(() => {
         if (auth.token) {
-            history.push('/sukses-register')
+            history.push('/verifikasi-akun')
         }
         if (auth.errMessage) {
             handleShowModal()

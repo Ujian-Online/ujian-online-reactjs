@@ -1,4 +1,4 @@
-import { registerAPI , loginAPI , getProfileAPI,forgetPasswordAPI,resendEmailAPI,verifiedEmailAPI } from '../api/auth.api'
+import { registerAPI , loginAPI , getProfileAPI,forgetPasswordAPI,resetPasswordAPI} from '../api/auth.api'
 import * as types from '../types/auth.type'
 
 export const registerUserAction = ({  email = '' , password = '' }) => {
@@ -56,66 +56,43 @@ export const logoutAction = () => dispatch => {
     return dispatch({ type : types.LOGOUT })
 }
 
-// export const forgetPasswordAction = ({  email = ''}) => {
-//     return async dispatch => {
-//         try {
-//             dispatch({ type : types.ON_LOADING })
-//             const response = await forgetPasswordAPI({email})
-//             dispatch({ 
-//                 type : types.FORGET_PASSWORD , 
-//                 token : response.data && response.data.token })
-//         }catch(err){
-//             const data = err.response && err.response.data && err.response.data
-//             console.error('[Lupa_Password]', err)
-//             dispatch({ 
-//                 type : types.ON_ERROR, 
-//                 errMessage : data.err || data.message || 'An Error Occured' }) 
-//         }
-        
-//     }
-// }
-
-// export const EmailErrorMessageAction=()=>(dispatch)=>dispatch({type:types.EMAIL_ERROR})
-
-export const resendEmailAction = (token) => {
+export const forgetPasswordAction = ({  email = '', password=''}) => {
     return async dispatch => {
         try {
             dispatch({ type : types.ON_LOADING })
-            const response = await resendEmailAPI(token)
+            const response = await forgetPasswordAPI({email,password})
             dispatch({ 
-                type : types.RESEND_EMAIL_SUCCESS , 
+                type : types.FORGET_PASSWORD , 
                 token : response.data && response.data.token })
         }catch(err){
             const data = err.response && err.response.data && err.response.data
-            console.error('[Resend_Email]', data)
+            console.error('[Lupa_Password]', data)
             dispatch({ 
                 type : types.ON_ERROR, 
-                errMessage : data.error || data.message || 'An Error Occured' }) 
+                errMessage : data.err || data.message || 'An Error Occured' }) 
         }
         
     }
 }
 
-export const resendEmailErrorAction=()=>(dispatch)=>dispatch({type:types.RESEND_EMAIL_ERROR})
-
-export const verifiedEmailAction = (token) => {
+export const resetPasswordAction = ({  email = ''}) => {
     return async dispatch => {
         try {
             dispatch({ type : types.ON_LOADING })
-            const response = await verifiedEmailAPI(token)
+            const response = await resetPasswordAPI({email})
             dispatch({ 
-                type : types.VERIFIED_SUCCESS , 
-                token : response.data && response.data.token })
+                type : types.RESET_PASSWORD, 
+                token : response.data && response.data.token})
         }catch(err){
             const data = err.response && err.response.data && err.response.data
-            console.error('[verified_email]', data)
+            console.error('[Reset_Password]', data)
             dispatch({ 
                 type : types.ON_ERROR, 
-                errMessage : data.error || data.message || 'An Error Occured' }) 
+                errMessage : data.err || data.message || 'An Error Occured' }) 
         }
         
     }
 }
 
-export const verifiedEmailErrorAction=()=>(dispatch)=>dispatch({type:types.VERIFIED_ERROR})
+export const EmailErrorMessageAction=()=>(dispatch)=>dispatch({type:types.EMAIL_ERROR})
 
