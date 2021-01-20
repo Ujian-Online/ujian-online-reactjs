@@ -2,9 +2,9 @@ import {Link, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Modal, Spinner } from 'react-bootstrap'
-import { EmailErrorMessageAction, forgetPasswordAction } from '../../redux/actions/auth.action'
+import { EmailErrorMessageAction, resetPasswordAction } from '../../redux/actions/auth.action'
 
-const ForgetForm = () => {
+const ResetForm = () => {
     const auth=useSelector(state=>state.auth)
     const dispatch= useDispatch()
     const history=useHistory();
@@ -18,7 +18,7 @@ const ForgetForm = () => {
 
     useEffect(()=>{
         if(auth.token){
-           history.push('/sukses-reset-password')
+           history.push('/forget-password')
         }
         if(auth.errMessage){
             handleShowModal()
@@ -26,8 +26,7 @@ const ForgetForm = () => {
     },[auth.token,auth.errMessage])
 
     const[user,setUser]=useState({
-        email:'',
-        password:''
+        email:''
     })
 
     const onChangeState=(name)=>(e)=>{
@@ -37,7 +36,7 @@ const ForgetForm = () => {
     const onSubmit=(e)=>{
         e.preventDefault()
         dispatch(
-            forgetPasswordAction(user)
+            resetPasswordAction({email:user.email})
         )
     }
 
@@ -60,7 +59,10 @@ const ForgetForm = () => {
 
     return (<>
         <form className="p-lg-5" onSubmit={onSubmit}>
-            <h2 className="text-center mb-3 mb-lg-5">Ubah Kata Sandi</h2>
+            <h2 className="text-center mb-3 mb-lg-5">Lupa Kata Sandi</h2>
+            <p className="text-left xs-5 mb-lg-5 mb-5">
+                Masukkan email yang terdaftar. Kami akan mengirimkan kode verifikasi untuk atur ulang kata sandi.
+            </p>
             <div className="form-group text-left mb-lg-5 mb-5">
                 <label htmlFor="username" className="col-md-6">Email</label>
                 <input type="email"
@@ -71,25 +73,18 @@ const ForgetForm = () => {
                     placeholder='Email'
                 />
             </div>
-            <div className="form-group text-left mb-lg-5 mb-5">
-                <label htmlFor="password" className="col-md-6">Password</label>
-                <input type="password"
-                    className="form-control"
-                    id="password"
-                    onChange={onChangeState('password')}
-                    value={user.password}
-                    placeholder='password baru'
-                />
-            </div>
             <div className="form-group col-sm-6 col-md-4 ml-auto mr-auto">
                 <button type="submit" className="btn btn-primary btn-block" onSubmit={onSubmit}>
                     {auth.isLoading?renderLoading():'Lanjut'}
                 </button>
-            </div>          
+            </div>
+            <div className="col-md-5 ml-auto mr-auto text-center">
+                <p>Belum punya akun ? <Link to='/registrasi'>Daftar</Link></p>
+            </div>            
         </form>  
         {renderModal()}   
     </>
     )
 }
 
-export default ForgetForm
+export default ResetForm

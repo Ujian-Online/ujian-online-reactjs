@@ -1,10 +1,6 @@
 import { createUseStyles } from 'react-jss'
-import Navbar from '../home/Navbar'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { resendEmailAction, verifiedEmailAction, verifiedEmailErrorAction } from '../../redux/actions/auth.action'
-import { Spinner, Modal } from 'react-bootstrap'
+import { Link} from 'react-router-dom'
+
 
 const useStyles = createUseStyles({
     container: {
@@ -30,7 +26,7 @@ const SuccessRegister = () => {
                     <div className="col-sm-6 col-md-4 text-center ml-auto mr-auto">
                         <h1 className="mb-lg-5">Check email anda!</h1>
                         <p>
-                        Akun anda berhasil diaktifkan, silahkan Login ke System
+                        Password Anda telah diubah, silahkan Login ke System
                          </p>
                     </div>
                     <div className="form-group col-md-4 col-sm-6 mr-auto ml-auto">
