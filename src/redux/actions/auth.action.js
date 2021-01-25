@@ -56,16 +56,16 @@ export const logoutAction = () => dispatch => {
     return dispatch({ type : types.LOGOUT })
 }
 
-export const forgetPasswordAction = ({  email = '', password=''}) => {
+export const forgetPasswordAction = ({  email = '', password='',token}) => {
     return async dispatch => {
         try {
             dispatch({ type : types.ON_LOADING })
-            const response = await forgetPasswordAPI({email,password})
+            const response = await forgetPasswordAPI({email,password,token})
             dispatch({ 
                 type : types.FORGET_PASSWORD , 
                 token : response.data && response.data.token })
         }catch(err){
-            const data = err.response && err.response.data && err.response.data
+            const data = err.response && err.response.data && err.response.data||{}
             console.error('[Lupa_Password]', data)
             dispatch({ 
                 type : types.ON_ERROR, 
@@ -93,7 +93,11 @@ export const resetPasswordAction = ({  email = ''}) => {
         
     }
 }
-
+export const setTokenAction=(token)=> dispatch=>{
+    dispatch({ 
+        type : types.LOGIN_SUCCESS , 
+        token : token })
+}
 export const EmailErrorMessageAction=()=>(dispatch)=>dispatch({type:types.EMAIL_ERROR})
 
 export const verifikasiAction = (token) => {

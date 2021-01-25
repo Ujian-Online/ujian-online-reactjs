@@ -18,6 +18,7 @@ const ResetPassword=lazy(()=>import ('./components/resetPassword/ResetPage'))
 const ForgetPassword=lazy(()=>import ('./components/lupaPassword/ForgetPage'))
 const SuccessReset=lazy(()=>import ('./components/success/SuccessReset'))
 const SuccessResen=lazy(()=>import('./components/success/SuccessResendEmail'))
+const SuccessForget=lazy(()=>import('./components/success/SuccessForget'))
 
 function App() {
   return (
@@ -41,7 +42,9 @@ function App() {
           <Route path="/sukses-resend" component={SuccessResen}/>
           <Route path="/Pemesanan-berhasil" component={SuccessInvoice}/>
           <Route path="/selesai" component={Finish}/>
-          <Route path="/member" component={MemberPage}/>  
+          <Route path="/member" component={MemberPage}/>
+          <Route path="/password/reset" component={ForgetPassword}/>
+          <Route path="/sukses-ubah-password" component={SuccessForget} />
         </Switch>
       </Suspense>
     </Router>

@@ -20,7 +20,8 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
         case types.ON_LOADING: return {
             ...state,
             isLoading: true,
-            errMessage: null
+            errMessage: null,
+            resetPasswordSuccess:false
         }
         case types.LOGIN_SUCCESS: return {
             ...state,
@@ -55,12 +56,16 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
         case types.RESET_PASSWORD:return{
             ...state,
             token:action.token,
-            errMessage:null
+            isLoading:false,
+            errMessage:null,
+            resetPasswordSuccess:true
         }
         case types.FORGET_PASSWORD: return{
             ...state,
             token:action.token,
-            errMessage:null
+            errMessage:null,
+            resetPasswordSuccess:true,
+            isLoading:false
         }
         case types.EMAIL_ERROR:return{
             ...state,

@@ -1,8 +1,8 @@
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory,useLocation} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Modal, Spinner } from 'react-bootstrap'
-import { EmailErrorMessageAction, resetPasswordAction } from '../../redux/actions/auth.action'
+import { EmailErrorMessageAction, resetPasswordAction,setTokenAction } from '../../redux/actions/auth.action'
 
 const ResetForm = () => {
     const auth=useSelector(state=>state.auth)
@@ -17,13 +17,14 @@ const ResetForm = () => {
 
 
     useEffect(()=>{
-        if(auth.token){
-           history.push('/forget-password')
+        if(auth.resetPasswordSuccess){
+           history.push('/sukses-reset-password')
         }
+        
         if(auth.errMessage){
             handleShowModal()
         }
-    },[auth.token,auth.errMessage])
+    },[auth.resetPasswordSuccess,auth.errMessage])
 
     const[user,setUser]=useState({
         email:''

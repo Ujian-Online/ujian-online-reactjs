@@ -1,13 +1,15 @@
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory,useLocation} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Modal, Spinner } from 'react-bootstrap'
-import { EmailErrorMessageAction, forgetPasswordAction } from '../../redux/actions/auth.action'
+import { EmailErrorMessageAction, forgetPasswordAction,setTokenAction } from '../../redux/actions/auth.action'
 
 const ForgetForm = () => {
     const auth=useSelector(state=>state.auth)
     const dispatch= useDispatch()
     const history=useHistory();
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    const query =useQuery()
     const [showModal,setShowModal]=useState(false);
     const handleEmailErrorModal=()=>{
         setShowModal(false)
@@ -17,17 +19,23 @@ const ForgetForm = () => {
 
 
     useEffect(()=>{
-        if(auth.token){
-           history.push('/sukses-reset-password')
+        if(auth.resetPasswordSuccess){
+            history.push('/sukses-ubah-password')
         }
         if(auth.errMessage){
             handleShowModal()
         }
-    },[auth.token,auth.errMessage])
+    },[auth.resetPasswordSuccess,auth.errMessage])
+    useEffect(()=>{
+        const token=query.get('token')
+        dispatch(setTokenAction(token))
+
+    },[])
 
     const[user,setUser]=useState({
         email:'',
-        password:''
+        password:'',
+        konfirmasiPassword:''
     })
 
     const onChangeState=(name)=>(e)=>{
@@ -36,9 +44,12 @@ const ForgetForm = () => {
 
     const onSubmit=(e)=>{
         e.preventDefault()
-        dispatch(
-            forgetPasswordAction(user)
-        )
+        if(user.password === user.konfirmasiPassword){
+            dispatch(
+                forgetPasswordAction({...user, token: auth.token})
+            )     
+        }
+       
     }
 
     const renderLoading=()=>(
@@ -81,9 +92,19 @@ const ForgetForm = () => {
                     placeholder='password baru'
                 />
             </div>
+            <div className="form-group text-left mb-lg-5 mb-5">
+                <label htmlFor="Konfirmasipassword" className="col-md-6">Konfirmasi Password</label>
+                <input type="password"
+                    className="form-control"
+                    id="Konfirmasipassword"
+                    onChange={onChangeState('konfirmasiPassword')}
+                    value={user.konfirmasiPassword}
+                    placeholder='konfirmasi password'
+                />
+            </div>
             <div className="form-group col-sm-6 col-md-4 ml-auto mr-auto">
-                <button type="submit" className="btn btn-primary btn-block" onSubmit={onSubmit}>
-                    {auth.isLoading?renderLoading():'Lanjut'}
+                <button type="submit" className="btn btn-primary btn-block" onSubmit={onSubmit} disabled={user.password !== user.konfirmasiPassword || !user.password}>
+                    {auth.isLoading?renderLoading():'Lanjut'} 
                 </button>
             </div>          
         </form>  

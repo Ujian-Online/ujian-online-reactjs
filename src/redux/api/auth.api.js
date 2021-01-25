@@ -32,13 +32,16 @@ export const getProfileAPI = async (token) => {
     }).then( res => res.data )
 }
 
-export const forgetPasswordAPI = async ({email='',password=''}) => {
+export const forgetPasswordAPI = async ({email='',password='',token}) => {
     return await API({
         url : '/api/password/change' ,
         method : 'POST',
         data : {
             email,
             password
+        },
+        headers : {
+            Authorization : 'Bearer ' + token
         }
     }).then( res => res.data )
 }
