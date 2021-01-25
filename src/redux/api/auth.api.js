@@ -24,7 +24,7 @@ export const loginAPI = async ({username = '' , password = ''}) => {
 
 export const getProfileAPI = async (token) => {
     return await API({
-        url : '/api/me' ,
+        url : '/api/user/me' ,
         method : 'GET',
         headers : {
             Authorization : 'Bearer ' + token
@@ -32,13 +32,16 @@ export const getProfileAPI = async (token) => {
     }).then( res => res.data )
 }
 
-export const forgetPasswordAPI = async ({email='',password=''}) => {
+export const forgetPasswordAPI = async ({email='',password='',token}) => {
     return await API({
         url : '/api/password/change' ,
         method : 'POST',
         data : {
             email,
             password
+        },
+        headers : {
+            Authorization : 'Bearer ' + token
         }
     }).then( res => res.data )
 }

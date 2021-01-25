@@ -17,7 +17,7 @@ const Navbar = () => {
 
     useEffect(() => {
         !auth.token && history.push('/login')
-        auth.token && dispatch(getProfileAction(auth.token))
+        auth.token && !auth.user && dispatch(getProfileAction(auth.token))
     }, [])
 
     const logout = () => dispatch(logoutAction())    
