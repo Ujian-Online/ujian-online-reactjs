@@ -19,6 +19,7 @@ const ForgetPassword=lazy(()=>import ('./components/lupaPassword/ForgetPage'))
 const SuccessReset=lazy(()=>import ('./components/success/SuccessReset'))
 const SuccessResen=lazy(()=>import('./components/success/SuccessResendEmail'))
 const SuccessForget=lazy(()=>import('./components/success/SuccessForget'))
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (
