@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 const HomePage = lazy(() => import('./components/home/HomePage'))
 const MemberPage = lazy(() => import('./components/member/MemberPage'))
 const RegisterPage = lazy(() => import('./components/register/RegisterPage'))
@@ -19,7 +20,6 @@ const ForgetPassword=lazy(()=>import ('./components/lupaPassword/ForgetPage'))
 const SuccessReset=lazy(()=>import ('./components/success/SuccessReset'))
 const SuccessResen=lazy(()=>import('./components/success/SuccessResendEmail'))
 const SuccessForget=lazy(()=>import('./components/success/SuccessForget'))
-import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (
