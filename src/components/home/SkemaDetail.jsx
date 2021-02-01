@@ -1,7 +1,18 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import DataTable from 'react-data-table-component'
+import { useDispatch } from 'react-redux';
+import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action';
 
 const SkemaDetail = () => {
+    const dispatch=useDispatch()
+
+    useEffect(()=>{
+        onChange()
+    },[])
+
+    const onChange =(id)=>{
+        dispatch(getSertifikasiAction(id))
+    }
 
     const [ kompetensi , setKompetensi ] = useState([
         { kode_unit : 'AB.1000.01' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
@@ -13,9 +24,8 @@ const SkemaDetail = () => {
 
     const columns = [
         { selector : 'kode_unit' , name : 'Kode Unit' , sortable : true },
-        { selector : 'unit_kompetensi' , name : 'UNit Kompetensi' , sortable : true },
+        { selector : 'unit_kompetensi' , name : 'Unit Kompetensi' , sortable : true },
     ];
-
     return (
         <div className='container' >
             <div className='bg-white ml-auto mr-auto py-3 px-3 my-5' >
