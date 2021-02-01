@@ -3,18 +3,11 @@ import DataTable from 'react-data-table-component'
 
 import { MdSearch } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
-import Banner1 from '../../assets/banner-1.svg'
-import Banner2 from '../../assets/banner-2.svg'
-import Slider from "react-slick";
-const slidersettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false
-};
-
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action'
+import { useMemo } from 'react'
+  
 const customStyles = {
     headCells: {
         style: {
@@ -41,22 +34,33 @@ const customStyles = {
 }
 
 const Skema = () => {
-
     const history = useHistory()
+    const dispatch=useDispatch()
+    const sertifikasi=useSelector(state=>state.sertifikasi)
+    const [ schemes , setScheme ] = useState([])
+    useEffect(()=>{
+         dataSertifikasi()
+    },[])
 
-    const [schemes, setScheme] = useState([
-        { no: 1, skema: 'Supervisor Pengelolaan Sumber Daya Manusia', unit: '29 unit' },
-        { no: 2, skema: 'Manager Pengelolaan Sumber Daya Manusia', unit: '32 unit' },
-        { no: 3, skema: 'Training and Development Supervisor', unit: '28 unit' },
-        { no: 4, skema: 'Industrial Relation Manager', unit: '35 unit' },
-        { no: 5, skema: 'Talent Manager', unit: '30 unit' }
+    useEffect(()=>{
+        console.log('sertifikasi',sertifikasi)
+        setScheme([ ...(sertifikasi.sertifikasi || []).map(s=>({
+            no:s.id,
+            nomor_skema:s.nomor_skema,
+            skema:s.title,
+        }))])
+    },[sertifikasi.sertifikasi])
+
+    
+
+    const dataSertifikasi=()=>{
+        dispatch(getSertifikasiAction())
+    }
+    const columns = useMemo(()=>[
+        { selector : 'no' , name : 'No' , sortable : true },
+        { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
+        { selector : 'title' , name : 'Judul' , sortable : true },
     ])
-
-    const columns = [
-        { selector: 'no', name: 'No', sortable: true },
-        { selector: 'skema', name: 'Skema', sortable: true },
-        { selector: 'unit', name: 'Unit', sortable: true },
-    ];
 
     const subHeaderComponent = () => {
         return (<div className="input-group col-md-4 col-sm-6">
