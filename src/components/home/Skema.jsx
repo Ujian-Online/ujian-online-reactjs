@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import DataTable from 'react-data-table-component'
-
+import Slider from "react-slick";
+import Banner1 from '../../assets/banner-1.svg'
+import Banner2 from '../../assets/banner-2.svg'
 import { MdSearch } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -76,7 +78,13 @@ const Skema = () => {
     const onClickRow = (row) => {
         history.push(`/skema/${row.no}`)
     }
-
+    var slidersettings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      };
     return (
         <>
             <div className='w-100' >

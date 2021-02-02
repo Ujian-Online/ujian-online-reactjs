@@ -4,6 +4,9 @@ import DataTable from 'react-data-table-component'
 import { MdFilterList, MdSearch } from 'react-icons/md'
 import { useHistory, Link } from 'react-router-dom'
 import Footer from './Footer'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action'
   
 const customStyles = {
     headCells: {
@@ -33,19 +36,33 @@ const customStyles = {
 const Skema = () => {
 
     const history = useHistory()
+    const dispatch=useDispatch()
+    const sertifikasi=useSelector(state=>state.sertifikasi)
+    const [ schemes , setScheme ] = useState([])
+    useEffect(()=>{
+         dataSertifikasi()
+    },[])
+
+    useEffect(()=>{
+        console.log('sertifikasi',sertifikasi)
+        setScheme([ ...(sertifikasi.sertifikasi || []).map(s=>({
+            no:s.id,
+            nomor_skema:s.nomor_skema,
+            title:s.title,
+        }))])
+    },[sertifikasi.sertifikasi])
+
     
-    const [ schemes , setScheme ] = useState([
-        { no : 1 , skema : 'Supervisor Pengelolaan Sumber Daya Manusia' , unit: '29 unit' },
-        { no : 2 , skema : 'Manager Pengelolaan Sumber Daya Manusia' , unit: '32 unit' },
-        { no : 3 , skema : 'Training and Development Supervisor' , unit: '28 unit' },
-        { no : 4 , skema : 'Industrial Relation Manager' , unit: '35 unit' },
-        { no : 5 , skema : 'Talent Manager' , unit: '30 unit' }  
-    ])
+
+    const dataSertifikasi=()=>{
+        dispatch(getSertifikasiAction())
+    }
+
 
     const columns = [
         { selector : 'no' , name : 'No' , sortable : true },
-        { selector : 'skema' , name : 'Skema' , sortable : true },
-        { selector : 'unit' , name : 'Unit' , sortable : true },
+        { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
+        { selector : 'title' , name : 'Judul' , sortable : true },
     ];
 
     const Search = () => {
@@ -91,32 +108,19 @@ const Skema = () => {
                             <h5 className="text-center">Ujian Saya</h5>
                        {Search()} {Filter()}
                     </div>
-                <div className="card-body">
-                    <DataTable
-                        columns={columns}
-                        data={schemes}
-                        customStyles={customStyles}
-                        onRowClicked={onClickRow}
-                        noHeader
-                        // subHeader
-                        // subHeaderComponent={subHeaderFilter()}
-                    />
+                    <div className="card-body">
+                        <DataTable
+                            columns={columns}
+                            data={schemes}
+                            customStyles={customStyles}
+                            onRowClicked={onClickRow}
+                            noHeader
+                            // subHeader
+                            // subHeaderComponent={subHeaderFilter()}
+                        />
+                    </div>
                 </div>
-                </div>
-                <br />
-                <br />
-                <br />              
-                    {/* <DataTable
-                        title='Daftar Skema Sertifikasi'
-                        pagination
-                        columns={columns}
-                        data={schemes}
-                        customStyles={customStyles}
-                        subHeader
-                        onRowClicked={onClickRow}
-                        subHeaderComponent={subHeaderComponent()}
-                        /> */}
-                 </div>
+            </div>
                  <Footer />
         </>
     )
