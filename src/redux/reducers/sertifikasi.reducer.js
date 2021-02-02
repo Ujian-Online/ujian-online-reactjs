@@ -1,6 +1,4 @@
-import { persistReducer } from 'redux-persist'
 import * as types from '../types/sertifikasi.type'
-import storage from 'redux-persist/lib/storage'
 
 const initialState={
     sertifikasi:[],
@@ -9,7 +7,7 @@ const initialState={
 }
 
 export default(state=initialState,action={})=>{
-    switch (action.types){
+    switch (action.type){
         case types.GET_SERTIFIKASI:return{
             ...state,
             sertifikasi:action.sertifikasi,

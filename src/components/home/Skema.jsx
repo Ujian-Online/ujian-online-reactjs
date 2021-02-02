@@ -48,7 +48,7 @@ const Skema = () => {
         setScheme([ ...(sertifikasi.sertifikasi || []).map(s=>({
             no:s.id,
             nomor_skema:s.nomor_skema,
-            skema:s.title,
+            title:s.title,
         }))])
     },[sertifikasi.sertifikasi])
 
@@ -57,11 +57,11 @@ const Skema = () => {
     const dataSertifikasi=()=>{
         dispatch(getSertifikasiAction())
     }
-    const columns = useMemo(()=>[
+    const columns = [
         { selector : 'no' , name : 'No' , sortable : true },
         { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
         { selector : 'title' , name : 'Judul' , sortable : true },
-    ])
+    ]
 
     const subHeaderComponent = () => {
         return (<div className="input-group col-md-4 col-sm-6">
