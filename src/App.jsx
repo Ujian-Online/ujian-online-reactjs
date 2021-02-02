@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 const HomePage = lazy(() => import('./components/home/HomePage'))
 const MemberPage = lazy(() => import('./components/member/MemberPage'))
 const RegisterPage = lazy(() => import('./components/register/RegisterPage'))
