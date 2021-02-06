@@ -1,26 +1,35 @@
 import { useState,useEffect } from 'react'
 import DataTable from 'react-data-table-component'
-import { useDispatch } from 'react-redux';
-import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action';
 
 const SkemaDetail = () => {
-    const dispatch=useDispatch()
-
+    //tampil data ke dalam datatable
+    const [ kompetensi , setKompetensi ] = useState([])
+    const sertifikasi=useSelector(state=>state.sertifikasi)
+   
     useEffect(()=>{
-        onChange()
+        console.log('detail sertifikasi',sertifikasi.sertifikasi.id)
+        setKompetensi([ ...(sertifikasi.sertifikasi || []).map(s=>({
+           kode_unit:s.id,
+           unit_kompetensi:s.title
+        }))])
+    },[sertifikasi.sertifikasi.id])
+    
+    //ekstrak id kemudian fetch ke dalam action
+    const {id} =useParams()
+    useEffect(()=>{
+        skemaSertifikasiDetail()
     },[])
 
-    const onChange =(id)=>{
-        dispatch(getSertifikasiAction(id))
+    //get sertifikasi detail action dan masukan id
+    const dispatch=useDispatch()
+    const skemaSertifikasiDetail =()=>{
+        dispatch(getSertikasiDetailAction(id))
     }
 
-    const [ kompetensi , setKompetensi ] = useState([
-        { kode_unit : 'AB.1000.01' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.02' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.03' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.04' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.05' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-    ])
+    
 
     const columns = [
         { selector : 'kode_unit' , name : 'Kode Unit' , sortable : true },
@@ -33,7 +42,7 @@ const SkemaDetail = () => {
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Kode Skema</label>
                         <div class="col-sm-9">
-                            <input type="text" disabled class="form-control" value='SKM.MSDM.01' />
+                            <input type="text" disabled class="form-control" value={sertifikasi} />
                         </div>
                     </div>
                     <div class="form-group row">
