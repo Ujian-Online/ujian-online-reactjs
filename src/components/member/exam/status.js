@@ -1,4 +1,5 @@
 import { MdControlPoint , MdEdit } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 export const status_ujian = {
     'Menunggu verifikasi form' : ' Menunggu verifikasi form' ,
@@ -13,7 +14,7 @@ export const apl_02 = {
                        <MdControlPoint /> Isi Form
                   </button>) ,
     'Edit form' : (<button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }} >
-                    <MdEdit /> Edit Form
+                    <Link to="/member/isi/apl02" className="text-dark"><MdEdit />  Edit Form</Link> 
                 </button>),
     'Menunggu verifikasi' : 'Menunggu verifikasi' ,
     'Form ditolak' : <span className='badge badge-danger' style={{ fontSize : '12px' }} >Form ditolak</span> ,
