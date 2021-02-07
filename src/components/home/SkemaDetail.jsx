@@ -6,17 +6,8 @@ import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action
 
 const SkemaDetail = () => {
     //tampil data ke dalam datatable
-    const [ kompetensi , setKompetensi ] = useState([])
-    const sertifikasi=useSelector(state=>state.sertifikasi)
-   
-    useEffect(()=>{
-        console.log('detail sertifikasi',sertifikasi.sertifikasi.id)
-        setKompetensi([ ...(sertifikasi.sertifikasi || []).map(s=>({
-           kode_unit:s.id,
-           unit_kompetensi:s.title
-        }))])
-    },[sertifikasi.sertifikasi.id])
-    
+    const { detailSertifikasi } = useSelector( state => state.sertifikasi ) || {}
+
     //ekstrak id kemudian fetch ke dalam action
     const {id} =useParams()
     useEffect(()=>{
@@ -32,23 +23,24 @@ const SkemaDetail = () => {
     
 
     const columns = [
-        { selector : 'kode_unit' , name : 'Kode Unit' , sortable : true },
-        { selector : 'unit_kompetensi' , name : 'Unit Kompetensi' , sortable : true },
+        { selector : 'kode_unit_kompetensi' , name : 'Kode Unit' , sortable : true },
+        { selector : 'title' , name : 'Unit Kompetensi' , sortable : true },
     ];
+    
     return (
         <div className='container' >
             <div className='bg-white ml-auto mr-auto py-3 px-3 my-5' >
                 <form>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Kode Skema</label>
-                        <div class="col-sm-9">
-                            <input type="text" disabled class="form-control" value={sertifikasi} />
+                    <div className="form-group row">
+                        <label className="col-sm-3 col-form-label">Kode Skema</label>
+                        <div className="col-sm-9">
+                            <input type="text" disabled className="form-control" value={ detailSertifikasi.nomor_skema || '-' } />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Skema</label>
-                        <div class="col-sm-9">
-                            <input type="text" disabled class="form-control" value='Supervisor Pengelolaan Sumber Daya Manusia' />
+                    <div className="form-group row">
+                        <label className="col-sm-3 col-form-label">Judul Skema</label>
+                        <div className="col-sm-9">
+                            <input type="text" disabled className="form-control" value={ detailSertifikasi.title } />
                         </div>
                     </div>
                 </form>
@@ -56,7 +48,7 @@ const SkemaDetail = () => {
              <DataTable
                 title='DAFTAR UNIT KOMPENTESI'
                 columns={columns}
-                data={kompetensi} />
+                data={ detailSertifikasi.unitkompentensi || [] } />
             <br />
         </div>
     )

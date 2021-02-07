@@ -20,7 +20,7 @@ export const getSertikasiDetailAction=(id)=>{
             const response = await sertifikasiDetailAPI(id) 
             dispatch({ 
                 type : types.SERTIFIKASI_SHOW, 
-                sertifikasi : response.data })
+                detailSertifikasi : response })
         }catch(err){
             console.error('[sertifikasi_detail]', err)
         }
