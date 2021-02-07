@@ -1,46 +1,56 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import DataTable from 'react-data-table-component'
-import Footer from './Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action';
+import  Footer from '../home/Footer'
 
 const SkemaDetail = () => {
+    //tampil data ke dalam datatable
+    const { detailSertifikasi } = useSelector( state => state.sertifikasi ) || {}
 
-    const [ kompetensi , setKompetensi ] = useState([
-        { kode_unit : 'AB.1000.01' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.02' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.03' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.04' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-        { kode_unit : 'AB.1000.05' , unit_kompetensi : 'Menyusun Intervensi Interpersonal' },
-    ])
+    //ekstrak id kemudian fetch ke dalam action
+    const {id} =useParams()
+    useEffect(()=>{
+        skemaSertifikasiDetail()
+    },[])
+
+    //get sertifikasi detail action dan masukan id
+    const dispatch=useDispatch()
+    const skemaSertifikasiDetail =()=>{
+        dispatch(getSertikasiDetailAction(id))
+    }
+
+    
 
     const columns = [
-        { selector : 'kode_unit' , name : 'Kode Unit' , sortable : true },
-        { selector : 'unit_kompetensi' , name : 'Unit Kompetensi' , sortable : true },
+        { selector : 'kode_unit_kompetensi' , name : 'Kode Unit' , sortable : true },
+        { selector : 'title' , name : 'Unit Kompetensi' , sortable : true },
     ];
-
+    
     return (
         <>
         <div className='container' >
             <div className='bg-white ml-auto mr-auto py-3 px-3 my-5' >
                 <form>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Kode Skema</label>
-                        <div class="col-sm-9">
-                            <input type="text" disabled class="form-control" value='SKM.MSDM.01' />
+                    <div className="form-group row">
+                        <label className="col-sm-3 col-form-label">Kode Skema</label>
+                        <div className="col-sm-9">
+                            <input type="text" disabled className="form-control" value={ detailSertifikasi.nomor_skema || '-' } />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Skema</label>
-                        <div class="col-sm-9">
-                            <input type="text" disabled class="form-control" value='Supervisor Pengelolaan Sumber Daya Manusia' />
+                    <div className="form-group row">
+                        <label className="col-sm-3 col-form-label">Judul Skema</label>
+                        <div className="col-sm-9">
+                            <input type="text" disabled className="form-control" value={ detailSertifikasi.title } />
                         </div>
                     </div>
                 </form>
             </div>
              <DataTable
-                title='DAFTAR UNIT KOMPETENSI'
+                title='DAFTAR UNIT KOMPENTESI'
                 columns={columns}
-                data={kompetensi}
-                button={true} />
+                data={ detailSertifikasi.unitkompentensi || [] } />
             <br />
             <div className="form-group mt-3 col-md-3 col-sm-5 mr-auto ml-auto mb-5">
                 <button type="submit" className="btn btn-primary btn-block ">Daftar
@@ -48,7 +58,7 @@ const SkemaDetail = () => {
             </div>
         </div>
         <Footer/>
-    </>
+        </>
     )
 }
 
