@@ -20,6 +20,7 @@ const ForgetPassword=lazy(()=>import ('./components/lupaPassword/ForgetPage'))
 const SuccessReset=lazy(()=>import ('./components/success/SuccessReset'))
 const SuccessResen=lazy(()=>import('./components/success/SuccessResendEmail'))
 const SuccessForget=lazy(()=>import('./components/success/SuccessForget'))
+const EmailVerify = lazy( () => import('./components/EmailVerify'))
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/member" component={MemberPage}/>
           <Route path="/password/reset" component={ForgetPassword}/>
           <Route path="/sukses-ubah-password" component={SuccessForget} />
+          <Route path="/email/verification" component={ EmailVerify } />
         </Switch>
       </Suspense>
     </Router>

@@ -18,9 +18,21 @@ const Navbar = () => {
     useEffect(() => {
         !auth.token && history.push('/login')
         auth.token && !auth.user && dispatch(getProfileAction(auth.token))
+
+        if(auth.needVerify){
+            history.push('/email/verification')
+        }
+
     }, [])
 
-    const logout = () =>history.push('/')
+    
+    useEffect(() => {
+        if(auth.needVerify){
+            history.push('/email/verification')
+        }
+    }, [ auth.needVerify ] )
+
+    const logout = () => history.push('/')
 
     const renderRightMenu = () => {
         if (auth.user) {
