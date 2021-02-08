@@ -15,7 +15,7 @@ const initialState = {
 const persistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['token', 'user', 'needVerify' ]
+    whitelist: ['token', 'user' ]
 }
 
 export default persistReducer(persistConfig, (state = initialState, action = {}) => {
