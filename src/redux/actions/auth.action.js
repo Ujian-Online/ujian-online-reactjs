@@ -33,7 +33,7 @@ export const loginUserAction = ({ username = '' , password = ''}) => {
             console.error('[login]', data)
             dispatch({ 
                 type : types.ON_ERROR , 
-                errMessage : data.err || data.message || 'An Error Occured' })            
+                errMessage : data.err || data.message || 'Email atau password salah' })            
         }
         
     }
