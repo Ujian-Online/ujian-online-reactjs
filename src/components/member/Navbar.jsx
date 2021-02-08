@@ -32,7 +32,10 @@ const Navbar = () => {
         }
     }, [ auth.needVerify ] )
 
-    const logout = () => history.push('/')
+    const logout = () => {
+        dispatch(logoutAction())
+        history.push('/')
+    }
 
     const renderRightMenu = () => {
         if (auth.user) {
