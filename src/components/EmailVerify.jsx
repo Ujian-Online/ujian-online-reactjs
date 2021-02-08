@@ -20,7 +20,7 @@ const EmailVerify = () => {
 
     useEffect(() => {
         if(!auth.needVerify){
-            history.push('/login')
+            history.push('/sukses-register')
         }
     }, [ auth.needVerify ])
 
