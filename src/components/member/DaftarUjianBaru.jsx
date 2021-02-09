@@ -33,7 +33,7 @@ const customStyles = {
     
 }
 
-const Skema = () => {
+const DaftarUjianBaru = () => {
 
     const history = useHistory()
     const dispatch=useDispatch()
@@ -64,11 +64,21 @@ const Skema = () => {
         { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
         { selector : 'title' , name : 'Judul' , sortable : true },
     ];
+    
+    
+    //filter by searchbox data
+    const [filterData,setFilterData ]=useState("");
+    function search(rows){
+        const column=rows[0] && Object.keys(rows[0])
+        return rows.filter((row)=>column.some((column)=> row[column].toString().toLowerCase().indexOf(filterData.toLowerCase())>-1
+            )
+        )
+    }
 
     const Search = () => {
         return (
                 <div className="input-group col-md-4 col-sm-6 ml-auto mt-3">
-        <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2"value={filterData} onChange={(e)=>setFilterData(e.target.value)} />
         <div className="input-group-append ml-auto">
             <button className="btn btn-outline-secondary" type="button" >
               <MdSearch />
@@ -111,7 +121,7 @@ const Skema = () => {
                     <div className="card-body">
                         <DataTable
                             columns={columns}
-                            data={schemes}
+                            data={search(schemes)}
                             customStyles={customStyles}
                             onRowClicked={onClickRow}
                             noHeader
@@ -125,4 +135,4 @@ const Skema = () => {
         </>
     )
 }
-export default Skema
+export default DaftarUjianBaru

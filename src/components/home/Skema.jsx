@@ -64,9 +64,19 @@ const Skema = () => {
         { selector : 'title' , name : 'Judul' , sortable : true },
     ]
 
+    //filter data
+    const [filterData,setFilterData ]=useState("");
+    function search(rows){
+        const column=rows[0] && Object.keys(rows[0])
+        return rows.filter((row)=>column.some((column)=> row[column].toString().toLowerCase().indexOf(filterData.toLowerCase())>-1
+            )
+        )
+    }
+
+
     const subHeaderComponent = () => {
         return (<div className="input-group col-md-4 col-sm-6">
-            <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" />
+            <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" value={filterData} onChange={(e)=>setFilterData(e.target.value)} />
             <div className="input-group-append">
                 <button className="btn btn-outline-secondary" type="button" >
                     <MdSearch />
@@ -110,7 +120,7 @@ const Skema = () => {
                     title='Daftar Skema Sertifikasi'
                     pagination
                     columns={columns}
-                    data={schemes}
+                    data={search(schemes)}
                     customStyles={customStyles}
                     subHeader
                     onRowClicked={onClickRow}
