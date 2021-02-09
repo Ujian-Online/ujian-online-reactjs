@@ -38,7 +38,7 @@ function App() {
           <Route path="/reset-password" component={ResetPassword}/>
           <Route path="/forget-password" component={ForgetPassword}/>
           <Route path="/sukses-register" component={SuccessRegister}/>
-          <Route path="/sukses-register-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
+          <Route path="/sukses-order-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
           <Route path="/sukses-lupa-password" component={SuccessRegister} />
           <Route path="/sukses-reset-password" component={SuccessReset} />
           <Route path="/sukses-resend" component={SuccessResen}/>

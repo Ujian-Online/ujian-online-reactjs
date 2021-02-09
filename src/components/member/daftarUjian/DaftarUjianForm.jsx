@@ -57,7 +57,7 @@ const DaftarUjianForm=()=>{
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white' placeholder='Masukan nomor sertifikasi' />
+                    <input className='form-control bg-white' placeholder='Masukan skema sertifikasi' />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -106,7 +106,7 @@ const DaftarUjianForm=()=>{
             <div className='row mt-4 ' >
                  <div className='col-3 d-flex align-items-center' >
                     <label className=' mb-0 ' >
-                        Sertifikasi
+                        Sertifikasi ulang
                     </label>
                 </div>
                 <div className='col-9 d-flex flex-wrap ' >
@@ -126,23 +126,24 @@ const DaftarUjianForm=()=>{
                     </div>
                 </div>
             </div>  
-                {checked=== true ? <>
+                
 
                 <div className='row mt-4 ' >
                     <div className='col-3 d-flex align-items-center' >
                         <label className=' mb-0 ' >
-                           Nomor Sertifikasi sebelumnya
+                           Nomor Sertifikasi
                         </label>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  ' placeholder="masukan nomor sertifikasi lama"/>
+                        <input className='form-control bg-white' placeholder="masukan nomor sertifikasi" />
                     </div>
                 </div>
 
-                <div className='row mt-4 ' >
+                {checked=== true ? <>
+                    <div className='row mt-4 ' >
                     <div className='col-3 d-flex align-items-center' >
                         <label className=' mb-0 ' >
-                            Tanggal Sertifikasi sebelumnya
+                            Tanggal Sertifikasi lama
                         </label>
                     </div>
                     <div className='col-9 d-flex flex-wrap align-items-center ' >
@@ -153,7 +154,6 @@ const DaftarUjianForm=()=>{
                             />
                     </div>
                 </div>
-
                 <div className='row mt-4 ' >
                     <div className='col-3 d-flex ' >
                         <label className=' mb-0 ' >
@@ -162,7 +162,7 @@ const DaftarUjianForm=()=>{
                     </div>
                     <div className='col-9 input-group' >
                          <div className="custom-file">
-                            <input type="file" className="form-control-file" id="uploadSertifikatLama"/>
+                            <input type="file" accept=".jpg, .png, .jpeg, .pdf" className="form-control-file" id="uploadSertifikatLama"/>
                         </div>
                         <div className="input-group-append">
                             <button className="btn btn-primary" type="button" id="uploadSertifikatLama">Upload</button>
