@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action';
 import  Footer from '../home/Footer'
 
@@ -53,8 +53,12 @@ const SkemaDetail = () => {
                 data={ detailSertifikasi.unitkompentensi || [] } />
             <br />
             <div className="form-group mt-3 col-md-3 col-sm-5 mr-auto ml-auto mb-5">
-                <button type="submit" className="btn btn-primary btn-block ">Daftar
-                </button>
+                <Link to='/member/order/sertifikasi'>
+                    <button type="submit" className="btn btn-primary btn-block ">
+                        Daftar
+                    </button>
+                </Link>
+                
             </div>
         </div>
         <Footer/>
