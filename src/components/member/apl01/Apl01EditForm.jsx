@@ -16,16 +16,12 @@ const Apl01 = () => {
     return (
         <div className='container my-4' >
             <div className='row'>
-                <div className='col d-flex align-items-center justify-content-between ' >
+                <div className='col text-center ' >
                     <h6>
                         FR APL 01. <br />
                         FORMULIR PERMOHONAN SERTIFIKASI KOMPETENSI
                     </h6>
-                    <Link to="/member/edit/apl-01">
-                        <button className='btn btn-sm btn-warning text-white ' >
-                            Edit Form
-                        </button>
-                    </Link>
+                    
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -47,7 +43,7 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  ' />
+                    <input className='form-control bg-white  ' value="123456" />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -57,7 +53,7 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  ' />
+                    <input className='form-control bg-white  ' value="Akbar Wicaksono"/>
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -67,7 +63,7 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9 d-flex flex-wrap align-items-center ' >
-                    <input className='form-control bg-white  ' style={{ flex: 1 }} />
+                    <input className='form-control bg-white  'value="Kalimantan Selatan" style={{ flex: 1 }} />
                     <span className='mx-4 ' style={{ fontSize: 30, lineHeight: 0 }} >-</span>
                     <DatePicker
                         className='form-control bg-white  '
@@ -125,7 +121,7 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <textarea className='form-control bg-white  ' />
+                    <textarea className='form-control bg-white  ' value="Jln Mongonsidi" />
                 </div>
             </div>
 
@@ -136,7 +132,7 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input type='number' className='form-control bg-white  ' />
+                    <input type='number' className='form-control bg-white  ' value="123456"/>
                 </div>
             </div>
 
@@ -315,7 +311,7 @@ const Apl01 = () => {
             <div className='row mt-4 ' >
                     <div className='col ' >
                         <button className='btn btn-primary float-right ' >
-                            Selanjutnya
+                            Simpan
                         </button>
                         </div>
                     </div>

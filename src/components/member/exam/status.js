@@ -10,9 +10,11 @@ export const status_ujian = {
 }
 
 export const apl_02 = {
-    'Isi form' : (<button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }} >
+    'Isi form' : (<Link to="/member/isi/apl02">
+                    <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }} >
                        <MdControlPoint /> Isi Form
-                  </button>) ,
+                     </button>
+                    </Link> ) ,
     'Edit form' : (<button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }} >
                     <Link to="/member/isi/apl02" className="text-dark"><MdEdit />  Edit Form</Link> 
                 </button>),
