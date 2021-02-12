@@ -1,0 +1,3 @@
+export const GET_ORDER='GET_ORDER'
+export const ORDER_FAILED='ORDER_FAILED'
+export const ORDER_LOADING='ORDER_LOADING'
