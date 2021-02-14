@@ -3,7 +3,6 @@ import { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { MdFilterList, MdSearch } from 'react-icons/md'
 import { useHistory, Link } from 'react-router-dom'
-import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action'
@@ -131,7 +130,7 @@ const DaftarUjianBaru = () => {
                     </div>
                 </div>
             </div>
-                 <Footer />
+               
         </>
     )
 }

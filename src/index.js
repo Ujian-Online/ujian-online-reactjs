@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import "../node_modules/slick-carousel/slick/slick.css"; 
 import "../node_modules/slick-carousel/slick/slick-theme.css";
+import 'react-datepicker/dist/react-datepicker.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore, applyMiddleware } from 'redux';

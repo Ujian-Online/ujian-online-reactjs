@@ -1,6 +1,4 @@
-import { persistReducer } from 'redux-persist'
 import * as types from '../types/order.type'
-import storage from 'redux-persist/lib/storage'
 
 
 const initialState = {
@@ -25,6 +23,11 @@ export default(state=initialState,action={})=>{
         case types.ORDER_LOADING:return{
             ...state,
             isLoading:true,
+            errMessage:null
+        }
+        case types.ORDER_POST_SUCCESS:return{
+            ...state,
+            isLoading:false,
             errMessage:null
         }
         default:return state

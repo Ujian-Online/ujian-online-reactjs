@@ -42,6 +42,7 @@ const MemberPage = () => {
                     </Switch>
                 </Suspense>
             </Main>
+            <Footer />
         </div>
     )
 }
