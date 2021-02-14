@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postOrderAction } from '../../../redux/actions/order.action';
 import { Spinner } from 'react-bootstrap';
+import { useEffect } from 'react';
 
 
 const useStyles = createUseStyles({
@@ -37,6 +38,12 @@ const DaftarUjianForm = (props) => {
     });
 
     const history = useHistory()
+
+    useEffect(() => {
+        if(order.isSuccessPost) {
+            history.push('/member/order/sertifikasi/sukses')
+        }
+    }, [order.isSuccessPost ])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">

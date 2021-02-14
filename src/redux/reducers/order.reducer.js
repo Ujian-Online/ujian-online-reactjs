@@ -5,6 +5,7 @@ const initialState = {
     order:[],
     isLoading: false,
     errMessage: null,
+    isSuccessPost: false
 }
 
 export default(state=initialState,action={})=>{
@@ -23,12 +24,15 @@ export default(state=initialState,action={})=>{
         case types.ORDER_LOADING:return{
             ...state,
             isLoading:true,
-            errMessage:null
+            errMessage:null,
+            isSuccessPost : false
         }
         case types.ORDER_POST_SUCCESS:return{
             ...state,
             isLoading:false,
-            errMessage:null
+            errMessage:null,
+            isSuccessPost : false
+
         }
         default:return state
     }
