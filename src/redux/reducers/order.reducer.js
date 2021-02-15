@@ -31,7 +31,7 @@ export default(state=initialState,action={})=>{
             ...state,
             isLoading:false,
             errMessage:null,
-            isSuccessPost : false
+            isSuccessPost : true
 
         }
         default:return state

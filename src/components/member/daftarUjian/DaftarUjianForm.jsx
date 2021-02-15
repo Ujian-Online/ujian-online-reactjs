@@ -57,7 +57,7 @@ const DaftarUjianForm = (props) => {
                 <div className="col-md-12 mt-5 mb-5">
                     <div className="form-group col-sm-4 col-md-4 ml-auto mr-auto">
                         <button
-                            onClick={() => dispatch(postOrderAction(auth.token, stateForm))}
+                            onClick={() => dispatch(postOrderAction(auth.token, {...stateForm }))}
                             type="submit"
                             className="btn btn-primary btn-block">
                             { order.isLoading ? renderLoading() : 'Pesan Sekarang' }
