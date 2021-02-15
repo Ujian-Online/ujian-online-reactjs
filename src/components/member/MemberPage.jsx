@@ -30,10 +30,10 @@ const MemberPage = () => {
                         <Route  exact path='/member/ujian-saya/:id/soal' component={Exam} />
                         <Route  path='/member/detail-skema-sertifikasi/:id' component={SkemaDetail} />
                         <Route path='/member/ujian-baru' component={DaftarUjianBaru} />
-                        <Route path='/member/Upload-Pembayaran-detail' component={UploadPembayaran} />
                         <Route path='/member/upload-bukti-pembayaran-detail/sukses' component={UploadPembayaranSukses}/>
                         <Route path='/member/order/sertifikasi/sukses' component={DaftarUjianSukses} />
                         <Route path='/member/order/sertifikasi' component={DaftarUjianPage} />
+                        <Route path='/member/order/:id' component={UploadPembayaran} />
                         <Route path="/member/menunggu-pembayaran" component={MenungguPembayaran}/>
                         {/* <Route path='/member/isi/apl02' component={}/> */}
                         <Route path='/member/isi/apl02' component={ViewApl02} />

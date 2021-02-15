@@ -2,26 +2,29 @@ import { createUseStyles } from 'react-jss'
 import {Link, useHistory} from 'react-router-dom'
 import UploadForm from './uploadBuktiForm'
 import UploadBuktiDetailInformasi from './uploadBuktiDetailInformasi'
+import { useEffect } from 'react'
+import { getDetailOrderAction } from '../../../redux/actions/order.action'
+import { useDispatch, useSelector } from 'react-redux'
 
-const useStyles = createUseStyles({
-    container : {
-        height : '100vh'
-    },
-    
-})
-
-const UploadPembayaranPage = () => {
+const UploadPembayaranPage = (props) => {
     const history = useHistory()
-    
-    const classes = useStyles()
+    const dispatch = useDispatch()
+    const auth = useSelector( state => state.auth )
+    const order = useSelector( state => state.order )
+    const { id } = props.match.params
 
-    return (<div className={`container-fluid ${classes.container} `}  >
-        <div className='row h-100 ml-auto mr-auto'>
-                <h2 className="text-center mb-3 mb-lg-5 col-md-12">
+    
+    useEffect(() => {
+        dispatch(getDetailOrderAction( auth.token , id ))
+    }, [] )
+
+    return (<div className='col-12 col-sm-10 ml-auto mr-auto card my-4'  >
+                <h2 className="text-center mb-3 mb-lg-5 col-md-12 mt-3">
                     Upload Pembayaran
                 </h2>
+                <div className='row '>
                 <div className={`col-md-6 col-sm-6`} >
-                    <UploadBuktiDetailInformasi  />
+                    <UploadBuktiDetailInformasi order={order.detailOrder}  />
                 </div>
                 <div className="col-md-6 col-sm-6">
                     <UploadForm />

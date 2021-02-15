@@ -1,22 +1,21 @@
-import { Card } from "react-bootstrap"
 
-const UploadForm = () => {
+const UploadForm = ({ order = {} }) => {
     return (<>
         <form className="p-lg-5 text-left mr-auto ml-auto">
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">Nama</label>
                 <label className="col-md-2 col-sm-2">:</label>
-                <label htmlFor='Nama'>Akbar Bintang</label>
+                <label htmlFor='Nama'>{ order.user.email }</label>
             </div>   
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">Sertifikasi</label>
                 <label className="col-md-2 col-sm-2">:</label>
-                <label htmlFor='Sertifikasi'>Supervisor SDM</label>
+                <label htmlFor='Sertifikasi'>{ order.sertifikasi.title }</label>
             </div>
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">TUK</label>
                 <label className="col-md-2 col-sm-2">:</label>
-                <label htmlFor='TUK'>LSP MERCUBUANA</label>
+                <label htmlFor='TUK'>{ order.tuk.title }</label>
             </div>
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">Training</label>
@@ -26,12 +25,12 @@ const UploadForm = () => {
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">Sertifikasi Ulang</label>
                 <label className="col-md-2 col-sm-2">:</label>
-                <label htmlFor='SertifikasiUlang'>Baru</label>
+                <label htmlFor='SertifikasiUlang'>{ order.tipe_sertifikasi }</label>
             </div>  
             <div className="form-group">
                 <label className="col-md-3 col-sm-3">Nomor sertifikat</label>
                 <label className="col-md-2 col-sm-2">:</label>
-                <label htmlFor='Nama'>A123456789</label>
+                <label htmlFor='Nama'>{ order.asesi_id  }</label>
             </div>       
         </form>
         <h6 className="ml-lg-5">Transfer Melalui :</h6>
@@ -44,6 +43,7 @@ const UploadForm = () => {
                 <h6>2506 1845</h6>
                 </th>
             </tr>
+            <br />
             <tr>
                 <th><img src='/assets/img/BCA.png' /></th>
                 <th className="ml-lg-5">

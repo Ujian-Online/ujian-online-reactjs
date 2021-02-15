@@ -14,7 +14,7 @@ export default(state=initialState,action={})=>{
             ...state,
             order:action.order,
             isLoading:false,
-            errMessage:null
+            errMessage:null,
         }
         case types.ORDER_FAILED:return{
             ...state,
@@ -33,6 +33,18 @@ export default(state=initialState,action={})=>{
             errMessage:null,
             isSuccessPost : true
 
+        }
+        case types.RESET_REDUCER_ORDER: return {
+            ...state,
+            isLoading:false,
+            errMessage:null,
+            isSuccessPost : false
+        }
+        case types.SET_DETAIL_ORDER: return {
+            ...state,
+            detailOrder: action.detailOrder ,
+            isLoading:false,
+            errMessage:null,
         }
         default:return state
     }

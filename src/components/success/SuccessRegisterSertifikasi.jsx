@@ -1,4 +1,15 @@
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+
+import { resetReducerOrderAction  } from '../../redux/actions/order.action'
+
 const SuccessRegisterUjiSertifikasi = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(resetReducerOrderAction())
+    }, [])
+
     return (
     <div className={`container-fluid`}  >
         <div className='row h-100'>

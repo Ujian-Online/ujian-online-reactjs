@@ -35,3 +35,13 @@ export const postOrderAPI = async (token , order ) => {
         }
     }).then( res => res.data )
 }
+
+export const getDetailOrderAPI = async (token , orderId ) => {
+    return await API({
+        url : '/api/order/'+ orderId ,
+        method : 'GET',
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
