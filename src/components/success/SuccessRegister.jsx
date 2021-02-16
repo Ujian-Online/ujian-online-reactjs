@@ -23,7 +23,6 @@ const SuccessRegister = () => {
             <div className="col-md-12 col-xs-6 text-center ml-auto mr-auto mb-3 mt-3">
                     <img src='/assets/img/sukses.png' alt='logoSukses' className={`${classes.email}`} />
                     <div className="col-sm-6 col-md-4 text-center ml-auto mr-auto">
-                        <h1 className="mb-lg-5">Check email anda!</h1>
                         <p>
                         Akun anda berhasil diaktifkan, silahkan Login ke System
                          </p>

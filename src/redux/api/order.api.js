@@ -55,7 +55,7 @@ export const sendProofPaymentAPI = async (token , orderId , payload ) => {
 
     return await API({
         url : '/api/order/'+ orderId ,
-        method : 'PUT',
+        method : 'POST',
         data : formData,
         headers : {
             'Content-Type':'application/json',
