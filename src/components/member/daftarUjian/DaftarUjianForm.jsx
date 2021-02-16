@@ -29,9 +29,9 @@ const DaftarUjianForm = (props) => {
 
     const [stateForm, setStateForm] = useState({
         sertifikasi_id: skema.id,
-        tuk_id: ((skema.unitkompentensi || [])[0] || {}).id,
-        tipe_sertifikasi: 'perpanjang',
-        training: true,
+        tuk_id: ((skema.sertifikasituk || [])[0] || {}).id,
+        tipe_sertifikasi: 'baru',
+        training: false,
         sertifikat_number_old: '',
         sertifikat_date_old: new Date(),
         sertifikat_upload_old: {}
@@ -115,8 +115,8 @@ const DaftarUjianForm = (props) => {
                 <div className='col-sm-9' >
                     <select className='form-control bg-white  ' >
                         {
-                            (skema.unitkompentensi || []).map(tuk =>
-                                <option value={tuk.id} key={tuk.id} >{tuk.kode_unit_kompetensi}</option>
+                            (skema.sertifikasituk || []).map(tuk =>
+                                <option value={tuk.id} key={tuk.id} >{tuk.tuk.title }</option>
                             )
                         }
                     </select>
@@ -139,7 +139,7 @@ const DaftarUjianForm = (props) => {
                             onClick={() => {
                                 setStateForm({ ...stateForm, training: true })
                             }}
-                            defaultChecked />
+                             />
                         <label className="form-check-label" htmlFor="training">
                             Training
                         </label>
@@ -159,6 +159,7 @@ const DaftarUjianForm = (props) => {
                             onClick={() => {
                                 setStateForm({ ...stateForm, training: false })
                             }}
+                            defaultChecked
                         />
                         <label className="form-check-label" htmlFor="tidak_training">
                             Tidak
@@ -175,8 +176,7 @@ const DaftarUjianForm = (props) => {
                 <div className='col-sm-9 d-flex flex-wrap ' >
                     <div className="form-check mr-2">
                         <input className="form-check-input"
-                            type="checkbox" name="sertifikasi_ulang" id="lama"
-                            defaultChecked
+                            type="checkbox" name="sertifikasi_ulang" id="lama"                            
                             onClick={(e) => {
                                 setStateForm({ ...stateForm, tipe_sertifikasi: e.target.checked ? 'perpanjang' : 'baru' })
                             }} />

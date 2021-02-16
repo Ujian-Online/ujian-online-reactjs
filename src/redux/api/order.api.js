@@ -45,3 +45,21 @@ export const getDetailOrderAPI = async (token , orderId ) => {
         }
     }).then( res => res.data )
 }
+
+export const sendProofPaymentAPI = async (token , orderId , payload ) => {
+
+    const formData = new FormData()
+    Object.keys(payload).forEach( key => {
+        formData.set(key , payload[key] )
+    })    
+
+    return await API({
+        url : '/api/order/'+ orderId ,
+        method : 'PUT',
+        data : formData,
+        headers : {
+            'Content-Type':'application/json',
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}

@@ -1,4 +1,4 @@
-import { orderAPI , postOrderAPI, getDetailOrderAPI } from '../api/order.api'
+import { orderAPI , postOrderAPI, getDetailOrderAPI, sendProofPaymentAPI } from '../api/order.api'
 import * as types from '../types/order.type'
 
 export const getOrderAction=(token)=>{
@@ -39,6 +39,20 @@ export const getDetailOrderAction = (token , payload )=>{
         }
     }
 }
+
+export const sendProofPaymentAction = (token , orderId , payload )=>{
+    return async dispatch =>{
+        try {
+           dispatch({type:types.ORDER_LOADING})
+           await sendProofPaymentAPI(token , orderId , payload )
+           dispatch({type:types.ORDER_POST_SUCCESS })
+        }catch(err) {
+            dispatch({type:types.ORDER_FAILED , errMessage : err })
+            console.error('[sendProofPaymentAction]', err)
+        }
+    }
+}
+
 
 export const resetReducerOrderAction = () => dispatch => dispatch({ type : types.RESET_REDUCER_ORDER })
 
