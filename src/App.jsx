@@ -4,14 +4,23 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 const HomePage = lazy(() => import('./components/home/HomePage'))
+const MemberPage = lazy(() => import('./components/member/MemberPage'))
 const RegisterPage = lazy(() => import('./components/register/RegisterPage'))
 const LoginPage = lazy(()=> import ('./components/login/LoginPage'))
-const ForgetPage = lazy(()=> import('./components/lupaPassword/ForgetPage'))
 const SuccessRegister = lazy(()=> import ('./components/success/SuccessRegister'))
+const VerifikasiAkun=lazy(()=>import('./components/success/VerifikasiAkun'))
+const ResendEmail =lazy(()=>import('./components/success/ResendEmail'))
 const SuccessRegisterUjiSertifikasi =lazy(()=> import('./components/success/SuccessRegisterSertifikasi'))
 const SuccessInvoice = lazy(()=>import ('./components/success/SuccessInvoice'))
-const Finish =lazy(()=> import ('./components/success/Finish'))
+const Finish = lazy(()=> import ('./components/success/Finish'))
+const ResetPassword=lazy(()=>import ('./components/resetPassword/ResetPage'))
+const ForgetPassword=lazy(()=>import ('./components/lupaPassword/ForgetPage'))
+const SuccessReset=lazy(()=>import ('./components/success/SuccessReset'))
+const SuccessResen=lazy(()=>import('./components/success/SuccessResendEmail'))
+const SuccessForget=lazy(()=>import('./components/success/SuccessForget'))
+const EmailVerify = lazy( () => import('./components/EmailVerify'))
 
 function App() {
   return (
@@ -23,12 +32,22 @@ function App() {
           <Route path="/pemegang-sertifikat" component={HomePage} />
           <Route path="/Petunjuk" component={HomePage} />
           <Route path="/registrasi" component={RegisterPage} />
+          <Route path="/verifikasi-akun" component={VerifikasiAkun}/>
+          <Route path="/resend-email" component={ResendEmail}/>
           <Route path="/login" component={LoginPage} />
-          <Route path='/forget-Password' component={ForgetPage} />
+          <Route path="/reset-password" component={ResetPassword}/>
+          <Route path="/forget-password" component={ForgetPassword}/>
           <Route path="/sukses-register" component={SuccessRegister}/>
-          <Route path="/sukses-register-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
+          <Route path="/sukses-order-uji-sertifikasi" component={SuccessRegisterUjiSertifikasi} />
+          <Route path="/sukses-lupa-password" component={SuccessRegister} />
+          <Route path="/sukses-reset-password" component={SuccessReset} />
+          <Route path="/sukses-resend" component={SuccessResen}/>
           <Route path="/Pemesanan-berhasil" component={SuccessInvoice}/>
           <Route path="/selesai" component={Finish}/>
+          <Route path="/member" component={MemberPage}/>
+          <Route path="/password/reset" component={ForgetPassword}/>
+          <Route path="/sukses-ubah-password" component={SuccessForget} />
+          <Route path="/email/verification" component={ EmailVerify } />
         </Switch>
       </Suspense>
     </Router>

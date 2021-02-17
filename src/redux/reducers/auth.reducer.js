@@ -7,12 +7,15 @@ const initialState = {
     token: null,
     isLoading: false,
     errMessage: null,
+    needVerify : false,
+    succesRegister : false,
+    resetPasswordSuccess : false
 }
 
 const persistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['token', 'user']
+    whitelist: ['token', 'user' ]
 }
 
 export default persistReducer(persistConfig, (state = initialState, action = {}) => {
@@ -20,7 +23,10 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
         case types.ON_LOADING: return {
             ...state,
             isLoading: true,
-            errMessage: null
+            errMessage: null,
+            succesRegister : false ,
+            needVerify : false ,
+            resetPasswordSuccess:false
         }
         case types.LOGIN_SUCCESS: return {
             ...state,
@@ -36,12 +42,54 @@ export default persistReducer(persistConfig, (state = initialState, action = {})
         case types.REGISTER_SUCCESS: return {
             ...state,
             isLoading: false,
-            token: action.token,
+            needVerify: true,
+            succesRegister : true ,
             errMessage : null,
         }
         case types.REMOVE_ERROR: return {
             ...state,
             errMessage : null
+        }
+        case types.SET_USER: return {
+            ...state,
+            user : action.user
+        }
+        case types.LOGOUT: return {
+            ...state,
+            user : null,
+            token : null
+        }
+        case types.RESET_PASSWORD:return{
+            ...state,
+            token:action.token,
+            isLoading:false,
+            errMessage:null,
+            resetPasswordSuccess:true
+        }
+        case types.FORGET_PASSWORD: return{
+            ...state,
+            token:action.token,
+            errMessage:null,
+            resetPasswordSuccess:true,
+            isLoading:false
+        }
+        case types.EMAIL_ERROR:return{
+            ...state,
+            errMessage:null
+        }
+        case types.VERIFIKASI_USER:return{
+            ...state,
+            token:action.token,
+            errMessage:null
+        }
+        case types.VERIFIKASI_ERROR:return{
+            ...state,
+            errMessage:null
+        }
+        case types.RESEND_EMAIL :return{
+            ...state,
+            needVerify : action.needVerify ,
+            errMessage: null
         }
         default: return state
     }

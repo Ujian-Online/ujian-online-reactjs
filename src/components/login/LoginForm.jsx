@@ -18,7 +18,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (auth.token) {
-            history.push('/')
+            history.push('/member/ujian-baru')
         }
         if (auth.errMessage) {
             handleShowModal()
@@ -96,7 +96,7 @@ const LoginForm = () => {
                     <Link to='/registrasi' className='ml-xs-5'>Daftar Akun baru</Link>
                 </small>
                 <small>
-                    <Link to='/forget-Password' className='ml-xs-5'>Lupa Kata Sandi ?</Link>
+                    <Link to='/reset-password' className='ml-xs-5'>Lupa Kata Sandi ?</Link>
                 </small>
             </div>
             <hr />

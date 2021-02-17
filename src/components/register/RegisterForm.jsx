@@ -18,13 +18,13 @@ const RegisterForm = () => {
     const handleShowModal = () => setShowModal(true);
 
     useEffect(() => {
-        if (auth.token) {
-            history.push('/sukses-register')
+        if (auth.succesRegister) {
+            history.push('/verifikasi-akun')
         }
         if (auth.errMessage) {
             handleShowModal()
         }
-    }, [auth.token, auth.errMessage])
+    }, [auth.succesRegister, auth.errMessage])
 
     const [user, setUser] = useState({
         username: '',
@@ -116,14 +116,14 @@ const RegisterForm = () => {
                         placeholder="Password" />
                 </InputGroup>
             </div>
-            <div className="form-group form-check">
+            {/* <div className="form-group form-check">
                 <small >
                     <input className="form-check-input" type="checkbox" id="aggrement" required />
                     <label className="form-check-label text-dark" htmlFor="aggrement">
                         Membuat akun berarti Anda setuju dengan <Link to='/'>Persyaratan layanan, kebijakan privasi kami.</Link>
                     </label>
                 </small>                
-            </div>
+            </div> */}
             <hr />
             <div className="form-group ">
                 <button type="submit" className="btn btn-primary btn-block">
@@ -134,6 +134,7 @@ const RegisterForm = () => {
 
                 <small >Sudah memiliki akun ? <Link to='/login' >Masuk</Link></small>
             </div>
+            {renderModal()}
         </Form>
     )
 }
