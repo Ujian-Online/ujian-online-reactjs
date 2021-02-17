@@ -6,10 +6,26 @@ import SignatureCanvas from 'react-signature-canvas'
 const Apl01 = () => {
 
     const [stateForm, setStateForm] = useState({
-        dateBirth: new Date(),
-        pekerjaan: 'bekerja'
+        name : '' ,
+        address : '' ,
+        phone_number : '' ,
+        gender : '' ,
+        birth_place : '' ,
+        birth_date : new Date() ,
+        no_ktp : '' ,
+        pendidikan_terakhir : 'SMA' ,
+        has_job : false ,
+        job_title : '' ,
+        job_address : '' ,
+        company_name : '' ,
+        company_phone : '' ,
+        company_email : ''
+          
     });
 
+    const onChangeField = index => e => {
+        setStateForm({ ...stateForm , [index] : e.target.value })
+    }
 
     let sigPad = useRef()
 
@@ -41,13 +57,14 @@ const Apl01 = () => {
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center ' >
                     <label className=' mb-0 ' >
                         No. Identitas
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  ' />
+                    <input className='form-control bg-white  ' 
+                    onChange={ onChangeField('no_ktp') } />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -57,7 +74,8 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  ' />
+                    <input className='form-control bg-white  ' 
+                     onChange={ onChangeField('name') } />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -71,8 +89,8 @@ const Apl01 = () => {
                     <span className='mx-4 ' style={{ fontSize: 30, lineHeight: 0 }} >-</span>
                     <DatePicker
                         className='form-control bg-white  '
-                        selected={stateForm.dateBirth}
-                        onChange={dateBirth => setStateForm({ ...stateForm, dateBirth })} />
+                        selected={stateForm.birth_date}
+                        onChange={birth_date => setStateForm({ ...stateForm, birth_date })} />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -83,14 +101,16 @@ const Apl01 = () => {
                 </div>
                 <div className='col-9 d-flex flex-wrap ' >
                     <div className="form-check mr-2" style={{ width: 100 }} >
-                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="laki" defaultChecked />
-                        <label className="form-check-label" htmlFor="laki">
+                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="pria"
+                        defaultChecked onClick={ onChangeField('gender') } />
+                        <label className="form-check-label" htmlFor="pria">
                             Laki-Laki
                         </label>
                     </div>
                     <div className="form-check">
-                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" />
-                        <label className="form-check-label" htmlFor="perempuan">
+                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="wanita" 
+                        onChange={ onChangeField('wanita') } />
+                        <label className="form-check-label" htmlFor="wanita">
                             Perempuan
                         </label>
                     </div>
@@ -125,7 +145,8 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <textarea className='form-control bg-white  ' />
+                    <textarea className='form-control bg-white  ' 
+                    onChange={ onChangeField('address') } />
                 </div>
             </div>
 
@@ -136,7 +157,8 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input type='number' className='form-control bg-white  ' />
+                    <input type='number' className='form-control bg-white  ' 
+                     onChange={ onChangeField('phone_number') } />
                 </div>
             </div>
 
@@ -147,10 +169,10 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <select className='form-control bg-white  ' >
-                        <option>SMA Sederajat</option>
-                        <option>SMP Sederajat</option>
-                        <option>SD Sederajat</option>
+                    <select className='form-control bg-white  ' onChange={ onChangeField('pendidikan_terakhir') } >
+                        <option value="SMA" >SMA Sederajat</option>
+                        <option value="SMP" >SMP Sederajat</option>
+                        <option value="SD" >SD Sederajat</option>
                     </select>
                 </div>
             </div>
@@ -164,20 +186,20 @@ const Apl01 = () => {
                 <div className='col-9 d-flex flex-wrap ' >
                     <div className="form-check mr-2" style={{ width: 100 }} >
                         <input className="form-check-input"
-                            type="radio" name="pekerjaan" id="bekerja" value="bekerja" defaultChecked
+                            type="radio" name="pekerjaan" id="bekerja" 
                             onChange={e => setStateForm({
                                 ...stateForm,
-                                pekerjaan: e.target.value
+                                has_job: true
                             })} />
                         <label className="form-check-label" htmlFor="bekerja">
                             Bekerja
                         </label>
                     </div>
                     <div className="form-check">
-                        <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="tidak bekerja"
+                        <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false" defaultChecked
                             onChange={e => setStateForm({
                                 ...stateForm,
-                                pekerjaan: e.target.value
+                                has_job: false
                             })} />
                         <label className="form-check-label" htmlFor="tidak_bekerja">
                             Tidak Bekerja
@@ -185,7 +207,7 @@ const Apl01 = () => {
                     </div>
                 </div>
             </div>
-            {stateForm.pekerjaan === 'bekerja' ? <>
+            {stateForm.has_job ? <>
 
                 <div className='row mt-4 ' >
                     <div className='col-3 d-flex align-items-center' >
