@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import {useState} from 'react'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { getOrderAction } from '../../../redux/actions/order.action'
 import {status_bayar} from './status'
 
@@ -36,6 +36,9 @@ const customStyles = {
 
 const MenungguPembayaran=()=>{
     const history = useHistory()
+    
+    //parameter ID
+    const{id} = useParams()
     
     //deklarasi reducer untuk token
     const auth=useSelector(state=>state.auth)
@@ -112,21 +115,25 @@ const MenungguPembayaran=()=>{
         {selector:'Aksi',name:'Aksi',sortable:true,
             format:row=>{
                 if(row.status_bayar==='waiting_payment'){      
-                    return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }}>
-                    <Link to ="/member/order/:id" className="text-light">Upload Pembayaran</Link> 
+                    return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }}
+                    onClick={() => history.push(`/member/order/${id}`)}>
+                        Upload Pembayaran
+                    {/* <Link to ="/member/order/:id" className="text-light">Upload Pembayaran</Link>  */}
                       </button>
                 }
                 else if(row.status_bayar==='payment_rejected'){
-                    return <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}>
-                    <Link to ="/member/order/:id" className="text-light">Upload Ulang</Link> 
+                    return <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
+                    onClick={() => history.push('/member/order/:id')}>
+                    Upload Ulang
                       </button>
                 }
                 else if(row.status_bayar==='pending_verification'){
                     return 
                     <div className='row' >
                                 <div className='col-7 d-flex align-items-center' >
-                                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}>
-                                        <Link to ="/member/order/:id" className="text-light">Upload Ulang</Link> 
+                                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
+                                    onClick={() => history.push('/member/order/:id')}>
+                                        Upload Ulang
                                     </button>
                                 </div>
                                 <div className='col-5' >
