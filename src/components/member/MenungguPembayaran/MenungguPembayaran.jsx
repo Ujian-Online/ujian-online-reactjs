@@ -39,7 +39,7 @@ const MenungguPembayaran=()=>{
     
     //parameter ID
     const{id} = useParams()
-    
+
     //deklarasi reducer untuk token
     const auth=useSelector(state=>state.auth)
     
@@ -62,14 +62,18 @@ const MenungguPembayaran=()=>{
             status_bayar:o.status,
         }))])
     },[order.order])
+
+    //detail order 
+    const detailOrder = order.detailOrder || {}
+    const user = detailOrder.user || {}
     
     //state untuk tampil data dalam Modal
-    const [stateForm, setStateForm] = useState({
-        email:'',
-        transfer_from_bank_name:'',
-        status:'',
-        transfer_to_bank_name:'',
-    });
+    // const [stateForm, setStateForm] = useState({
+    //     email:'',
+    //     transfer_from_bank_name:'',
+    //     status:'',
+    //     transfer_to_bank_name:'',
+    // });
      //Modal untuk Lihat data Pesanan
      const [showModal, setShowModal] = useState(false);
      const handleCloseModal = () => setShowModal(false)
@@ -84,23 +88,26 @@ const MenungguPembayaran=()=>{
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Asal bank</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                         <label htmlFor='AsalBank'>{()=>setStateForm(...stateForm , order.transfer_from_bank_name)}</label>
-                        {/* <label htmlFor='AsalBank'>MANDIRI</label> */}
+                         {/* <label htmlFor='AsalBank'>{()=>setStateForm(...stateForm , order.transfer_from_bank_name)}</label> */}
+                        <label htmlFor='AsalBank'>{order.transfer_from_bank_name}</label>
                     </div>
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Bank tujuan</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <label htmlFor='bankTujuan'>{()=>setStateForm(...stateForm , order.transfer_to_bank_name)}</label>
+                        <label htmlFor='AsalBank'>{order.transfer_to_bank_name}</label>
+                        {/* <label htmlFor='bankTujuan'>{()=>setStateForm(...stateForm , order.transfer_to_bank_name)}</label> */}
                     </div>
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Nama Pengirim</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <label htmlFor='NamaPengirim'>{()=>setStateForm(...stateForm , order.user.email)}</label>
+                        <label htmlFor='AsalBank'>{user.email}</label>
+                        {/* <label htmlFor='NamaPengirim'>{()=>setStateForm(...stateForm , order.user.email)}</label> */}
                     </div>
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Status</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <label htmlFor='Status'>{()=>setStateForm(...stateForm , order.status)}</label>
+                        <label htmlFor='AsalBank'>{order.status}</label>
+                        {/* <label htmlFor='Status'>{()=>setStateForm(...stateForm , order.status)}</label> */}
                     </div>
                 </Modal.Body>
          </Modal>
@@ -118,13 +125,12 @@ const MenungguPembayaran=()=>{
                     return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }}
                     onClick={() => history.push(`/member/order/${id}`)}>
                         Upload Pembayaran
-                    {/* <Link to ="/member/order/:id" className="text-light">Upload Pembayaran</Link>  */}
                       </button>
                 }
                 else if(row.status_bayar==='payment_rejected'){
                     return <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                    onClick={() => history.push('/member/order/:id')}>
-                    Upload Ulang
+                    onClick={() => history.push(`/member/order/${id}`)}>
+                        Upload Ulang
                       </button>
                 }
                 else if(row.status_bayar==='pending_verification'){
@@ -132,7 +138,7 @@ const MenungguPembayaran=()=>{
                     <div className='row' >
                                 <div className='col-7 d-flex align-items-center' >
                                     <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                                    onClick={() => history.push('/member/order/:id')}>
+                                    onClick={() => history.push(`/member/order/${id}`)}>
                                         Upload Ulang
                                     </button>
                                 </div>
@@ -147,7 +153,7 @@ const MenungguPembayaran=()=>{
                       
                 }
                 else if(row.status_bayar==='payment_verified'){
-                    return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }}>
+                    return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }} onClick={handleShowModal}>
                             Lihat
                       </button>
                 }
