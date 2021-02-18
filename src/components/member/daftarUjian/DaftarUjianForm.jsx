@@ -29,7 +29,7 @@ const DaftarUjianForm = (props) => {
 
     const [stateForm, setStateForm] = useState({
         sertifikasi_id: skema.id,
-        tuk_id: ((skema.sertifikasituk || [])[0] || {}).id,
+        tuk_id: ((skema.sertifikasituk || [])[0] || {}).tuk_id,
         tipe_sertifikasi: 'baru',
         training: false,
         sertifikat_number_old: '',
@@ -116,7 +116,7 @@ const DaftarUjianForm = (props) => {
                     <select className='form-control bg-white  ' >
                         {
                             (skema.sertifikasituk || []).map(tuk =>
-                                <option value={tuk.id} key={tuk.id} >{tuk.tuk.title }</option>
+                                <option value={tuk.tuk_id} key={tuk.tuk_id} >{tuk.tuk.title }</option>
                             )
                         }
                     </select>
