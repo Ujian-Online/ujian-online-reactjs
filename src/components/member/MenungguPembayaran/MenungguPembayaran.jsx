@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import {useState} from 'react'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom'
-import { getOrderAction,getDetailOrderAction, sendProofPaymentAction } from '../../../redux/actions/order.action'
+import {  useHistory} from 'react-router-dom'
+import { getOrderAction} from '../../../redux/actions/order.action'
 import {status_bayar} from './status'
 
 const customStyles = {
