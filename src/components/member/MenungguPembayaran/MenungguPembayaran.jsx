@@ -115,7 +115,7 @@ const MenungguPembayaran=(props)=>{
         status:''
      })
 
-     //button untuk kirim data useState
+     //button untuk kirim data useState dan tampilin Modal
     const clickLihat = (transfer_from_bank_name,transfer_to_bank_name,transfer_from_bank_account,status)=>() => {
         setStateModal({
             transfer_from_bank_name,
