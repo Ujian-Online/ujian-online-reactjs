@@ -37,10 +37,6 @@ const customStyles = {
 const MenungguPembayaran=(props)=>{
     const history = useHistory()
 
-    // useEffect(() => {
-    //     dispatch(getDetailOrderAction(auth.token, id))
-    // }, [])
-
     //deklarasi reducer untuk token
     const auth=useSelector(state=>state.auth)
     
@@ -58,23 +54,18 @@ const MenungguPembayaran=(props)=>{
     useEffect(()=>{
         console.log('order list',order)
         setSkema([ ...(order.order || [] ).map(o=>({
+            id:o.id,
             no:o.sertifikasi_id,
-            skema_sertifikasi:o.sertifikasi.title,
+            skema_sertifikasi: o.sertifikasi && o.sertifikasi.title || 'skema sertifikasi ini tidak tersedia',
             status_bayar:o.status,
+            transfer_from_bank_name:o.transfer_from_bank_name,
+            transfer_to_bank_name:o.transfer_to_bank_name,
+            transfer_from_bank_account:o.transfer_from_bank_account
         }))])
     },[order.order])
 
-    //detail order 
-    const detailOrder = order.detailOrder || {}
-    const user = detailOrder.user || {}
     
-    //state untuk tampil data dalam Modal
-    // const [stateForm, setStateForm] = useState({
-    //     email:'',
-    //     transfer_from_bank_name:'',
-    //     status:'',
-    //     transfer_to_bank_name:'',
-    // });
+   
      //Modal untuk Lihat data Pesanan
      const [showModal, setShowModal] = useState(false);
      const handleCloseModal = () => setShowModal(false)
@@ -89,75 +80,53 @@ const MenungguPembayaran=(props)=>{
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Asal bank</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <span className='ml-2' >{()=>setStateForm({...stateForm,...stateForm.transfer_from_bank_name})}</span>
+                        <span className='ml-2' >{stateModal.transfer_from_bank_name}</span>
                     </div>
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Bank tujuan</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <span className='ml-2' >{detailOrder.transfer_to_bank_name}</span>
+                        <span className='ml-2' >{stateModal.transfer_to_bank_name}</span>
 
                     </div>
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Nama Pengirim</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <span className='ml-2' >{user.email}</span>
-                        {/* <label htmlFor='NamaPengirim'>{()=>setStateForm(...stateForm , order.user.email)}</label> */}
+                        <span className='ml-2' >{stateModal.transfer_from_bank_account}</span>
                     </div>
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Status</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <span className='ml-2' >{detailOrder.status}</span>
-                        {/* <label htmlFor='Status'>{()=>setStateForm(...stateForm , order.status)}</label> */}
+                        <span className='ml-2' >{stateModal.status}</span>
                     </div>
                 </Modal.Body>
          </Modal>
      )
-     const {id} =  props.match.params
-     useEffect(()=>{
-        dispatch(getDetailOrderAction(id))
-    },[])
 
-    const clickDetail = () => {
+        //button Upload pembayaran dan upload Ulang
+    const clickDetail = (id)=>() => {
         history.push('/member/order/'+id)
     }
-    //  useEffect(() => {
-    //     dispatch(getDetailOrderAction(id))
-    // }, [])
 
-     const [stateForm,setStateForm]=useState({
-        id:order.id,
-        transfer_from_bank_name:order.transfer_from_bank_name,
-        transfer_to_bank_name:order.transfer_to_bank_name,
-        email:user.email,
-        status:order.status
+    //useState untuk modal
+     const [stateModal,setStateModal]=useState({
+        transfer_from_bank_name:'',
+        transfer_to_bank_name:'',
+        transfer_from_bank_account:'',
+        status:''
      })
-     useEffect(() => {
-            setStateForm({
-                ...stateForm,
-                transfer_from_bank_name:order.transfer_from_bank_name,
-                transfer_to_bank_name:order.transfer_to_bank_name,
-                email:user.email,
-                status:order.status
-            })
-        }, [order ] )
-//    const [stateForm, setStateForm] = useState({
-//         sertifikasi_id: uploadBukti.id
-        
-//     });
-    // // const [stateForm, setStateForm] = useState({
-    // //    transfer_from_bank_name:id.transfer_from_bank_name,
-    // //    transfer_to_bank_name:id.transfer_to_bank_name,
-    // //    status:id.status
-    // // });
 
-    // useEffect(() => {
-    //     setStateForm([ ...stateForm(order || [] ).map(o=>({
-    //         transfer_from_bank_name:o.transfer_from_bank_name,
-    //        transfer_to_bank_name:o.transfer_to_bank_namer,
-    //        status_bayar:o.status,
-    //        email:o.user.email
-    //     }))])
-    // }, [order ] )
+     //button untuk kirim data useState
+    const clickLihat = (transfer_from_bank_name,transfer_to_bank_name,transfer_from_bank_account,status)=>() => {
+        setStateModal({
+            transfer_from_bank_name,
+            transfer_to_bank_name,
+            transfer_from_bank_account,
+            status
+        });
+        handleShowModal()
+    }
+
+
 
     //columns data
     const columns=[
@@ -171,13 +140,14 @@ const MenungguPembayaran=(props)=>{
                 //view button berdasarkan badges
                 if(row.status_bayar==='waiting_payment'){      
                     return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                    onClick={clickDetail}>
-                        Upload Pembayaran
-                      </button>
+                            onClick={clickDetail(row.id)}>
+                                Upload Pembayaran
+                            </button>
                 }
                 else if(row.status_bayar==='payment_rejected'){
+                    //button click by row.id
                     return <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                    onClick={clickDetail}>
+                    onClick={clickDetail(row.id)}>
                         Upload Ulang
                       </button>
                 }
@@ -185,29 +155,33 @@ const MenungguPembayaran=(props)=>{
                     return <div className='row' >
                                 <div className='col-7 d-flex align-items-center' >
                                     <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                                    onClick={clickDetail}>
+                                    onClick={clickDetail(row.id)}>
                                         Upload Ulang
                                     </button>
                                 </div>
+
                                 <div className='col-5' >
-                                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }} onClick={handleShowModal}>
-                                            Lihat
+                                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }} 
+                                    onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar)}>
+                                           Lihat
                                     </button>
                                 </div>
+                                
+                                
                             </div>
                 }
                 else if(row.status_bayar==='payment_verified'){
-                    return <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px' }} onClick={handleShowModal}>
-                            Lihat
-                      </button>
+                    return <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }} 
+                    onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar)}>
+                           Lihat
+                    </button>
                 }
                 else{
                     return 'status bayar tidak terdeteksi'
                 }
                 
             }
-        //     format: row => Aksi[row.Aksi]},{selector:'Aksi',
-        // format: row => Lihat[row.Lihat]
+
     },
     ];
 
