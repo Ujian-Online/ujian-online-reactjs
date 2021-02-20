@@ -96,7 +96,7 @@ const MenungguPembayaran=(props)=>{
                     <div className="form-group">
                         <label className="col-md-3 col-sm-3">Status</label>
                         <label className="col-md-2 col-sm-2">:</label>
-                        <span className='ml-2' >{stateModal.status}</span>
+                        <span className='ml-2' >{status_bayar[stateModal.status]}</span>
                     </div>
                 </Modal.Body>
          </Modal>
@@ -144,44 +144,29 @@ const MenungguPembayaran=(props)=>{
                                 Upload Pembayaran
                             </button>
                 }
-                else if(row.status_bayar==='payment_rejected'){
-                    //button click by row.id
-                    return <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                    onClick={clickDetail(row.id)}>
-                        Upload Ulang
-                      </button>
-                }
-                else if(row.status_bayar==='pending_verification'){
+                else if(row.status_bayar =='pending_verification' || row.status_bayar == 'payment_rejected'){
                     return <div className='row' >
-                                <div className='col-7 d-flex align-items-center' >
-                                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
+                        <div className='col-7 d-flex align-items-center' >
+                            <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}
                                     onClick={clickDetail(row.id)}>
-                                        Upload Ulang
-                                    </button>
-                                </div>
-
-                                <div className='col-5' >
-                                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }} 
+                                Upload Ulang
+                            </button>
+                        </div>
+                        <div className='col-5' >
+                            <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }}
                                     onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar)}>
-                                           Lihat
-                                    </button>
-                                </div>
-                                
-                                
-                            </div>
+                                Lihat
+                            </button>
+                        </div>
+                    </div>
                 }
-                else if(row.status_bayar==='payment_verified'){
+                else if(['payment_verified', 'canceled', 'completed'].includes(row.status_bayar)){
                     return <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }} 
                     onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar)}>
                            Lihat
                     </button>
                 }
-                else{
-                    return 'status bayar tidak terdeteksi'
-                }
-                
             }
-
     },
     ];
 
