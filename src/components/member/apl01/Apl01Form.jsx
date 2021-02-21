@@ -1,33 +1,63 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import DatePicker from "react-datepicker";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SignatureCanvas from 'react-signature-canvas'
+import { getApl01Action, postApl01Action } from '../../../redux/actions/apl01.action'
+import moment from 'moment'
+import Apl01CustomData from './Apl01CustomData'
 
 const Apl01 = () => {
+    const dispatch = useDispatch()
+    const auth = useSelector(state => state.auth)
+    const apl01 = useSelector(state => state.apl01)
 
     const [stateForm, setStateForm] = useState({
-        name : '' ,
-        address : '' ,
-        phone_number : '' ,
-        gender : '' ,
-        birth_place : '' ,
-        birth_date : new Date() ,
-        no_ktp : '' ,
-        pendidikan_terakhir : 'SMA' ,
-        has_job : false ,
-        job_title : '' ,
-        job_address : '' ,
-        company_name : '' ,
-        company_phone : '' ,
-        company_email : ''
-          
+        name: '',
+        address: '',
+        phone_number: '',
+        gender: 'pria',
+        birth_place: '',
+        birth_date: new Date(),
+        no_ktp: '',
+        pendidikan_terakhir: 'SMA',
+        has_job: false,
+        job_title: '',
+        job_address: '',
+        company_name: '',
+        company_phone: '',
+        company_email: ''
+
     });
 
+    useEffect(() => {
+        dispatch(getApl01Action(auth.token))
+    }, [])
+
+    useEffect(() => {
+        if (apl01.apl01.id) {
+            const birth_date = moment(apl01.apl01.birth_date, 'YYYY-MM-DD').toDate()
+            setStateForm({
+                ...apl01.apl01,
+                gender: apl01.apl01 && apl01.apl01.gender.toLowerCase(),
+                birth_date
+            })
+        }
+
+    }, [apl01])
+
     const onChangeField = index => e => {
-        setStateForm({ ...stateForm , [index] : e.target.value })
+        setStateForm({ ...stateForm, [index]: e.target.value })
     }
 
     let sigPad = useRef()
+
+    const onSave = () => {
+        dispatch(postApl01Action(auth.token, {
+            ...stateForm,
+            birth_date: moment(stateForm.birth_date).format('YYYY-MM-DD')
+        }))
+    }
 
     return (
         <div className='container my-4' >
@@ -44,7 +74,7 @@ const Apl01 = () => {
                     </Link>
                 </div>
             </div>
-            <div className='row mt-4 ' >
+            {/* <div className='row mt-4 ' >
                 <div className='col-3 d-flex align-items-center' >
                     <label className=' mb-0 ' >
                         Pendaftar
@@ -55,7 +85,7 @@ const Apl01 = () => {
                         <option>Perorangan</option>
                     </select>
                 </div>
-            </div>
+            </div> */}
             <div className='row mt-4 ' >
                 <div className='col-3 d-flex align-items-center ' >
                     <label className=' mb-0 ' >
@@ -63,8 +93,9 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  ' 
-                    onChange={ onChangeField('no_ktp') } />
+                    <input className='form-control bg-white  '
+                        value={stateForm.no_ktp}
+                        onChange={onChangeField('no_ktp')} />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -74,8 +105,9 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  ' 
-                     onChange={ onChangeField('name') } />
+                    <input className='form-control bg-white  '
+                        value={stateForm.name}
+                        onChange={onChangeField('name')} />
                 </div>
             </div>
             <div className='row mt-4 ' >
@@ -85,7 +117,9 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9 d-flex flex-wrap align-items-center ' >
-                    <input className='form-control bg-white  ' style={{ flex: 1 }} />
+                    <input className='form-control bg-white  ' style={{ flex: 1 }}
+                        value={stateForm.birth_place}
+                        onChange={onChangeField('birth_place')} />
                     <span className='mx-4 ' style={{ fontSize: 30, lineHeight: 0 }} >-</span>
                     <DatePicker
                         className='form-control bg-white  '
@@ -102,21 +136,22 @@ const Apl01 = () => {
                 <div className='col-9 d-flex flex-wrap ' >
                     <div className="form-check mr-2" style={{ width: 100 }} >
                         <input className="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="pria"
-                        defaultChecked onClick={ onChangeField('gender') } />
+                            checked={stateForm.gender === 'pria'} onClick={onChangeField('gender')} />
                         <label className="form-check-label" htmlFor="pria">
                             Laki-Laki
                         </label>
                     </div>
                     <div className="form-check">
-                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="wanita" 
-                        onChange={ onChangeField('wanita') } />
+                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="wanita"
+                            checked={stateForm.gender === 'wanita'}
+                            onChange={onChangeField('gender')} />
                         <label className="form-check-label" htmlFor="wanita">
                             Perempuan
                         </label>
                     </div>
                 </div>
             </div>
-            <div className='row mt-4 ' >
+            {/* <div className='row mt-4 ' >
                 <div className='col-3 d-flex align-items-center' >
                     <label className=' mb-0 ' >
                         Kewarnegaraan
@@ -136,7 +171,7 @@ const Apl01 = () => {
                         </label>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className='row mt-4 ' >
                 <div className='col-3 d-flex ' >
@@ -145,8 +180,10 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <textarea className='form-control bg-white  ' 
-                    onChange={ onChangeField('address') } />
+                    <textarea className='form-control bg-white p-1 '
+                        value={stateForm.address}
+                        onChange={onChangeField('address')} >
+                    </textarea>
                 </div>
             </div>
 
@@ -157,8 +194,9 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <input type='number' className='form-control bg-white  ' 
-                     onChange={ onChangeField('phone_number') } />
+                    <input type='number' className='form-control bg-white  '
+                        value={stateForm.phone_number}
+                        onChange={onChangeField('phone_number')} />
                 </div>
             </div>
 
@@ -169,7 +207,9 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <select className='form-control bg-white  ' onChange={ onChangeField('pendidikan_terakhir') } >
+                    <select className='form-control bg-white  '
+                        value={stateForm.pendidikan_terakhir}
+                        onChange={onChangeField('pendidikan_terakhir')} >
                         <option value="SMA" >SMA Sederajat</option>
                         <option value="SMP" >SMP Sederajat</option>
                         <option value="SD" >SD Sederajat</option>
@@ -186,7 +226,8 @@ const Apl01 = () => {
                 <div className='col-9 d-flex flex-wrap ' >
                     <div className="form-check mr-2" style={{ width: 100 }} >
                         <input className="form-check-input"
-                            type="radio" name="pekerjaan" id="bekerja" 
+                            type="radio" name="pekerjaan" id="bekerja"
+                            checked={stateForm.has_job}
                             onChange={e => setStateForm({
                                 ...stateForm,
                                 has_job: true
@@ -197,6 +238,7 @@ const Apl01 = () => {
                     </div>
                     <div className="form-check">
                         <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false" defaultChecked
+                            checked={!stateForm.has_job}
                             onChange={e => setStateForm({
                                 ...stateForm,
                                 has_job: false
@@ -216,7 +258,9 @@ const Apl01 = () => {
                         </label>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  ' />
+                        <input className='form-control bg-white  '
+                            value={stateForm.company_name}
+                            onChange={onChangeField('company_name')} />
                     </div>
                 </div>
 
@@ -227,18 +271,22 @@ const Apl01 = () => {
                         </label>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  ' />
+                        <input className='form-control bg-white  '
+                            value={stateForm.job_title}
+                            onChange={onChangeField('job_title')} />
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
                     <div className='col-3 d-flex ' >
                         <label className=' mb-0 ' >
-                            Alamat Perusahaan
+                            Alamat Pekerjaan
                     </label>
                     </div>
                     <div className='col-9' >
-                        <textarea className='form-control bg-white  ' />
+                        <textarea className='form-control bg-white  '
+                            value={stateForm.job_address}
+                            onChange={onChangeField('job_address')} />
                     </div>
                 </div>
 
@@ -249,7 +297,9 @@ const Apl01 = () => {
                         </label>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  ' />
+                        <input className='form-control bg-white  '
+                            value={stateForm.company_email}
+                            onChange={onChangeField('company_email')} />
                     </div>
                 </div>
 
@@ -260,7 +310,9 @@ const Apl01 = () => {
                     </label>
                     </div>
                     <div className='col-9' >
-                        <input type='number' className='form-control bg-white  ' />
+                        <input type='number' className='form-control bg-white  '
+                            value={stateForm.company_phone}
+                            onChange={onChangeField('company_phone')} />
                     </div>
                 </div>
 
@@ -269,55 +321,11 @@ const Apl01 = () => {
 
             <div className='row mt-4 ' >
                 <div className='col ' >
-                    <table className='table table-bordered '>
-                        <thead>
-                            <tr>
-                                <th scope="col">Jenis Dokumen</th>
-                                <th scope="col">Nama Dokumen</th>
-                                <th scope="col" width='150' >Status</th>
-                                <th scope="col" width='180' >Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody className='bg-white' >
-                            <tr>
-                                <td>Pas Photo</td>
-                                <td>FotoBGmerah</td>
-                                <td>
-                                    <button className='btn btn-sm btn-success '> Sudah Diunggah </button>
-                                </td>
-                                <td>
-                                    <button className='btn btn-sm btn-success mr-2'> Lihat </button>
-                                    <button className='btn btn-sm btn-primary '> Unggah </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ijazah Terakhir</td>
-                                <td>ijazahSMA</td>
-                                <td>
-                                    <button className='btn btn-sm btn-danger '> Sudah Diunggah </button>
-                                </td>
-                                <td>
-                                    <button className='btn btn-sm btn-success mr-2' disabled > Lihat </button>
-                                    <button className='btn btn-sm btn-primary '> Unggah </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td >KTP</td>
-                                <td >FotoKTP</td>
-                                <td>
-                                    <button className='btn btn-sm btn-danger '> Sudah Diunggah </button>
-                                </td>
-                                <td>
-                                    <button className='btn btn-sm btn-success mr-2' disabled > Lihat </button>
-                                    <button className='btn btn-sm btn-primary '> Unggah </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <Apl01CustomData apl01={apl01} />
                 </div>
             </div>
 
-            <div className='row mt-4 ' >
+            {/* <div className='row mt-4 ' >
                 <div className='col-3 ' >
                     <label className=' mb-0 ' >
                         Tanda Tangan
@@ -332,15 +340,15 @@ const Apl01 = () => {
                         sigPad.clear()
                     }} >Ulangi Tanda Tangan</a>
                 </div >
-            </div>
-                
+            </div>  */}
+
             <div className='row mt-4 ' >
-                    <div className='col ' >
-                        <button className='btn btn-primary float-right ' >
-                            Selanjutnya
+                <div className='col ' >
+                    <button className='btn btn-primary float-right ' onClick={onSave} >
+                        Selanjutnya
                         </button>
-                        </div>
-                    </div>
+                </div>
+            </div>
         </div>
     )
 }

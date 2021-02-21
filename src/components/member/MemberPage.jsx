@@ -15,7 +15,6 @@ const DaftarUjianSukses=lazy(()=>import('../success/SuccessRegisterSertifikasi')
 const MenungguPembayaran = lazy(()=>import('./MenungguPembayaran/MenungguPembayaran'))
 const ViewApl02 =lazy(()=>import('./apl02/Apl02Form'))
 const ViewApl01 = lazy(()=>import('./apl01/Apl01Form'))
-const EditApl01=lazy(()=>import('./apl01/Apl01EditForm'))
 
 const MemberPage = () => {
     return(
@@ -38,7 +37,6 @@ const MemberPage = () => {
                         {/* <Route path='/member/isi/apl02' component={}/> */}
                         <Route path='/member/isi/apl02' component={ViewApl02} />
                         <Route path='/member/apl-01' component={ViewApl01} />
-                        <Route path='/member/edit/apl-01' component={EditApl01} />
                     </Switch>
                 </Suspense>
             </Main>

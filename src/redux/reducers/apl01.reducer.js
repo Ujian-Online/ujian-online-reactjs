@@ -2,7 +2,8 @@ import * as types from '../types/apl01.type'
 
 
 const initialState = {
-    apl01:[],
+    apl01 : {} ,
+    customData : [] ,
     isLoading: false,
     errMessage: null,
     isSuccessPost: false
@@ -12,7 +13,8 @@ export default(state=initialState,action={})=>{
     switch (action.type){
         case types.GET_APL01:return{
             ...state,
-            apl01:action.apl01,
+            apl01 : action.apl01,
+            customData : action.customData,
             isLoading:false,
             errMessage:null,
         }
