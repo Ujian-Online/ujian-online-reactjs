@@ -67,11 +67,9 @@ const Apl01 = () => {
                         FR APL 01. <br />
                         FORMULIR PERMOHONAN SERTIFIKASI KOMPETENSI
                     </h6>
-                    <Link to="/member/edit/apl-01">
-                        <button className='btn btn-sm btn-warning text-white ' >
-                            Edit Form
-                        </button>
-                    </Link>
+                    {/* <button className='btn btn-sm btn-warning text-white ' >
+                        Edit Form
+                    </button> */}
                 </div>
             </div>
             {/* <div className='row mt-4 ' >
