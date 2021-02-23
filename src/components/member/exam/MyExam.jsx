@@ -67,7 +67,7 @@ const MyExam = () => {
 
     //clickButtonControl
     const clickButton=()=>{
-        history.push("/member/isi/apl02")
+        history.push("/member/apl02")
     }
 
     const columns = [
