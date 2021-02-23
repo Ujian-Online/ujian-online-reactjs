@@ -1,17 +1,34 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import DatePicker from "react-datepicker";
-import { Link } from 'react-router-dom'
-import SignatureCanvas from 'react-signature-canvas'
+import { useHistory } from 'react-router-dom'
+// import SignatureCanvas from 'react-signature-canvas'
 import { getApl01Action, postApl01Action } from '../../../redux/actions/apl01.action'
 import moment from 'moment'
 import Apl01CustomData from './Apl01CustomData'
+import { MdCreate } from 'react-icons/md'
+import { createUseStyles } from 'react-jss'
+const useStyles = createUseStyles({
+    container: {
+        '& input[disabled], & textarea[disabled], & select[disabled], & input[disabled]~.form-check-label' : {
+            background: 'white' ,
+            color: '#212529',
+            fontSize: '16px'
+        },
+        '& input[disabled][type="radio"]' : {
+            visibility: 'hidden'
+        },        
+    },
+    
+})
 
 const Apl01 = () => {
     const dispatch = useDispatch()
+    const classes = useStyles()
+    const history = useHistory()
     const auth = useSelector(state => state.auth)
     const apl01 = useSelector(state => state.apl01)
-
+    const [isDisabled, setDisable] = useState(true)
     const [stateForm, setStateForm] = useState({
         name: '',
         address: '',
@@ -60,16 +77,22 @@ const Apl01 = () => {
     }
 
     return (
-        <div className='container my-4' >
+        <div className={`container my-4 bg-white p-3 rounded `+ classes.container } >
             <div className='row'>
                 <div className='col d-flex align-items-center justify-content-between ' >
                     <h6>
                         FR APL 01. <br />
                         FORMULIR PERMOHONAN SERTIFIKASI KOMPETENSI
                     </h6>
-                    {/* <button className='btn btn-sm btn-warning text-white ' >
-                        Edit Form
-                    </button> */}
+                    {
+                        isDisabled ? (<button className='btn btn-sm btn-warning text-white ' onClick={() => setDisable(false)} >
+                            <MdCreate /> Edit Form
+                        </button>) :
+                            <button className='btn btn-sm btn-secondary text-white ' onClick={() => setDisable(true)} >
+                                Batal
+                    </button>
+                    }
+
                 </div>
             </div>
             {/* <div className='row mt-4 ' >
@@ -79,69 +102,82 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-9' >
-                    <select className='form-control bg-white  ' >
+                    <select className='form-control   ' >
                         <option>Perorangan</option>
                     </select>
                 </div>
             </div> */}
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center ' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         No. Identitas
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  '
+                    <input className='form-control   '
+                        disabled={isDisabled}
                         value={stateForm.no_ktp}
                         onChange={onChangeField('no_ktp')} />
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         Nama Lengkap
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9' >
-                    <input className='form-control bg-white  '
+                    <input className='form-control   '
                         value={stateForm.name}
+                        disabled={isDisabled}
                         onChange={onChangeField('name')} />
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         Tempat & Tanggal Lahir
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9 d-flex flex-wrap align-items-center ' >
-                    <input className='form-control bg-white  ' style={{ flex: 1 }}
+                    <input className='form-control   ' style={{ flex: 1 }}
+                        disabled={isDisabled}
                         value={stateForm.birth_place}
                         onChange={onChangeField('birth_place')} />
                     <span className='mx-4 ' style={{ fontSize: 30, lineHeight: 0 }} >-</span>
                     <DatePicker
-                        className='form-control bg-white  '
+                        disabled={isDisabled}
+                        className='form-control   '
                         selected={stateForm.birth_date}
                         onChange={birth_date => setStateForm({ ...stateForm, birth_date })} />
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         Jenis Kelamin
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9 d-flex flex-wrap ' >
-                    <div className="form-check mr-2" style={{ width: 100 }} >
-                        <input className="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="pria"
-                            checked={stateForm.gender === 'pria'} onClick={onChangeField('gender')} />
+                    <div className={`form-check mr-2 `+ ((isDisabled && stateForm.gender !== 'pria' ) ? 'd-none' : '' ) }
+                         style={{ width: 100 }} >
+                        <input className="form-check-input"
+                            type="radio"
+                            name="jenis_kelamin" id="pria" value="pria"
+                            disabled={isDisabled}
+                            checked={stateForm.gender === 'pria' } onClick={onChangeField('gender')} />
                         <label className="form-check-label" htmlFor="pria">
                             Laki-Laki
                         </label>
                     </div>
-                    <div className="form-check">
+                    <div className={`form-check `+ ((isDisabled && stateForm.gender !== 'wanita' ) ? 'd-none' : '') } >
                         <input className="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="wanita"
                             checked={stateForm.gender === 'wanita'}
+                            disabled={isDisabled}
                             onChange={onChangeField('gender')} />
                         <label className="form-check-label" htmlFor="wanita">
                             Perempuan
@@ -172,41 +208,47 @@ const Apl01 = () => {
             </div> */}
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex ' >
+                <div className='col-3 d-flex justify-content-between ' >
                     <label className=' mb-0 ' >
                         Alamat
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9' >
-                    <textarea className='form-control bg-white p-1 '
+                    <textarea className='form-control  py-2 px-3 '
                         value={stateForm.address}
+                        disabled={isDisabled}
                         onChange={onChangeField('address')} >
                     </textarea>
                 </div>
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         No. Telp
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9' >
-                    <input type='number' className='form-control bg-white  '
+                    <input type='number' className='form-control   '
                         value={stateForm.phone_number}
+                        disabled={isDisabled}
                         onChange={onChangeField('phone_number')} />
                 </div>
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         Pendidikan Terakhir
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9' >
-                    <select className='form-control bg-white  '
+                    <select className='form-control   '
                         value={stateForm.pendidikan_terakhir}
+                        disabled={isDisabled}
                         onChange={onChangeField('pendidikan_terakhir')} >
                         <option value="SMA" >SMA Sederajat</option>
                         <option value="SMP" >SMP Sederajat</option>
@@ -216,15 +258,18 @@ const Apl01 = () => {
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center' >
+                <div className='col-3 d-flex align-items-center justify-content-between ' >
                     <label className=' mb-0 ' >
                         Pekerjaan
                     </label>
+                    <span>:</span>
                 </div>
                 <div className='col-9 d-flex flex-wrap ' >
-                    <div className="form-check mr-2" style={{ width: 100 }} >
+                    <div className={`form-check mr-2 `+ ((isDisabled && !stateForm.has_job  ) ? 'd-none' : '') } 
+                    style={{ width: 100 }} >
                         <input className="form-check-input"
                             type="radio" name="pekerjaan" id="bekerja"
+                            disabled={isDisabled}
                             checked={stateForm.has_job}
                             onChange={e => setStateForm({
                                 ...stateForm,
@@ -234,9 +279,10 @@ const Apl01 = () => {
                             Bekerja
                         </label>
                     </div>
-                    <div className="form-check">
+                    <div className={`form-check `+ ((isDisabled && stateForm.has_job  ) ? 'd-none' : '') } >
                         <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false" defaultChecked
                             checked={!stateForm.has_job}
+                            disabled={isDisabled}
                             onChange={e => setStateForm({
                                 ...stateForm,
                                 has_job: false
@@ -250,66 +296,76 @@ const Apl01 = () => {
             {stateForm.has_job ? <>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center' >
+                    <div className='col-3 d-flex align-items-center justify-content-between ' >
                         <label className=' mb-0 ' >
                             Nama Perusahaan
                         </label>
+                        <span>:</span>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  '
+                        <input className='form-control   '
                             value={stateForm.company_name}
+                            disabled={isDisabled}
                             onChange={onChangeField('company_name')} />
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center' >
+                    <div className='col-3 d-flex align-items-center justify-content-between ' >
                         <label className=' mb-0 ' >
                             Jabatan
                         </label>
+                        <span>:</span>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  '
+                        <input className='form-control   '
                             value={stateForm.job_title}
+                            disabled={isDisabled}
                             onChange={onChangeField('job_title')} />
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex ' >
-                        <label className=' mb-0 ' >
+                    <div className='col-3 d-flex justify-content-between ' >
+                        <label className='mb-0 ' >
                             Alamat Pekerjaan
-                    </label>
+                        </label>
+                        <span>:</span>
                     </div>
                     <div className='col-9' >
-                        <textarea className='form-control bg-white  '
+                        <textarea className='form-control  py-2 px-3 '
                             value={stateForm.job_address}
+                            disabled={isDisabled}
                             onChange={onChangeField('job_address')} />
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center' >
+                    <div className='col-3 d-flex align-items-center justify-content-between ' >
                         <label className=' mb-0 ' >
                             Email Perusahaan
                         </label>
+                        <span>:</span>
                     </div>
                     <div className='col-9' >
-                        <input className='form-control bg-white  '
+                        <input className='form-control   '
                             value={stateForm.company_email}
+                            disabled={isDisabled}
                             onChange={onChangeField('company_email')} />
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center' >
+                    <div className='col-3 d-flex align-items-center justify-content-between ' >
                         <label className=' mb-0 ' >
                             No. Telp Perusahaan
-                    </label>
+                        </label>
+                        <span>:</span>
                     </div>
                     <div className='col-9' >
-                        <input type='number' className='form-control bg-white  '
+                        <input type='number' className='form-control   '
                             value={stateForm.company_phone}
+                            disabled={isDisabled}
                             onChange={onChangeField('company_phone')} />
                     </div>
                 </div>
@@ -342,9 +398,14 @@ const Apl01 = () => {
 
             <div className='row mt-4 ' >
                 <div className='col ' >
-                    <button className='btn btn-primary float-right ' onClick={onSave} >
-                        Selanjutnya
-                        </button>
+                    {
+                        isDisabled ? (<button className='btn btn-primary float-right ' onClick={() => history.push('/member/apl-02') } >
+                            Selanjutnya
+                        </button>) :
+                            (<button className='btn btn-success float-right ' onClick={onSave} >
+                                Simpan
+                            </button>)
+                    }
                 </div>
             </div>
         </div>
