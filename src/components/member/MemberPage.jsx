@@ -35,7 +35,7 @@ const MemberPage = () => {
                         <Route path='/member/order/:id' component={UploadPembayaran} />
                         <Route path="/member/menunggu-pembayaran" component={MenungguPembayaran}/>
                         {/* <Route path='/member/isi/apl02' component={}/> */}
-                        <Route path='/member/isi/apl02' component={ViewApl02} />
+                        <Route path='/member/apl-02' component={ViewApl02} />
                         <Route path='/member/apl-01' component={ViewApl01} />
                     </Switch>
                 </Suspense>

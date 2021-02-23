@@ -10,7 +10,6 @@ export const getApl01Action = (token)=>{
            const customData = (response.customdata || []).map( cmd => {
                 const asesiCmd = asesicustomdata.find( ascmd => ascmd.title === cmd.title ) 
                 if(asesiCmd) {
-                    cmd.id = asesiCmd.id
                     cmd.value = asesiCmd.value
                 }
                 return cmd
