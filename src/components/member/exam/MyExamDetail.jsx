@@ -1,11 +1,58 @@
 import { useState } from 'react'
 import { useHistory , useParams } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getDetailExamAction } from '../../../redux/actions/exam.action'
 
-const MyExamDetail = () => {
+const MyExamDetail = (props) => {
 
     const history = useHistory()
-    const { id } = useParams()
+    
+    //reducer token
+    const auth=useSelector(state=>state.auth)
+
+    //ekstrak id kemudian fetch ke dalam action
+    const { id } = props.match.params
+    useEffect(() => {
+       detailListExam()
+    }, [])
+
+    //get sertifikasi detail action dan masukan id
+    const dispatch = useDispatch()
+    const detailListExam = () => {
+        dispatch(getDetailExamAction(auth.token,id))
+    }
+
+    //list reducer exam detail
+    //reducer exam
+    const exam = useSelector(state => state.exam || {})
+
+    //reducer detail exam
+    const detailExam = exam.detailExam || {}
+
+    //reducer soal paket by detail exam
+    const soalpaket = detailExam.soalpaket || {}
+
+    //reducer jadwal ujian by detail exam
+    const ujianjadwal=detailExam.ujianjadwal||{}
+
+    //reducer ujian asesi jawaban
+    const ujianasesijawaban=detailExam.ujianasesijawaban||{}
+
+    var TotalSoal = ujianasesijawaban.length;
+
+    // useEffect(()=>{
+    //     if(detailExam.status==="menunggu"){
+    //         console.log('menunggu',exam)
+    //         // handleShowModalStatus()
+    //     }
+    //     else if(detailExam.status==="paket_soal_Assigned"){
+    //         console.log('silahkan lanjut')
+    //         // history.push(`/member/ujian-saya/${id}/soal`) 
+    //     }
+    // },[exam.exam.status])
+    //render Modal button
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
@@ -22,10 +69,40 @@ const MyExamDetail = () => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="default" onClick={ handleCloseModal } >Kembali</Button>
-                <Button variant="primary" onClick={ () => history.push(`/member/ujian-saya/${id}/soal`) } >Mulai</Button>
+                <Button variant="primary" onClick={clickButton} >Mulai</Button>
             </Modal.Footer>
         </Modal>
     )
+
+    const clickButton=()=>{
+        if(detailExam.status=="paket_soal_assigned"){
+            // console.log('lanjutkan')
+            history.push(`/member/ujian-saya/${id}/soal`) 
+        }
+        else{
+            // console.log('error')
+            handleShowModalStatus()
+        }
+    }
+
+     //Modal untuk kesalahan klik
+     const [showModalStatus, setShowModalStatus] = useState(false);
+     const handleCloseModalStatus = () => setShowModalStatus(false)
+     const handleShowModalStatus = () => setShowModalStatus(true);
+    
+     const renderModalRow = () => (
+         <Modal show={showModalStatus} onHide={handleCloseModalStatus}>
+                <Modal.Header>
+                    <Modal.Title>Kesalahan Klik</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Ujian akan dimulai ketika status ujian paket soal assigned
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="default" onClick={ handleCloseModalStatus } >Kembali</Button>
+                </Modal.Footer>
+         </Modal>
+     )
 
     return (
         <div className='container' >
@@ -39,42 +116,47 @@ const MyExamDetail = () => {
                             <p>
                                 <strong>Assesor</strong>
                                 <br />
-                                <span>Muhammad Aziz, M.Psi, Psi</span>
+                                <span>{detailExam.asesor_id}</span>
                             </p>
                             <p>
-                                <strong>Skema Sertifikasi</strong>
+                                <strong>Jenis ujian</strong>
                                 <br />
-                                <span>Supervisor Pengelolaan Sumber Daya Manusia</span>
+                                <span>{ujianjadwal.title}</span>
                             </p>
                             <p>
-                                <strong>Skema Sertifikasi</strong>
+                                <strong>Deskripsi ujian</strong>
                                 <br />
-                                <span>Supervisor Pengelolaan Sumber Daya Manusia</span>
+                                <span>{ujianjadwal.description}</span>
                             </p>
-                            <p>
+                            {/* <p>
                                 <strong>Jumlah Soal Pilihan Ganda</strong>
                                 <br />
-                                <span>20 Soal</span>
-                            </p>
-                            <p>
+                                <span>{TotalSoal}</span>
+                            </p> */}
+                            {/* <p>
                                 <strong>Jumlah Soal Essay</strong>
                                 <br />
                                 <span>20 Soal</span>
+                            </p> */}
+                            <p>
+                                <strong>Tanggal & Jam</strong>
+                                <br />
+                                <span>{ujianjadwal.tanggal}</span>
                             </p>
                             <p>
                                 <strong>Waktu Pengerjaan</strong>
                                 <br />
-                                <span>90 Menit</span>
+                                <span>120 Menit</span>
                             </p>
                             <p>
-                                <strong>Tanggal & Jam</strong>
+                                <strong>Jumlah Soal</strong>
                                 <br />
-                                <span>Sabtu, 12 Desember 2020, 14.00 PM</span>
+                                <span>{TotalSoal}</span>
                             </p>
                             <p>
                                 <strong>Status Ujian</strong>
                                 <br />
-                                <span>Menunggu Jadwal Ujian</span>
+                                <span>{detailExam.status}</span>
                             </p>
                         </div>
                     </div>
@@ -88,8 +170,9 @@ const MyExamDetail = () => {
                             Sebelum mengerjakan Ujian Online, baca degan cermat petunjuk berikut :
                                 <ul style={{ listStyle: 'decimal', paddingInlineStart: '15px' }} >
                                 <li>Ujian bisa dikerjakan sesuai dengan jadwal yang sudah ditetapkan.</li>
+                                <li>Soal dapat berupa Essay maupun Pilihan ganda</li>
                                 <li>Jika jadwal ujian sudah sesuai dengan tanggal dan jam waktu setempat klik  pada tombol (Mulai Ujian) untuk memulai ujian.</li>
-                                <li>Kerjakan ujian dengan batsa waktu yang ditetapkan. waktu akan berjalan mundur yang berada di sebalah kanan atas setelah Anda mengkik (Mulai Ujian)</li>
+                                <li>Kerjakan ujian dengan batas waktu yang ditetapkan. waktu akan berjalan mundur yang berada di sebalah kanan atas setelah Anda mengkik (Mulai Ujian)</li>
                                 <li>Jika anda telah menjawab soal maka tombol nomer urut soal yang berada disebelah kanan akan berwarna hijau dan jika belum diisi maka tidak berwarna.</li>
                                 <li>Jika sudah selesai menjawab soal dengan yakin, silahkan untuk klik tombol selesai yang berada diatas sebelah kanan.</li>
                             </ul>
@@ -102,6 +185,7 @@ const MyExamDetail = () => {
                 </div>
             </div>
             {renderModal()}
+            {renderModalRow()}
         </div>
     )
 }

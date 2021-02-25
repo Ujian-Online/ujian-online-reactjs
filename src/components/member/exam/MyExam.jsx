@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import { status_ujian , apl_02 } from './status'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,7 +36,7 @@ const customStyles = {
 
 
 
-const MyExam = () => {
+const MyExam = (props) => {
 
     const history = useHistory()
    
@@ -55,7 +55,7 @@ const MyExam = () => {
     // tampil data pada datatable
     const [myExam,setMyExam]=useState([])
     useEffect(()=>{
-        console.log('exam schedule',exam)
+        console.log('exam schedule list',exam)
         setMyExam([ ...(exam.exam || [] ).map(exm=>({
             no:exm.id,
             skema_sertifikasi: exm.sertifikasi && exm.sertifikasi.title || '',
@@ -117,15 +117,11 @@ const MyExam = () => {
                </Modal.Body>
         </Modal>
     )
-
+    const clickRow=(id)=>()=>{
+        history.push(`/member/ujian-saya/${id}`)
+    }
     const onClickRow = (row) => {
-        if(row.status=="paket_soal_assigned"){
             history.push(`/member/ujian-saya/${row.no}`)
-        }
-        else{
-            handleShowModal()
-        }
-        
     }
 
     return (
