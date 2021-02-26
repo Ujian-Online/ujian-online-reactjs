@@ -1,70 +1,19 @@
-import {useRef, useState} from 'react'
-import DataTable from 'react-data-table-component'
+import {useRef, useState , useEffect } from 'react'
+import { useDispatch , useSelector } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import {Modal,Button} from 'react-bootstrap'
 import SignatureCanvas from 'react-signature-canvas'
-
-const customStyles = {
-    headCells: {
-        style: {
-            background : '#ccc' ,
-            '&:nth-child(1)': {
-                maxWidth: '50px',
-                dispaly: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }
-        },
-    },
-    cells: {
-        style: {
-            fontSize: '14px' ,
-            cursor: 'pointer',
-            '&:nth-child(1)': {
-                maxWidth: '50px',
-                dispaly: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }
-        }
-    }
-
-}
+import { getApl02Action } from '../../../redux/actions/apl02.action'
 
 const Apl02Form=()=>{
     const history = useHistory()
     let sigPad = useRef()
+    const dispatch = useDispatch()
+    const auth = useSelector(state => state.auth )
 
-    // const [skema,setSkema]=useState([
-    //     {
-    //         pertanyaan:'pertanyaan 1 kriteria 1 kriteria 2',
-    //         bukti_relevan:'Bukti',
-    //         status: 'K/BK',
-    //         catatan:'seluruh dokumen sudah lengkap'
-    //     },
-    //     {
-    //         pertanyaan:'pertanyaan 2 kriteria 1 kriteria 2',
-    //        bukti_relevan:'Bukti',
-    //        status:'K/BK',
-    //        catatan:'seluruh dokumen sudah lengkap'
-    //     },
-    //     {
-    //         pertanyaan:'pertanyaan 3 kriteria 1 kriteria 2',
-    //        bukti_relevan:'Bukti',
-    //        status:'K/BK',
-    //        catatan:'seluruh dokumen sudah lengkap'
-    //     }
-    // ])
-
-    // const columns=[
-    //     {selector : 'pertanyaan',name:'Pertanyaan',sortable:true,center:true},
-    //     {selector:'bukti_relevan',name:'Bukti ',
-    //         format:row => bukti_relevan[row.bukti_relevan]
-    //     },
-    //     {selector:'status',name:'Status',sortable:true},
-    //     {selector:'catatan',name:'Catatan',sortable:true}
-    // ];
-    
+    useEffect(() => {
+        dispatch(getApl02Action(auth.token))
+    }, [] )
 
     //Modal untuk Simpan
     const [showModal, setShowModal] = useState(false);
