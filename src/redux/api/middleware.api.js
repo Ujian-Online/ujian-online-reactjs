@@ -9,7 +9,6 @@ export const apiMiddleware = store => next => action => {
   API.interceptors.request.use(
     config => {
       // Do something before request is sent(exemple check access token on localStorage)
-      console.log("interceptor Working!!", config);
       return config;
     },
     error => {
@@ -23,7 +22,6 @@ export const apiMiddleware = store => next => action => {
     response => {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
-      console.log("response handler is Working!!", response);
       return response;
     },
     error => {

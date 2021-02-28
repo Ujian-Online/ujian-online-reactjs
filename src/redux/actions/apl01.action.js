@@ -11,6 +11,7 @@ export const getApl01Action = (token)=>{
                 const asesiCmd = asesicustomdata.find( ascmd => ascmd.title === cmd.title ) 
                 if(asesiCmd) {
                     cmd.value = asesiCmd.value
+                    cmd.is_verified = asesiCmd.is_verified
                 }
                 return cmd
             })
@@ -30,7 +31,7 @@ export const postApl01Action = (token , payload )=>{
            await postApl01 (token , payload )
            dispatch({ type:types.APL01_POST_SUCCESS })
         }catch(err) {
-            dispatch({type:types.APL01_FAILED , errMessage : err })
+            dispatch({type:types.APL01_FAILED , errMessage : err && err.response && err.response.data || err })
             console.error('[postApl01Action]', err)
         }
     }

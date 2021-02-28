@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+    #detailInformasi.border-right {
+        border-right: none !important;
+    }
+}

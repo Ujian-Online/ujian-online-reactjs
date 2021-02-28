@@ -4,8 +4,9 @@ import { getDetailOrderAction, sendProofPaymentAction } from '../../../redux/act
 import { useDispatch, useSelector } from 'react-redux'
 import { createUseStyles } from 'react-jss'
 import { Spinner } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
+import DatePicker from '../../reuseable/DatePicker';
 import moment from 'moment';
+import './uploadBuktiPage.css'
 
 const useStyles = createUseStyles({
     detailInformasi: {
@@ -36,7 +37,7 @@ const UploadPembayaranPage = (props) => {
     })
 
     useEffect(() => {
-        setStateForm({ ...stateForm , bank_id :  bank[0] && bank[0].id || ''  })
+        setStateForm({ ...stateForm , bank_id :  bank[0] && bank[0].id || ''  })        
     }, [order ] )
 
     useEffect(() => {
@@ -55,6 +56,12 @@ const UploadPembayaranPage = (props) => {
         </Spinner>
     )
 
+    const renderErrorMsg = (message) => {
+        return(<div class="invalid-tooltip position-static d-inline-block " style={{ width : 'fit-content' , zIndex: 0 }}>
+        {message }
+      </div>)
+    }
+
     return (<div className='container my-4 ' >
         <div className='row ' >
             <div className='col-12 ' >
@@ -63,41 +70,41 @@ const UploadPembayaranPage = (props) => {
                     <h4 className='text-center ' >Pembayaran</h4>
                     <div className='container mt-4 mt-md-5 ' >
                         <div className='row mb-4 ' >
-                            <div className={`col-md-6 border-right ` + classes.detailInformasi} >
+                            <div id='detailInformasi' className={`col-md-6 border-right ` + classes.detailInformasi} >
                                 <div className='row px-0 px-md-4 ' >
-                                    <div className='col-4  ' >Nama</div>
-                                    <div className='col-8 ' >
-                                        : <span className='ml-2' >{user.email}</span>
+                                    <div className='col-sm-4  ' >Nama <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-8 ' >
+                                        <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >{user.email || '-' }</span>
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4 ' >
-                                    <div className='col-4 ' >Sertifikasi</div>
-                                    <div className='col-8 ' >
-                                        : <span className='ml-2' >{sertifikasi.title}</span>
+                                    <div className='col-sm-4 ' >Sertifikasi <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-8 ' >
+                                        <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >{sertifikasi.title || '-' }</span>
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4 ' >
-                                    <div className='col-4 ' >TUK</div>
-                                    <div className='col-8 ' >
-                                        : <span className='ml-2' >{tuk.title}</span>
+                                    <div className='col-sm-4 ' >TUK <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-8 ' >
+                                        <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >{tuk.title || '-' }</span>
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4 ' >
-                                    <div className='col-4 ' >Training</div>
-                                    <div className='col-8 ' >
-                                        : <span className='ml-2' >Training</span>
+                                    <div className='col-sm-4 ' >Training <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-8 ' >
+                                        <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >Training</span>
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4 ' >
-                                    <div className='col-4 ' >Sertifikasi Ulang</div>
-                                    <div className='col-8 ' >
-                                        : <span className='ml-2' >{detailOrder.tipe_sertifikasi}</span>
+                                    <div className='col-sm-4 ' >Sertifikasi Ulang <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-8 ' >
+                                        <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >{detailOrder.tipe_sertifikasi || '-' }</span>
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4 ' >
-                                    <div className='col-4 ' >No. Sertifikat</div>
-                                    <div className='col-8 ' >
-                                        : <span className='ml-2' >{detailOrder.asesi_id} </span>
+                                    <div className='col-sm-4 ' >No. Sertifikat <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-8 ' >
+                                        <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >{detailOrder.asesi_id || '-' } </span>
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4' >
@@ -144,7 +151,7 @@ const UploadPembayaranPage = (props) => {
                                     </div>
                                 </div>
                                 <div className='mt-4 ' >
-                                    <div className='mb-4 ' >
+                                    <div className='mb-2 d-flex flex-column ' >
                                         <div>Upload Bukti Transfer</div>
                                         <label className='d-block p-2 rounded mt-2 bg-light text-center cursor-pointer ' style={{ color: '#ccc' }} >
                                             <input type='file' className='d-none'
@@ -152,20 +159,26 @@ const UploadPembayaranPage = (props) => {
                                                 onChange={(e) => {
                                                     setStateForm({ ...stateForm, bukti_transfer: e.target.files[0] })
                                                 }} />
-                                            <span>Browse file ...</span>
+                                            <span>{ stateForm.bukti_transfer ? stateForm.bukti_transfer.name : 'Browse file ...' } </span>
                                         </label>
+                                        {order.errMessage && order.errMessage.errors 
+                                            && order.errMessage.errors.bukti_transfer &&  renderErrorMsg(order.errMessage.errors.bukti_transfer[0]) }
                                     </div>
 
-                                    <div className='mb-2 ' >
+                                    <div className='mb-2 d-flex flex-column ' >
                                         <div>Asal Bank</div>
                                         <input type='text' className='form-control '
                                             onChange={(e) => setStateForm({ ...stateForm, transfer_from_bank_name: e.target.value })} />
+                                        {order.errMessage && order.errMessage.errors 
+                                            && order.errMessage.errors.transfer_from_bank_name &&  renderErrorMsg(order.errMessage.errors.transfer_from_bank_name[0]) }
                                     </div>
 
-                                    <div className='mb-2 ' >
+                                    <div className='mb-2 d-flex flex-column ' >
                                         <div>Nomor Bank</div>
                                         <input type='text' className='form-control '
                                             onChange={(e) => setStateForm({ ...stateForm, transfer_from_bank_number: e.target.value })} />
+                                        {order.errMessage && order.errMessage.errors 
+                                            && order.errMessage.errors.transfer_from_bank_number &&  renderErrorMsg(order.errMessage.errors.transfer_from_bank_number[0]) }
                                     </div>
 
                                     <div className='mb-2 ' >
@@ -185,10 +198,12 @@ const UploadPembayaranPage = (props) => {
                                         </select>
                                     </div>
 
-                                    <div className='mb-2 ' >
+                                    <div className='mb-2  d-flex flex-column  ' >
                                         <div>Nama Pengirim</div>
                                         <input type='text' className='form-control'
                                             onChange={(e) => setStateForm({ ...stateForm, transfer_from_bank_account: e.target.value })} />
+                                        {order.errMessage && order.errMessage.errors 
+                                            && order.errMessage.errors.transfer_from_bank_account &&  renderErrorMsg(order.errMessage.errors.transfer_from_bank_account[0]) }
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +217,7 @@ const UploadPembayaranPage = (props) => {
                                 className='btn btn-primary' >
                                 {order.isLoading ? renderLoading() : 'Upload Pembayaran'}
                             </button>
-                            <button className='btn btn-light bg-gray mt-2 ' onClick={() => history.push('/member/ujian-baru')} >
+                            <button className='btn btn-light bg-gray mt-2 ' onClick={() => history.push('/member/menunggu-pembayaran')} >
                                 Kembali
                             </button>
                         </div>

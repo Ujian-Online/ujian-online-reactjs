@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap'
 import TdTable from './Apl01Td'
 
 
-const CustomDataComponents = ({ apl01 }) => {
+const CustomDataComponents = ({ apl01 , isDisabled }) => {
 
 
     const [show , setShow ] = useState(false);
@@ -54,13 +54,13 @@ const CustomDataComponents = ({ apl01 }) => {
                     <tr>
                         <th scope="col" >Judul</th>
                         <th scope="col"  >Jenis Data</th>
-                        <th scope="col" width='300' >Aksi</th>
+                        {isDisabled ? <th scope="col" width='300' >Status</th> : <th scope="col" width='300' >Aksi</th> } 
                     </tr>
                 </thead>
                 <tbody className='bg-white' >
                     {
                         (apl01.customData || []).map((cmData, key) => (
-                            <TdTable customData={cmData} key={key} openModal={openModal} />
+                            <TdTable customData={cmData} key={key} openModal={openModal} isDisabled={isDisabled} />
                         ))
                     }
 
