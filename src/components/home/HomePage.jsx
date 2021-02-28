@@ -10,7 +10,7 @@ const Petunjuk = lazy(() => import('./Petunjuk'))
 
 const HomePage = () => {
     return (
-        <div className='container-fluid bg-light'>
+        <div className='container-fluid bg-light' style={{ overflowX: 'hidden' }} >
             <Navbar />
             <Main>                
                 <Suspense fallback={<div className='d-flex justify-content-center w-100 mt-5' >Loading ...</div>}>

@@ -3,8 +3,15 @@ import { MdPublish , MdVisibility } from 'react-icons/md';
 import { Spinner } from 'react-bootstrap'
 import { postCustomDataAction } from '../../../redux/actions/apl01.action'
 import { useSelector, useDispatch } from 'react-redux'
+import { createUseStyles } from 'react-jss'
 
-
+const useStyles = createUseStyles({
+    status : {
+        padding: '5px',
+        fontSize: '14px',
+        color: 'white'
+    }
+})
 
 const customDataTypes = {
     text: "Teks",
@@ -12,8 +19,8 @@ const customDataTypes = {
     upload_image: "Unduh gambar"
 }
 
-const TdTable = ({ customData, openModal }) => {
-
+const TdTable = ({ customData, openModal , isDisabled }) => {
+    const classes = useStyles()
     const dispatch = useDispatch()
     const auth = useSelector(state => state.auth)
     const apl01 = useSelector(state => state.apl01)
@@ -79,7 +86,9 @@ const TdTable = ({ customData, openModal }) => {
     return (<tr >
         <td>{customData.title}</td>
         <td>{customDataTypes[customData.input_type]}</td>
-        <td>
+        {isDisabled ? <td> 
+            {customData.is_verified ? <span className={`badge badge-success ${classes.status}`}>Terverifikasi</span> : customData.value ? <span className={`badge badge-warning ${classes.status}`}>Belum diverifikasi</span> : <span className={`badge badge-warning ${classes.status}`}>Data kosong</span> } 
+        </td> : <td>
             <div className='d-flex align-items-center ' >
                 <div className='position-relative mb-2 flex-grow-1 ' >
                     {renderActions(customData.input_type)}
@@ -89,7 +98,7 @@ const TdTable = ({ customData, openModal }) => {
                     {isLoading ? renderLoading() : 'Simpan'}
                 </button>
             </div>
-        </td>
+        </td> }
     </tr>)
 }
 
