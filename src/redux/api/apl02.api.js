@@ -4,7 +4,7 @@ import { API } from './middleware.api'
 export const getApl02 = async (token ) => {
 
     return await API({
-        url : '/api/apl02/1' ,
+        url : '/api/apl02' ,
         method : 'GET',
         headers : {
             'Content-Type':'application/json',

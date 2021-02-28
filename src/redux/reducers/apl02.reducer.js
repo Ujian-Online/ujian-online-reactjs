@@ -2,7 +2,8 @@ import * as types from '../types/apl02.type'
 
 
 const initialState = {
-    apl02 : {} ,
+    apl02 : [] ,
+    // detailApl:{},
     isLoading: false,
     errMessage: null,
     isSuccessPost: false
@@ -13,6 +14,7 @@ export default(state=initialState,action={})=>{
         case types.GET_APL02:return{
             ...state,
             apl02 : action.apl02,
+            detail:action.detail,
             isLoading:false,
             errMessage:null,
         }
@@ -40,7 +42,13 @@ export default(state=initialState,action={})=>{
             errMessage:null,
             isSuccessPost : false
         }
-       
+       case types.SET_DETAIL_SHOW:return{
+           ...state,
+           isLoading:false,
+           detailApl:action.detailApl,
+           erMessage:null,
+           isSuccessPost:false
+       }
         default:return state
     }
 }
