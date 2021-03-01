@@ -14,7 +14,7 @@ export const getApl02 = async (token ) => {
 }
 
 
-export const postApl012 = async (token , payload ) => {
+export const postApl02 = async (token , payload ) => {
 
     const formData = new FormData()
     formData.set('id' , payload.id )

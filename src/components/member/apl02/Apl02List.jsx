@@ -23,9 +23,11 @@ const Apl02Form=(props)=>{
     const apl02=useSelector(state=>state.apl02)
 
     useEffect(()=>{
-        console.log('APL02 LIST',apl02)
+        // console.log('APL02 LIST',apl02)
+        let no = 1
         setSkema([ ...(apl02.apl02 || [] ).map(lstapl02=>({
-            no:lstapl02.sertifikasi_id,
+            no:no++,
+            id:lstapl02.sertifikasi_id,
             nomor_skema:lstapl02.sertifikasi.nomor_skema,
             title: lstapl02.sertifikasi && lstapl02.sertifikasi.title || '',
             status:lstapl02.sertifikasi.is_active?'aktif':'tidak aktif',
@@ -40,14 +42,15 @@ const Apl02Form=(props)=>{
     
      //columns
      const columns = [
-         { selector : 'no' , name : 'No' , sortable : true },
+         { selector : 'no' , name : 'No' , sortable : true , maxWidth: '100px' },
+         { selector : 'id' , name : 'id' , omit : true },
          { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
          { selector : 'title' , name : 'Judul Skema' , sortable : true },
          { selector : 'status' , name : 'Status' , sortable : true },
         
      ];
      const onClickRow = (row) => {
-        history.push(`/member/apl-02/${row.no}`)
+        history.push(`/member/apl-02/${row.id}`)
     }
 
 
@@ -57,7 +60,7 @@ const Apl02Form=(props)=>{
     <>
         <div className='container mt-5'>
             
-            <div className="card mt-5">
+            <div className="card">
             <h5 className="card-header text-center bg-white">List APL02</h5>
                 <div className="card-body">
                     <DataTable
