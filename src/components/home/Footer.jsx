@@ -10,7 +10,7 @@ const Footer = () => {
     const classes = useStyles()
 
     return (
-        <footer className={`row text-white p-3 mx-0 ${classes.container} pt-lg-4 pb-1`}  >
+        <footer className={`row text-white p-3 ${classes.container} pt-lg-4 pb-1`}  >
             <div className='col-md-4' >
                 <h4>Lembaga Serifikasi Profesi</h4>
                 <p className='text-muted'>

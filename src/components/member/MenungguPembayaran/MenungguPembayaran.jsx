@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import {useState} from 'react'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux'
-import {  useHistory} from 'react-router-dom'
+import {  Link, Route, useHistory} from 'react-router-dom'
 import { getOrderAction} from '../../../redux/actions/order.action'
 import {status_bayar} from './status'
 
@@ -56,11 +56,12 @@ const MenungguPembayaran=(props)=>{
         setSkema([ ...(order.order || [] ).map(o=>({
             id:o.id,
             no:o.sertifikasi_id,
-            skema_sertifikasi: o.sertifikasi && o.sertifikasi.title || 'skema sertifikasi ini tidak tersedia',
+            skema_sertifikasi: o.sertifikasi && o.sertifikasi.title || '',
             status_bayar:o.status,
             transfer_from_bank_name:o.transfer_from_bank_name,
             transfer_to_bank_name:o.transfer_to_bank_name,
-            transfer_from_bank_account:o.transfer_from_bank_account
+            transfer_from_bank_account:o.transfer_from_bank_account,
+            bukti:o.media_url_bukti_transfer
         }))])
     },[order.order])
 
@@ -98,6 +99,11 @@ const MenungguPembayaran=(props)=>{
                         <label className="col-md-2 col-sm-2">:</label>
                         <span className='ml-2' >{status_bayar[stateModal.status]}</span>
                     </div>
+                    <div className="form-group">
+                        <label className="col-md-3 col-sm-3">Bukti transfer</label>
+                        <label className="col-md-2 col-sm-2">:</label>
+                        <a href={stateModal.bukti}>Klik disini</a>
+                    </div>
                 </Modal.Body>
          </Modal>
      )
@@ -112,16 +118,18 @@ const MenungguPembayaran=(props)=>{
         transfer_from_bank_name:'',
         transfer_to_bank_name:'',
         transfer_from_bank_account:'',
-        status:''
+        status:'',
+        bukti:''
      })
 
      //button untuk kirim data useState dan tampilin Modal
-    const clickLihat = (transfer_from_bank_name,transfer_to_bank_name,transfer_from_bank_account,status)=>() => {
+    const clickLihat = (transfer_from_bank_name,transfer_to_bank_name,transfer_from_bank_account,status,bukti)=>() => {
         setStateModal({
             transfer_from_bank_name,
             transfer_to_bank_name,
             transfer_from_bank_account,
-            status
+            status,
+            bukti
         });
         handleShowModal()
     }
@@ -154,7 +162,7 @@ const MenungguPembayaran=(props)=>{
                         </div>
                         <div className='col-5' >
                             <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }}
-                                    onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar)}>
+                                    onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar,row.bukti)}>
                                 Lihat
                             </button>
                         </div>
@@ -162,7 +170,7 @@ const MenungguPembayaran=(props)=>{
                 }
                 else if(['payment_verified', 'canceled', 'completed'].includes(row.status_bayar)){
                     return <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px' }} 
-                    onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar)}>
+                    onClick={clickLihat(row.transfer_from_bank_name,row.transfer_to_bank_name,row.transfer_from_bank_account,row.status_bayar,row.bukti)}>
                            Lihat
                     </button>
                 }
