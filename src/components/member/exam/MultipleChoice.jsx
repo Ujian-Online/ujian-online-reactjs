@@ -1,5 +1,7 @@
+import {useSelector, useDispatch} from 'react-redux';
+import * as types from '../../../redux/types/ujian.type';
+
 import { createUseStyles } from 'react-jss'
-import { useState } from 'react'
 const useStyles = createUseStyles({
     option: {
         width: 25,
@@ -9,26 +11,22 @@ const useStyles = createUseStyles({
         width: 25,
         height: 25,
         background: '#087afc',
-        color: '#087afc'
+        color: 'white'
     }
 })
 
-const MultipleChoice = ({ title, content, multipleChoice }) => {
-    const [answer, setAnswer] = useState(null)
+const MultipleChoice = ({ title, content, multipleChoice, id }) => {
     const classes = useStyles()
-    content = (<span>
-        Udang ronggeng memiliki duri-duri yang keras, terutama di bagian atas kepala dan antena. Badannya yang besar dilindungi kulit keras yang mengandung zat kapur dan mempunyai bentuk tubuh yang menyerupai belalang. Habitat hidup udang ini di perairan karang, suatu kawasan laut yang banyak terdapat karang-karang, terumbu karang, batuan granit, atau vulkanis.
-        <br />
-            Makna istilah kata vulkanis pada kutipan teks tersebut adalah ….
-    </span>)
+    const answer = useSelector(state => state.ujian.answer[id]);
+    const dispatch = useDispatch();
 
-    multipleChoice = [
-        { value: 'A', question: 'Memiliki sifat gunung berapi' },
-        { value: 'B', question: 'Memiliki sifat gunung berapi' },
-        { value: 'C', question: 'Memiliki sifat gunung berapi' },
-        { value: 'D', question: 'Memiliki sifat gunung berapi' },
-        { value: 'E', question: 'Memiliki sifat gunung berapi' },
-    ]
+    let choices = []
+    Object.keys(multipleChoice).forEach(v => {
+        choices.push({
+            value: v,
+            question: multipleChoice[v]
+        })
+    })
 
     return (
         <div className='card mt-2' >
@@ -41,14 +39,18 @@ const MultipleChoice = ({ title, content, multipleChoice }) => {
                 </div>
                 <div className='d-flex flex-column p-2' >
                     {
-                        multipleChoice.map(val => (
+                        choices.map(val => (
                             <label key={val.value} className='d-flex align-items-center mb-1 cursor-pointer '>
                                 <input
                                     type='radio'
                                     name='soal'
                                     className='d-none'
                                     value={val.value}
-                                    onClick={(e) => setAnswer(e.target.value)} />
+                                    onClick={e => dispatch({
+                                        type: types.SET_ANSWER,
+                                        id,
+                                        answer: e.target.value
+                                    })} />
                                 <span className={`rounded-circle border text-center mr-2 ${answer === val.value ? classes.optionHightlight : classes.option}`} >
                                     {val.value}
                                 </span>
