@@ -67,7 +67,7 @@ const MyExam = (props) => {
 
     //clickButtonControl
     const clickButton=()=>{
-        history.push("/member/apl02")
+        history.push("/member/apl-02")
     }
 
     const columns = [
