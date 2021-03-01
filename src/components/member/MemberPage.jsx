@@ -14,6 +14,7 @@ const DaftarUjianPage=lazy(()=>import('./daftarUjian/DaftarUjianPage'))
 const DaftarUjianSukses=lazy(()=>import('../success/SuccessRegisterSertifikasi'))
 const MenungguPembayaran = lazy(()=>import('./MenungguPembayaran/MenungguPembayaran'))
 const ViewApl02 =lazy(()=>import('./apl02/Apl02Form'))
+const ListApl02 =lazy(()=>import('./apl02/Apl02List'))
 const ViewApl01 = lazy(()=>import('./apl01/Apl01Form'))
 
 const MemberPage = () => {
@@ -35,7 +36,8 @@ const MemberPage = () => {
                         <Route path='/member/order/:id' component={UploadPembayaran} />
                         <Route path="/member/menunggu-pembayaran" component={MenungguPembayaran}/>
                         {/* <Route path='/member/isi/apl02' component={}/> */}
-                        <Route path='/member/apl-02' component={ViewApl02} />
+                        <Route path='/member/apl-02/:id' component={ViewApl02} />
+                        <Route path='/member/apl-02' component={ListApl02} />
                         <Route path='/member/apl-01' component={ViewApl01} />
                     </Switch>
                 </Suspense>
