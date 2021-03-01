@@ -1,13 +1,9 @@
-import { createUseStyles } from 'react-jss'
-import { useState } from 'react'
+import {useSelector, useDispatch} from 'react-redux';
+import * as types from '../../../redux/types/ujian.type';
 
-const Essay = ({ title, content, multipleChoice }) => {
-    const [answer, setAnswer] = useState(null)
-    content = (<span>
-        Udang ronggeng memiliki duri-duri yang keras, terutama di bagian atas kepala dan antena. Badannya yang besar dilindungi kulit keras yang mengandung zat kapur dan mempunyai bentuk tubuh yang menyerupai belalang. Habitat hidup udang ini di perairan karang, suatu kawasan laut yang banyak terdapat karang-karang, terumbu karang, batuan granit, atau vulkanis.
-        <br />
-        Makna istilah kata vulkanis pada kutipan teks tersebut adalah ….
-    </span>)
+const Essay = ({ title, content, id }) => {
+    const answer = useSelector(state => state.ujian.answer[id]);
+    const dispatch = useDispatch();
 
     return (
         <div className='card mt-2' >
@@ -23,7 +19,12 @@ const Essay = ({ title, content, multipleChoice }) => {
                         className='form-control p-2' 
                         placeholder='Ketik jawaban kamu disini...' 
                         rows='3' 
-                        onChange={ (e) => setAnswer(e.target.value) } ></textarea>      
+                        value={answer}
+                        onChange={ e => dispatch({
+                            type: types.SET_ANSWER,
+                            id,
+                            answer: e.target.value
+                        }) } ></textarea>      
                 </div>
             </div>
         </div>
