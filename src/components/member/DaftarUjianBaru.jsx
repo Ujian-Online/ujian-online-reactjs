@@ -44,8 +44,10 @@ const DaftarUjianBaru = () => {
 
     useEffect(()=>{
         console.log('sertifikasi',sertifikasi)
+        let no = 1
         setScheme([ ...(sertifikasi.sertifikasi || []).map(s=>({
-            no:s.id,
+            no:no++,
+            id:s.id,
             nomor_skema:s.nomor_skema,
             title:s.title,
         }))])
@@ -60,6 +62,7 @@ const DaftarUjianBaru = () => {
 
     const columns = [
         { selector : 'no' , name : 'No' , sortable : true },
+        { selector : 'id' , name : 'id' , omit : true },
         { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
         { selector : 'title' , name : 'Judul' , sortable : true },
     ];
@@ -104,7 +107,7 @@ const DaftarUjianBaru = () => {
     }
     
     const onClickRow = (row) => {
-        history.push(`/member/detail-skema-sertifikasi/${row.no}`)
+        history.push(`/member/detail-skema-sertifikasi/${row.id}`)
     }
     
 

@@ -53,9 +53,10 @@ const MenungguPembayaran=(props)=>{
     const [skema,setSkema]=useState([])
     useEffect(()=>{
         console.log('order list',order)
+        let no = 1
         setSkema([ ...(order.order || [] ).map(o=>({
             id:o.id,
-            no:o.sertifikasi_id,
+            no:no++,
             skema_sertifikasi: o.sertifikasi && o.sertifikasi.title || 'skema sertifikasi ini tidak tersedia',
             status_bayar:o.status,
             transfer_from_bank_name:o.transfer_from_bank_name,
