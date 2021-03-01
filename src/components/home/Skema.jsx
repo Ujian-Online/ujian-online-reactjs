@@ -46,8 +46,10 @@ const Skema = () => {
 
     useEffect(()=>{
         console.log('sertifikasi',sertifikasi)
+        let no = 1
         setScheme([ ...(sertifikasi.sertifikasi || []).map(s=>({
-            no:s.id,
+            no:no++,
+            id:s.id,
             nomor_skema:s.nomor_skema,
             title:s.title,
         }))])
@@ -60,6 +62,7 @@ const Skema = () => {
     }
     const columns = [
         { selector : 'no' , name : 'No' , sortable : true },
+        { selector : 'id' , name : 'id' , omit : true },
         { selector : 'nomor_skema' , name : 'Nomor Skema' , sortable : true },
         { selector : 'title' , name : 'Judul' , sortable : true },
     ]
@@ -86,7 +89,7 @@ const Skema = () => {
     }
 
     const onClickRow = (row) => {
-        history.push(`/skema/${row.no}`)
+        history.push(`/skema/${row.id}`)
     }
     var slidersettings = {
         dots: true,

@@ -86,7 +86,7 @@ const Apl01 = () => {
 
 
     return (
-        <div className={`container my-4 bg-white p-3 rounded ` + classes.container} >
+        <div className={`container my-4 bg-white p-3 rounded border ` + classes.container} >
             <div className='row'>
                 <div className='col d-flex align-items-center justify-content-between flex-wrap ' >
                     <h6>

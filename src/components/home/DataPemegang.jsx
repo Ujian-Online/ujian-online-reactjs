@@ -46,8 +46,8 @@ const DataPemegang = () => {
 
 
     const subHeaderComponent = () => {
-        return (<div className="input-group col-md-6 col-sm-6">
-        <select className='form-control mr-3'>
+        return (<div className="input-group col-md-6 col-sm-6 align-items-center ">
+        <select className='form-control mr-3 py-2 rounded ' style={{ height: 'auto' }} >
             <option>Data per Tahun</option>
         </select>
         <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" />
