@@ -62,7 +62,7 @@ const MyExamDetail = (props) => {
     )
 
     const clickButton=()=>{
-        if(detailExam.status=="paket_soal_assigned"&&detailExam.apl02=="form_terverifikasi"){
+        if(detailExam.status=="paket_soal_assigned" && detailExam.apl02=="form_terverifikasi"){
             // console.log('lanjutkan')
             history.push(`/member/ujian-saya/${id}/soal`) 
         }
