@@ -18,7 +18,7 @@ const Apl02Form = (props) => {
     const apl02 = useSelector(state => state.apl02 || {})
     const detailApl = apl02.detailApl || {}
     const sertifikasi = detailApl.sertifikasi || {}
-    const { id } = useParams()
+    const { id } = props.match.params
     useEffect(() => {
         dispatch(getApl02DetailAction(auth.token, id))
     }, [])
