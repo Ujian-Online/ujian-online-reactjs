@@ -109,6 +109,15 @@ const MyExam = (props) => {
                 </div>
                 </div>     
             }
+            else if(row.status_ujian==="menunggu_verifikasi_form_apl02"&& row.apl_02==="isi_form"){     
+                return  <div className='row' >
+                <div className='col-5' >
+                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
+                        <MdControlPoint /> Isi
+                    </button>
+                </div>
+                </div>     
+            }
         }
         //   format : row => apl_02[row.apl_02]
         },
