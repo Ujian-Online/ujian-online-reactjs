@@ -6,7 +6,7 @@ export const getExamAction=(token)=>{
         try {
            dispatch({type:types.EXAM_LOADING})
            const response = await examAPI(token)
-           dispatch({type:types.GET_EXAM, exam:response.data})
+           dispatch({type:types.GET_EXAM, exam:response})
         }catch(err) {
             dispatch({type:types.EXAM_FAILED , errMessage : err })
             console.error('[list exam]', err)

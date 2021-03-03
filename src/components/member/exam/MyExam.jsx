@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getExamAction } from '../../../redux/actions/exam.action'
 import { MdControlPoint,MdEdit } from 'react-icons/md'
 import { Modal } from 'react-bootstrap'
+import moment from 'moment'
 
 const customStyles = {
     headCells: {
@@ -58,16 +59,17 @@ const MyExam = (props) => {
         console.log('exam schedule list',exam)
         setMyExam([ ...(exam.exam || [] ).map(exm=>({
             no:exm.id,
+            id:exm.sertifikasi_id,
             skema_sertifikasi: exm.sertifikasi && exm.sertifikasi.title || '',
-            status_ujian:exm.is_kompeten,
-            status:exm.status,
-            jadwal:exm.ujianjadwal.tanggal
+            apl_02:exm.apl02_status,
+            status_ujian:exm.ujian_status,
+            jadwal:moment(exm.ujianjadwal.tanggal).format('DD-MM-YYYY')
         }))])
     },[exam.exam])
 
     //clickButtonControl
-    const clickButton=()=>{
-        history.push("/member/apl-02")
+    const clickButton=(id)=>()=>{
+        history.push(`/member/apl-02/${id}`)
     }
 
     const columns = [
@@ -80,22 +82,32 @@ const MyExam = (props) => {
         { selector: 'apl_02', name: 'APL 02', sortable: true , 
         format:row=>{
             //view button berdasarkan badges
-            if(row.status==='menunggu'){     
+            if(row.status_ujian==='menunggu_verifikasi_form_apl02' && row.apl_02=="menunggu_verifikasi"){     
                 return <div className='row' >
                 <div className='col-7 d-flex align-items-center' >
                     <span className='badge badge-warning' style={{ fontSize : '12px' }} >Menunggu Verifikasi</span>
                 </div>
                 <div className='col-5' >
-                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton} >
+                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
                         <MdEdit /> Edit
                     </button>
                 </div>
-                </div>
-                
-                 
+                </div>     
             }
-            else if(row.status==="paket_soal_assigned"){     
+            else if(row.status_ujian==="menunggu_jadwal_ujian"&& row.apl_02==="form_terverifikasi"){     
                 return  <span className='badge badge-success' style={{ fontSize : '12px' }} >Terverifikasi</span>
+            }
+            else if(row.status_ujian==="menunggu_verifikasi_form_apl02"&& row.apl_02==="form_ditolak"){     
+                return  <div className='row' >
+                <div className='col-7 d-flex align-items-center' >
+                    <span className='badge badge-danger' style={{ fontSize : '12px' }} >Form ditolak</span>
+                </div>
+                <div className='col-5' >
+                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
+                        <MdEdit /> Edit
+                    </button>
+                </div>
+                </div>     
             }
         }
         //   format : row => apl_02[row.apl_02]
