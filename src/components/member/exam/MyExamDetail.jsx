@@ -62,7 +62,7 @@ const MyExamDetail = (props) => {
     )
 
     const clickButton=()=>{
-        if(detailExam.status=="paket_soal_assigned"){
+        if(detailExam.status=="paket_soal_assigned" && detailExam.apl02=="form_terverifikasi"){
             // console.log('lanjutkan')
             history.push(`/member/ujian-saya/${id}/soal`) 
         }
@@ -83,7 +83,7 @@ const MyExamDetail = (props) => {
                     <Modal.Title>Kesalahan Klik</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Ujian akan dimulai ketika status ujian paket soal assigned
+                    Ujian akan dimulai ketika status ujian soal tersedia, dan form apl02 menampilkan status form terverifikasi
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="default" onClick={ handleCloseModalStatus } >Kembali</Button>
@@ -135,6 +135,11 @@ const MyExamDetail = (props) => {
                                 <br />
                                 <span>{soalpaket.durasi_ujian}</span>
                             </p>
+                            {/* <p>
+                                <strong>Jumlah Soal</strong>
+                                <br />
+                                <span>{TotalSoal}</span>
+                            </p> */}
                             <p>
                                 <strong>Status Ujian</strong>
                                 <br />
