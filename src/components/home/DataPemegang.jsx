@@ -11,7 +11,6 @@ const DataPemegang = () => {
     const [ filterTahun , setFilterTahun ] = useState(nowYear)
     const dispatch=useDispatch()
     const [schemes,setScheme]=useState([])
-    const auth =useSelector(state=>state.auth)
     const holder=useSelector(state=>state.holder)
     useEffect(()=>{
         dataPemilik()
@@ -31,36 +30,9 @@ const DataPemegang = () => {
    },[holder.holder])
 
    const dataPemilik=()=>{
-    dispatch(getHolderSertifikatAction(auth.token))
-}
-
-    // const [ schemes , setScheme ] = useState([
-    //     { 
-    //         name : 'bintang' , 
-    //         no_register : '123456789' , 
-    //         no_certificate : 'A123456789' ,
-    //         skema : 'Staf Penggajian',
-    //         date_certificate : '20-08-2019',
-    //         masa_berlaku : '20-08-2021'
-    //     },
-    //     { 
-    //         name : 'budi' , 
-    //         no_register : '123456789' , 
-    //         no_certificate : 'A123456789' ,
-    //         skema : 'Talent Manager',
-    //         date_certificate : '29-07-2020',
-    //         masa_berlaku : '29-07-2023'
-    //     },
-    //     { 
-    //         name : 'Bagus Budi' , 
-    //         no_register : '123456789' , 
-    //         no_certificate : 'A123456789' ,
-    //         skema : 'Talent Manager',
-    //         date_certificate : '29-07-2020',
-    //         masa_berlaku : '29-07-2023'
-    //     }
-    // ])
-
+    dispatch(getHolderSertifikatAction())
+    }
+    
     const columns = [
         { selector : 'name' , name : 'Name', sortable : true },
         { selector : 'nomor_register' , name : 'No. Registrasi' , sortable : true },
