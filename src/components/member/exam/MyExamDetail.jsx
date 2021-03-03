@@ -3,7 +3,9 @@ import { useHistory , useParams } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import {status_ujian} from './status'
 import { getDetailExamAction } from '../../../redux/actions/exam.action'
+import moment from 'moment'
 
 const MyExamDetail = (props) => {
 
@@ -37,21 +39,6 @@ const MyExamDetail = (props) => {
     //reducer jadwal ujian by detail exam
     const ujianjadwal=detailExam.ujianjadwal||{}
 
-    //reducer ujian asesi jawaban
-    const ujianasesijawaban=detailExam.ujianasesijawaban||{}
-
-    var TotalSoal = ujianasesijawaban.length;
-
-    // useEffect(()=>{
-    //     if(detailExam.status==="menunggu"){
-    //         console.log('menunggu',exam)
-    //         // handleShowModalStatus()
-    //     }
-    //     else if(detailExam.status==="paket_soal_Assigned"){
-    //         console.log('silahkan lanjut')
-    //         // history.push(`/member/ujian-saya/${id}/soal`) 
-    //     }
-    // },[exam.exam.status])
     //render Modal button
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false);
@@ -116,7 +103,7 @@ const MyExamDetail = (props) => {
                             <p>
                                 <strong>Assesor</strong>
                                 <br />
-                                <span>{detailExam.asesor_id}</span>
+                                <span>{detailExam.asesor_name}</span>
                             </p>
                             <p>
                                 <strong>Jenis ujian</strong>
@@ -141,22 +128,22 @@ const MyExamDetail = (props) => {
                             <p>
                                 <strong>Tanggal & Jam</strong>
                                 <br />
-                                <span>{ujianjadwal.tanggal}</span>
+                                <span>{moment(ujianjadwal.tanggal).format('DD-MM-YYYY')} & {ujianjadwal.jam_mulai}</span>
                             </p>
                             <p>
                                 <strong>Waktu Pengerjaan</strong>
                                 <br />
-                                <span>120 Menit</span>
+                                <span>{soalpaket.durasi_ujian}</span>
                             </p>
-                            <p>
+                            {/* <p>
                                 <strong>Jumlah Soal</strong>
                                 <br />
                                 <span>{TotalSoal}</span>
-                            </p>
+                            </p> */}
                             <p>
                                 <strong>Status Ujian</strong>
                                 <br />
-                                <span>{detailExam.status}</span>
+                                <span>{status_ujian[detailExam.status]}</span>
                             </p>
                         </div>
                     </div>
@@ -172,7 +159,7 @@ const MyExamDetail = (props) => {
                                 <li>Ujian bisa dikerjakan sesuai dengan jadwal yang sudah ditetapkan.</li>
                                 <li>Soal dapat berupa Essay maupun Pilihan ganda</li>
                                 <li>Jika jadwal ujian sudah sesuai dengan tanggal dan jam waktu setempat klik  pada tombol (Mulai Ujian) untuk memulai ujian.</li>
-                                <li>Kerjakan ujian dengan batas waktu yang ditetapkan. waktu akan berjalan mundur yang berada di sebalah kanan atas setelah Anda mengkik (Mulai Ujian)</li>
+                                <li>Kerjakan ujian dengan batas waktu yang ditetapkan. waktu akan berjalan mundur yang berada di sebalah kanan atas setelah Anda menekan / klik tombol (Mulai Ujian)</li>
                                 <li>Jika anda telah menjawab soal maka tombol nomer urut soal yang berada disebelah kanan akan berwarna hijau dan jika belum diisi maka tidak berwarna.</li>
                                 <li>Jika sudah selesai menjawab soal dengan yakin, silahkan untuk klik tombol selesai yang berada diatas sebelah kanan.</li>
                             </ul>
