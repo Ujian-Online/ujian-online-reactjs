@@ -15,7 +15,7 @@ const MyExamDetail = (props) => {
     const auth=useSelector(state=>state.auth)
 
     //ekstrak id kemudian fetch ke dalam action
-    const { id } = props.match.params
+    const { id } = useParams()
     useEffect(() => {
        detailListExam()
     }, [])
@@ -118,12 +118,12 @@ const MyExamDetail = (props) => {
                             <p>
                                 <strong>Jumlah Soal Pilihan Ganda</strong>
                                 <br />
-                                <span>{soalpaket.total_soal_pilihanganda}</span>
+                                <span>{detailExam.total_soal_pilihanganda}</span>
                             </p>
                             <p>
                                 <strong>Jumlah Soal Essay</strong>
                                 <br />
-                                <span>{soalpaket.total_soal_essay}</span>
+                                <span>{detailExam.total_soal_essay}</span>
                             </p>
                             <p>
                                 <strong>Tanggal & Jam</strong>
