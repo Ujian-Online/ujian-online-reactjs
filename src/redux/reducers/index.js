@@ -5,6 +5,7 @@ import apl01Reducer from './apl01.reducer'
 import ujianReducer from './ujian.reducer'
 import examReducer from './exam.reducer'
 import apl02Reducer from './apl02.reducer'
+import holderReducer from './pemegangSertifikat.reducer'
 import { combineReducers } from 'redux'
 
 export const rootReducer = combineReducers({
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
     apl01: apl01Reducer,
     ujian: ujianReducer,
     exam:  examReducer,
-    apl02:apl02Reducer
+    apl02:apl02Reducer,
+    holder:holderReducer
 });

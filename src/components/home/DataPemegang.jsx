@@ -1,47 +1,72 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import { MdSearch } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import {getHolderSertifikatAction} from '../../redux/actions/pemegangSertifikat.action'
 
 const nowYear = (new Date()).getFullYear()
 const arrPerTahun = [...Array(5)].map((val, index) => nowYear - index )
 const DataPemegang = () => {
 
     const [ filterTahun , setFilterTahun ] = useState(nowYear)
+    const dispatch=useDispatch()
+    const [schemes,setScheme]=useState([])
+    const auth =useSelector(state=>state.auth)
+    const holder=useSelector(state=>state.holder)
+    useEffect(()=>{
+        dataPemilik()
+   },[])
 
-    const [ schemes , setScheme ] = useState([
-        { 
-            name : 'bintang' , 
-            no_register : '123456789' , 
-            no_certificate : 'A123456789' ,
-            skema : 'Staf Penggajian',
-            date_certificate : '20-08-2019',
-            masa_berlaku : '20-08-2021'
-        },
-        { 
-            name : 'budi' , 
-            no_register : '123456789' , 
-            no_certificate : 'A123456789' ,
-            skema : 'Talent Manager',
-            date_certificate : '29-07-2020',
-            masa_berlaku : '29-07-2023'
-        },
-        { 
-            name : 'Bagus Budi' , 
-            no_register : '123456789' , 
-            no_certificate : 'A123456789' ,
-            skema : 'Talent Manager',
-            date_certificate : '29-07-2020',
-            masa_berlaku : '29-07-2023'
-        }
-    ])
+   useEffect(()=>{
+       console.log('Pemilik sertifikasi',holder)
+       let no = 1
+       setScheme([ ...(holder.holder || []).map(ps=>({
+           no:no++,
+           name:ps.name,
+           nomor_register:ps.nomor_register,
+           sertifikasi_nomor_skema:ps.sertifikasi_nomor_skema,
+           sertifikasi_title:ps.sertifikasi_title,
+           tanggal_sertifikasi:ps.tanggal_sertifikasi,
+       }))])
+   },[holder.holder])
+
+   const dataPemilik=()=>{
+    dispatch(getHolderSertifikatAction(auth.token))
+}
+
+    // const [ schemes , setScheme ] = useState([
+    //     { 
+    //         name : 'bintang' , 
+    //         no_register : '123456789' , 
+    //         no_certificate : 'A123456789' ,
+    //         skema : 'Staf Penggajian',
+    //         date_certificate : '20-08-2019',
+    //         masa_berlaku : '20-08-2021'
+    //     },
+    //     { 
+    //         name : 'budi' , 
+    //         no_register : '123456789' , 
+    //         no_certificate : 'A123456789' ,
+    //         skema : 'Talent Manager',
+    //         date_certificate : '29-07-2020',
+    //         masa_berlaku : '29-07-2023'
+    //     },
+    //     { 
+    //         name : 'Bagus Budi' , 
+    //         no_register : '123456789' , 
+    //         no_certificate : 'A123456789' ,
+    //         skema : 'Talent Manager',
+    //         date_certificate : '29-07-2020',
+    //         masa_berlaku : '29-07-2023'
+    //     }
+    // ])
 
     const columns = [
         { selector : 'name' , name : 'Name', sortable : true },
-        { selector : 'no_register' , name : 'No. Registrasi' , sortable : true },
-        { selector : 'no_certificate' , name : 'No. Sertifikat', sortable : true },
-        { selector : 'skema' , name : 'Skema', sortable : true },
-        { selector : 'date_certificate' , name : 'Tanggal Sertifikat', sortable : true },
-        { selector : 'masa_berlaku' , name : 'Masa Berlaku' , sortable : true },
+        { selector : 'nomor_register' , name : 'No. Registrasi' , sortable : true },
+        { selector : 'sertifikasi_nomor_skema' , name : 'No. Sertifikat', sortable : true },
+        { selector : 'sertifikasi_title' , name : 'Skema', sortable : true },
+        { selector : 'tanggal_sertifikasi' , name : 'Tanggal Sertifikat', sortable : true },
     ];
 
 
@@ -50,13 +75,22 @@ const DataPemegang = () => {
         <select className='form-control mr-3 py-2 rounded ' style={{ height: 'auto' }} >
             <option>Data per Tahun</option>
         </select>
-        <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <input type="text" className="form-control px-3 py-2" placeholder="Search ..." aria-label="Recipient's username" aria-describedby="button-addon2" value={filterData} onChange={(e)=>setFilterData(e.target.value)} />
         <div className="input-group-append">
             <button className="btn btn-outline-secondary" type="button" >
               <MdSearch />
             </button>
         </div>
       </div>)
+    }
+
+    //filter data
+    const [filterData,setFilterData ]=useState("");
+    function search(rows){
+        const column=rows[0] && Object.keys(rows[0])
+        return rows.filter((row)=>column.some((column)=> row[column].toString().toLowerCase().indexOf(filterData.toLowerCase())>-1
+            )
+        )
     }
    
     return(
@@ -65,7 +99,7 @@ const DataPemegang = () => {
                 title='Pemegang Sertifikat'
                 pagination
                 columns={columns}
-                data={schemes}
+                data={search(schemes)}
                 subHeader
                 subHeaderComponent={subHeaderComponent()}
              />
