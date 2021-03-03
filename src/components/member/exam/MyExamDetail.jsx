@@ -115,16 +115,16 @@ const MyExamDetail = (props) => {
                                 <br />
                                 <span>{ujianjadwal.description}</span>
                             </p>
-                            {/* <p>
+                            <p>
                                 <strong>Jumlah Soal Pilihan Ganda</strong>
                                 <br />
-                                <span>{TotalSoal}</span>
-                            </p> */}
-                            {/* <p>
+                                <span>{soalpaket.total_soal_pilihanganda}</span>
+                            </p>
+                            <p>
                                 <strong>Jumlah Soal Essay</strong>
                                 <br />
-                                <span>20 Soal</span>
-                            </p> */}
+                                <span>{soalpaket.total_soal_essay}</span>
+                            </p>
                             <p>
                                 <strong>Tanggal & Jam</strong>
                                 <br />
@@ -135,11 +135,6 @@ const MyExamDetail = (props) => {
                                 <br />
                                 <span>{soalpaket.durasi_ujian}</span>
                             </p>
-                            {/* <p>
-                                <strong>Jumlah Soal</strong>
-                                <br />
-                                <span>{TotalSoal}</span>
-                            </p> */}
                             <p>
                                 <strong>Status Ujian</strong>
                                 <br />
