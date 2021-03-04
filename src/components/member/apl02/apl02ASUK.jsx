@@ -1,12 +1,14 @@
 import { useState } from 'react'
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
+import { MdKeyboardArrowUp, MdKeyboardArrowDown , MdCancel } from 'react-icons/md'
 
 import { useDispatch , useSelector } from 'react-redux'
 import {  postApl02Action } from '../../../redux/actions/apl02.action'
 
 const Apl02ASUK = ({ asuk }) => {
     const [isDispalyInstruction, toggleDisplayInstruction ] = useState(false)
-    const [myFile , setFile ] = useState({})
+    const [myFile , setFile ] = useState({
+        name: asuk.media_url
+    })
     const dispatch = useDispatch()
     const auth = useSelector( state => state.auth )
     const onChangeInputFile = (e) => {
@@ -25,6 +27,13 @@ const Apl02ASUK = ({ asuk }) => {
         </label>
     )
 
+    const renderMedia = () => {
+        return(<div className='d-flex align-items-center justify-content-center ' >
+        <a href={`${asuk.media_url}`} target="_blank" >Lihat media</a>
+        <button className="btn btn-link rounded-circle text-danger d-flex " onClick={() => setFile({ name: '' })} ><MdCancel /></button>
+        </div>)
+    }
+
     return (
         <tr  >
             <td colSpan="2" >
@@ -39,9 +48,9 @@ const Apl02ASUK = ({ asuk }) => {
                 </ul>
             </td>
             <td className='text-center ' >
-                {asuk.media_url ? <a href={`${asuk.media_url}`} target="_blank" >Lihat media</a> : renderUploadBukti() }
+                {myFile.name ? renderMedia() : renderUploadBukti() }
             </td>
-            <td>{asuk.is_verified ? 'K' : 'BK'}</td>
+            <td className='text-center' >{asuk.is_verified ? 'K' : 'BK'}</td>
             <td>{asuk.verification_note}</td>
         </tr>
     )
