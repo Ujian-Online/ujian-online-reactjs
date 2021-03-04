@@ -56,10 +56,11 @@ const MyExam = (props) => {
     // tampil data pada datatable
     const [myExam,setMyExam]=useState([])
     useEffect(()=>{
-        console.log('exam schedule list',exam)
+        let no = 1
         setMyExam([ ...(exam.exam || [] ).map(exm=>({
-            no:exm.id,
-            id:exm.sertifikasi_id,
+            no: no++,
+            id:exm.id,
+            sertifikasi_id:exm.sertifikasi_id,
             skema_sertifikasi: exm.sertifikasi && exm.sertifikasi.title || '',
             apl_02:exm.apl02_status,
             status_ujian:exm.ujian_status,
@@ -88,7 +89,7 @@ const MyExam = (props) => {
                     <span className='badge badge-warning' style={{ fontSize : '12px' }} >Menunggu Verifikasi</span>
                 </div>
                 <div className='col-5' >
-                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
+                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdEdit /> Edit
                     </button>
                 </div>
@@ -103,7 +104,7 @@ const MyExam = (props) => {
                     <span className='badge badge-danger' style={{ fontSize : '12px' }} >Form ditolak</span>
                 </div>
                 <div className='col-5' >
-                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
+                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdEdit /> Edit
                     </button>
                 </div>
@@ -112,7 +113,7 @@ const MyExam = (props) => {
             else if(row.status_ujian==="menunggu_verifikasi_form_apl02"&& row.apl_02==="isi_form"){     
                 return  <div className='row' >
                 <div className='col-5' >
-                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
+                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdControlPoint /> Isi
                     </button>
                 </div>
@@ -138,11 +139,9 @@ const MyExam = (props) => {
                </Modal.Body>
         </Modal>
     )
-    const clickRow=(id)=>()=>{
-        history.push(`/member/ujian-saya/${id}`)
-    }
+   
     const onClickRow = (row) => {
-            history.push(`/member/ujian-saya/${row.no}`)
+            history.push(`/member/ujian-saya/${row.id}`)
     }
 
     return (
