@@ -38,14 +38,13 @@ export const postApl01Action = (token , payload )=>{
 }
 
 export const postCustomDataAction = (token , payload )=>{
-    return async dispatch =>{
+    return async () =>{
         try {
-           dispatch({type:types.APL01_LOADING})
            await postCustomData (token , payload )
-           dispatch({ type:types.APL01_POST_SUCCESS })
-        }catch(err) {
-            dispatch({type:types.APL01_FAILED , errMessage : err })
+        }catch(err) {            
             console.error('[postCustomDataAction]', err)
+            const errors = err && err.response && err.response.data && err.response.data.errors
+            throw Error( errors && err.response.data.errors.value.join() || "An error occured.")
         }
     }
 }
