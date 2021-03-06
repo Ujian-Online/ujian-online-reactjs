@@ -114,7 +114,7 @@ const MyExam = (props) => {
             else if(row.status='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
                 <div className='col-10' >
-                    <button className='btn btn-primary' style={{ padding: '5px 15px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
+                    <button className='btn btn-primary' style={{ padding: '5px 15px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdControlPoint /> Isi
                     </button>
                 </div>
