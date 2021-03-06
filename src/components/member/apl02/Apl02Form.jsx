@@ -7,14 +7,14 @@ import { getApl02DetailAction } from '../../../redux/actions/apl02.action'
 import Apl2asuk from './apl02ASUK'
 
 
-const ModalAplError = ({ showModal , handleCloseModal , errMessage  }) => {
-    return(<Modal show={showModal} onHide={handleCloseModal}>
+const ModalAplError = ({ showModal, handleCloseModal, errMessage }) => {
+    return (<Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
             <Modal.Title>Terjadi Masalah</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-            <p>{errMessage || 'Cobalah beberapa saat lagi.' }</p>
+            <p>{errMessage || 'Cobalah beberapa saat lagi.'}</p>
         </Modal.Body>
 
         <Modal.Footer className='border-top-0' >
@@ -36,8 +36,8 @@ const Apl02Form = (props) => {
     const detailApl = apl02.detailApl || {}
     const sertifikasi = detailApl.sertifikasi || {}
     const { id } = useParams()
-    const [showModalError, setShowModalError ] = useState(false);
-    
+    const [showModalError, setShowModalError] = useState(false);
+
     useEffect(() => {
         dispatch(getApl02DetailAction(auth.token, id))
     }, [])
@@ -54,7 +54,7 @@ const Apl02Form = (props) => {
         }
     }, [apl02.errMessage])
 
-   
+
 
     return (
         <>
@@ -65,45 +65,46 @@ const Apl02Form = (props) => {
                         <input type="text" className="form-control" id="inputSkemaSertifikasi" disabled value={sertifikasi.title} />
                     </div>
                 </div>
-                <table className="table table-bordered bg-white">
-                    <thead>
-                        <tr className='bg-success text-white' >
-                            <th scope="col" className='text-center ' colSpan="2" >Unit Kompoetensi</th>
-                            <th scope="col" className='text-center ' colSpan="3">Nomor UK / Keterangan</th>
-                        </tr>
-                        <tr>
-                            <th scope="col" >No</th>
-                            <th scope="col">Kode Unit Kompetensi</th>
-                            <th scope="col" colSpan="3" >Judul</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            (detailApl.unitkompetensi || []).map((uk, key) => (<React.Fragment key={key} >
-                                <tr >
-                                    <th scope="row">{key + 1}</th>
-                                    <td>{uk.kode_unit_kompetensi}</td>
-                                    <td colSpan="3" >{uk.title}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="col" colSpan="2" style={{ width: '50%' }} >Pertanyaan</th>
-                                    <th scope="col" className='text-center' >Bukti Relevan</th>
-                                    <th scope="col" className='text-center' >Status</th>
-                                    <th scope="col" >Catatan</th>
-                                </tr>
-                                {(uk.asesisertifikasiunitkompetensielement || []).map((asuk, keyy) => (
-                                    <Apl2asuk asuk={asuk} key={keyy} />
-                                ))
-                                }
+                <div className='table-responsive ' >
+                    <table className="table table-bordered bg-white " style={{minWidth: '400px' }} >
+                        <thead>
+                            <tr className='bg-success text-white' >
+                                <th scope="col" className='text-center ' colSpan="2" >Unit Kompoetensi</th>
+                                <th scope="col" className='text-center ' colSpan="3">Nomor UK / Keterangan</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" >No</th>
+                                <th scope="col">Kode Unit Kompetensi</th>
+                                <th scope="col" colSpan="3" >Judul</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                (detailApl.unitkompetensi || []).map((uk, key) => (<React.Fragment key={key} >
+                                    <tr >
+                                        <th scope="row">{key + 1}</th>
+                                        <td>{uk.kode_unit_kompetensi}</td>
+                                        <td colSpan="3" >{uk.title}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" colSpan="2" style={{ width: '50%' }} >Pertanyaan</th>
+                                        <th scope="col" className='text-center' >Bukti Relevan</th>
+                                        <th scope="col" className='text-center' >Status</th>
+                                        <th scope="col" >Catatan</th>
+                                    </tr>
+                                    {(uk.asesisertifikasiunitkompetensielement || []).map((asuk, keyy) => (
+                                        <Apl2asuk asuk={asuk} key={keyy} />
+                                    ))
+                                    }
 
-                            </React.Fragment>))
-                        }
+                                </React.Fragment>))
+                            }
 
-                    </tbody>
-                </table>
-               
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <ModalAplError showModal={showModalError} handleCloseModal={() => setShowModalError(false) } />
+            <ModalAplError showModal={showModalError} handleCloseModal={() => setShowModalError(false)} />
         </>
     )
 }

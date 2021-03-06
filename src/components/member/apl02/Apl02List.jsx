@@ -6,6 +6,33 @@ import SignatureCanvas from 'react-signature-canvas'
 import { getApl02Action } from '../../../redux/actions/apl02.action'
 import DataTable from 'react-data-table-component'
 
+const customStyles = {
+    headCells: {
+        style: {
+            background : '#ccc' ,
+            '&:nth-child(1)': {
+                maxWidth: '50px',
+                dispaly: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }
+        },
+    },
+    cells: {
+        style: {
+            fontSize: '14px' ,
+            cursor: 'pointer',
+            '&:nth-child(1)': {
+                maxWidth: '50px',
+                dispaly: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }
+        }
+    }
+
+}
+
 const Apl02Form=(props)=>{
     const history = useHistory()
     let sigPad = useRef()
@@ -53,9 +80,6 @@ const Apl02Form=(props)=>{
         history.push(`/member/apl-02/${row.id}`)
     }
 
-
-   
-
     return(
     <>
         <div className='container mt-5'>
@@ -67,6 +91,7 @@ const Apl02Form=(props)=>{
                         columns={columns}
                         data={skema}
                         noHeader
+                        customStyles={customStyles}
                         onRowClicked={onClickRow}
                     />
                 </div>
