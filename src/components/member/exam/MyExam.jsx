@@ -64,7 +64,8 @@ const MyExam = (props) => {
             skema_sertifikasi: exm.sertifikasi && exm.sertifikasi.title || '',
             apl_02:exm.apl02_status,
             status_ujian:exm.ujian_status,
-            jadwal:moment(exm.ujianjadwal.tanggal).format('DD-MM-YYYY')
+            jadwal:moment(exm.ujianjadwal.tanggal).format('DD-MM-YYYY'),
+            status:exm.status
         }))])
     },[exam.exam])
 
@@ -110,10 +111,10 @@ const MyExam = (props) => {
                 </div>
                 </div>     
             }
-            else if(row.status_ujian==="menunggu_verifikasi_form_apl02"&& row.apl_02==="isi_form"){     
+            else if(row.status='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
-                <div className='col-5' >
-                    <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                <div className='col-10' >
+                    <button className='btn btn-primary' style={{ padding: '5px 15px' , fontSize : '14px'  }} onClick={clickButton(row.id)} >
                         <MdControlPoint /> Isi
                     </button>
                 </div>
