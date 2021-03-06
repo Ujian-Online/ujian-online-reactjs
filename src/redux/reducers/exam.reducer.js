@@ -4,7 +4,7 @@ import * as types from '../types/exam.type'
 const initialState = {
     exam:[],
     isLoading: false,
-    errMessage: null,
+    errMessage: null
 }
 
 export default(state=initialState,action={})=>{
@@ -28,6 +28,12 @@ export default(state=initialState,action={})=>{
         case types.DETAIL_EXAM_SHOW:return{
             ...state,
             detailExam:action.detailExam,
+            isLoading:false,
+            errMessage:null
+        }
+        case types.START_EXAM:return{
+            ...state,
+            isStart:action.isStart,
             isLoading:false,
             errMessage:null
         }

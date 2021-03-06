@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 
 export const status_ujian = {
     'menunggu_verifikasi_form_apl02' : ' Menunggu verifikasi form' ,
+    'paket_soal_assigned':'soal tersedia',
+    'menunggu_jadwal_ujian':'Menunggu jadwal ujian',
     'menunggu' : 'Menunggu jadwal ujian' ,
     'Ujian dalam penilaian' : 'Ujian dalam penilaian' ,
     'Kompeten' : <span className='badge badge-success' style={{ fontSize : '12px' }} > Kompeten </span> ,

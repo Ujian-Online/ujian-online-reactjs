@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import {status_ujian} from './status'
-import { getDetailExamAction } from '../../../redux/actions/exam.action'
+import { getDetailExamAction, postStartExamAction } from '../../../redux/actions/exam.action'
 import moment from 'moment'
 
 const MyExamDetail = (props) => {
@@ -61,9 +61,22 @@ const MyExamDetail = (props) => {
         </Modal>
     )
 
+    // useEffect(() => {
+    //     if(!auth.needVerify){
+    //         history.push('/sukses-register')
+    //     }
+    // }, [ auth.needVerify ])
+
+    // useEffect(() => {
+    //     if(!detailExam.isStart){
+    //        history.push(`/member/ujian-saya/${id}/soal`) 
+    //     }
+    // }, [ detailExam.isStart ])
+
     const clickButton=()=>{
-        if(detailExam.status=="paket_soal_assigned" && detailExam.apl02=="form_terverifikasi"){
+        if(detailExam.status=="paket_soal_assigned" && detailExam.apl02_status=="form_terverifikasi"){
             // console.log('lanjutkan')
+            dispatch(postStartExamAction (auth.token,id));
             history.push(`/member/ujian-saya/${id}/soal`) 
         }
         else{

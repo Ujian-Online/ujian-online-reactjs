@@ -114,9 +114,16 @@ const MyExam = (props) => {
             else if(row.status='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
                 <div className='col-10' >
-                    <button className='btn btn-primary' style={{ padding: '5px 15px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
-                        <MdControlPoint /> Isi
+                    <button className='btn btn-warning' style={{ padding: '5px 15px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                        <MdEdit /> Edit
                     </button>
+                </div>
+                </div>     
+            }
+            else if(row.status='menunggu'&& row.apl_02==="form_terverifikasi"){     
+                return  <div className='row' >
+                <div className='col-10' >
+                    <span className='badge badge-success' style={{ fontSize : '12px' }} >Terverifikasi</span>
                 </div>
                 </div>     
             }

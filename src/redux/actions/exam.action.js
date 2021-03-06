@@ -1,4 +1,4 @@
-import { detailExamAPI, examAPI } from '../api/exam.api'
+import { detailExamAPI, examAPI, startExamAPI } from '../api/exam.api'
 import * as types from '../types/exam.type'
 
 export const getExamAction=(token)=>{
@@ -23,6 +23,19 @@ export const getDetailExamAction=(token,payload)=>{
         }catch(err) {
             dispatch({type:types.EXAM_FAILED , errMessage : err })
             console.error('[schedule exam]', err)
+        }
+    }
+}
+
+export const postStartExamAction=(token,payload)=>{
+    return async dispatch =>{
+        try {
+           dispatch({type:types.EXAM_LOADING})
+           const response = await startExamAPI(token,payload)
+           dispatch({type:types.START_EXAM})
+        }catch(err) {
+            dispatch({type:types.EXAM_FAILED , errMessage : err && err.response && err.response.data || err })
+            console.error('[start exam]', err)
         }
     }
 }
