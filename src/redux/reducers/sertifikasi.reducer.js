@@ -4,7 +4,13 @@ const initialState={
     sertifikasi:[],
     detailSertifikasi : {} ,
     isLoading:false,
-    errMessage:null
+    errMessage:null,
+    query: {
+        offset: 0,
+        limit: 10,
+        count: 0,
+        search: ''
+    }
 }
 
 export default(state=initialState,action={})=>{
@@ -13,7 +19,8 @@ export default(state=initialState,action={})=>{
             ...state,
             sertifikasi:action.sertifikasi,
             isLoading:false,
-            errMessage:null
+            errMessage:null,
+            query: { ...state.query , ...action.query }
         }
         case types.SERTIFIKASI_SHOW:return{
             ...state,
@@ -30,7 +37,7 @@ export default(state=initialState,action={})=>{
             ...state,
             isLoading:true,
             errMessage:null
-        }
+        }      
         default:return state
     }
 }
