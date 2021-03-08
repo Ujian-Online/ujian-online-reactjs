@@ -9,8 +9,9 @@ const CustomDataComponents = ({ apl01 , isDisabled , refresh }) => {
                 <thead>
                     <tr >
                         <th scope="col" >Judul</th>
-                       <th scope="col" width='300' >Status</th> 
+                        <th scope="col" className='text-center' style={{minWidth: '50px' }}  >Status</th> 
                         { isDisabled ? <th scope="col" width='300' >Data</th>  : <th scope="col" width='300' >Aksi</th>  }
+                        <th scope="col" style={{minWidth: '50px' }} >Catatan</th> 
                     </tr>
                 </thead>
                 <tbody className='bg-white' >

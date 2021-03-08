@@ -1,4 +1,4 @@
-import { postApl01 , postCustomData , getApl01 } from '../api/apl01.api'
+import { postApl01 , postCustomData , getApl01, postSignUser } from '../api/apl01.api'
 import * as types from '../types/apl01.type'
 
 export const getApl01Action = (token)=>{
@@ -24,11 +24,12 @@ export const getApl01Action = (token)=>{
 }
 
 
-export const postApl01Action = (token , payload )=>{
+export const postApl01Action = (token , payload , payloadSign )=>{
     return async dispatch =>{
         try {
            dispatch({type:types.APL01_LOADING})
            await postApl01 (token , payload )
+           await postSignUser (token , payloadSign )
            dispatch({ type:types.APL01_POST_SUCCESS })
         }catch(err) {
             dispatch({type:types.APL01_FAILED , errMessage : err && err.response && err.response.data || err })

@@ -113,7 +113,7 @@ const DaftarUjianBaru = () => {
                 <div className="card">
                     <div className="card-header bg-white">
                         <h5 className="text-center">Ujian Saya</h5>
-                        {renderSearch()} {Filter()}
+                        {renderSearch()} {/*Filter()*/}
                     </div>
                     <div className="card-body">
                         <DataTable

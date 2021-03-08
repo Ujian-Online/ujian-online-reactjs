@@ -43,3 +43,21 @@ export const postCustomData = async (token , payload ) => {
         }
     }).then( res => res.data )
 }
+
+export const postSignUser = async (token , payload ) => {
+
+    const formData = new FormData()
+    Object.keys(payload).forEach( key => {
+        formData.set(key , payload[key] )
+    })
+
+    return await API({
+        url : '/api/user' ,
+        method : 'POST' ,
+        data : formData ,
+        headers : {
+            'Content-Type': 'multipart/form-data',
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
