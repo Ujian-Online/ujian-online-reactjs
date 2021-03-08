@@ -1,9 +1,10 @@
-import {useSelector, useDispatch} from 'react-redux';
-import * as types from '../../../redux/types/ujian.type';
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {answerQuestionAPI} from '../../../redux/api/exam.api';
 
-const Essay = ({ title, content, id }) => {
-    const answer = useSelector(state => state.ujian.answer[id]);
-    const dispatch = useDispatch();
+const Essay = ({ title, content, id, setState, defaultAnswer }) => {
+    const [answer, setAnswer] = useState(defaultAnswer)
+    const token = useSelector(state => state.auth.token)
 
     return (
         <div className='card mt-2' >
@@ -20,11 +21,22 @@ const Essay = ({ title, content, id }) => {
                         placeholder='Ketik jawaban kamu disini...' 
                         rows='3' 
                         value={answer}
-                        onChange={ e => dispatch({
-                            type: types.SET_ANSWER,
-                            id,
-                            answer: e.target.value
-                        }) } ></textarea>      
+                        onChange={ e => {
+                            setAnswer(e.target.value)
+                            setState(prevState => {
+                                return {
+                                    ...prevState,
+                                    answered : {
+                                        ...prevState.answered,
+                                        [id] : e.target.value
+                                    }
+                                }
+                            });
+                        } }
+                        onBlur={() => {
+                            answerQuestionAPI(token, id, answer)
+                        }}
+                        ></textarea>      
                 </div>
             </div>
         </div>

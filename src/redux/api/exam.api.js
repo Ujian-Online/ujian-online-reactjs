@@ -41,4 +41,18 @@ export const startExamAPI = async (token,id) => {
     }).then( res => res.data )
 }
 
+export const answerQuestionAPI = async (token, id, answer) => {
+    const formData = new FormData();
+    formData.set('id', id);
+    formData.set('answer', answer)
+
+    return await API({
+        url: `/api/ujian/jawaban`,
+        method: 'POST',
+        headers : {
+            Authorization : 'Bearer ' + token
+        },
+        data: formData
+    }).then(res => res.data)
+}
 
