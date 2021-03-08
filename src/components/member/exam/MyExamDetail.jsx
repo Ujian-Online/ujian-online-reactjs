@@ -141,7 +141,7 @@ const MyExamDetail = (props) => {
                             <p>
                                 <strong>Tanggal & Jam</strong>
                                 <br />
-                                <span>{moment(ujianjadwal.tanggal).format('DD-MM-YYYY')} & {ujianjadwal.jam_mulai}</span>
+                                <span>{moment(ujianjadwal.tanggal).format('DD-MM-YYYY')} & {ujianjadwal.jam_mulai} -  {ujianjadwal.jam_berakhir}</span>
                             </p>
                             <p>
                                 <strong>Waktu Pengerjaan</strong>
