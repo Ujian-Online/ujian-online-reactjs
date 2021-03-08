@@ -52,7 +52,7 @@ const Apl01 = () => {
     }, [])
 
     useEffect(() => {
-        if (apl01.apl01.id && !apl01.errMessage && !apl01.isLoading ) {
+        if (apl01.apl01.id ) {
             const birth_date = moment(apl01.apl01.birth_date, 'YYYY-MM-DD').toDate()
             setStateForm({
                 ...apl01.apl01,
@@ -61,7 +61,7 @@ const Apl01 = () => {
             })
         }
 
-    }, [apl01])
+    }, [apl01.apl01])
 
     const onChangeField = index => e => {
         setStateForm({ ...stateForm, [index]: e.target.value })
@@ -273,6 +273,7 @@ const Apl01 = () => {
                         <option value="SMP" >SMP Sederajat</option>
                         <option value="SD" >SD Sederajat</option>
                     </select>
+                    {errors && errors.pendidikan_terakhir && renderErrorMsg(errors.pendidikan_terakhir[0])}
                 </div>
             </div>
 
@@ -299,7 +300,7 @@ const Apl01 = () => {
                         </label>
                     </div>
                     <div className={`form-check ` + ((isDisabled && stateForm.has_job) ? 'd-none' : '')} >
-                        <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false" defaultChecked
+                        <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false" 
                             checked={!stateForm.has_job}
                             disabled={isDisabled}
                             onChange={e => setStateForm({
@@ -399,7 +400,7 @@ const Apl01 = () => {
 
             <div className='row mt-4 ' >
                 <div className='col ' >
-                    <Apl01CustomData apl01={apl01} isDisabled={isDisabled} />
+                    <Apl01CustomData apl01={apl01} isDisabled={isDisabled} refresh={() => dispatch(getApl01Action(auth.token)) } />
                 </div>
             </div>
 

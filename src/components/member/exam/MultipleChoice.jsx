@@ -1,5 +1,7 @@
-import {useSelector, useDispatch} from 'react-redux';
-import * as types from '../../../redux/types/ujian.type';
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {answerQuestionAPI} from '../../../redux/api/exam.api';
+
 
 import { createUseStyles } from 'react-jss'
 const useStyles = createUseStyles({
@@ -15,10 +17,10 @@ const useStyles = createUseStyles({
     }
 })
 
-const MultipleChoice = ({ title, content, multipleChoice, id }) => {
+const MultipleChoice = ({ title, content, multipleChoice, id, defaultAnswer, setState }) => {
     const classes = useStyles()
-    const answer = useSelector(state => state.ujian.answer[id]);
-    const dispatch = useDispatch();
+    const [answer, setAnswer] = useState(defaultAnswer)
+    const token = useSelector(state => state.auth.token)
 
     let choices = []
     Object.keys(multipleChoice).forEach(v => {
@@ -46,11 +48,19 @@ const MultipleChoice = ({ title, content, multipleChoice, id }) => {
                                     name='soal'
                                     className='d-none'
                                     value={val.value}
-                                    onClick={e => dispatch({
-                                        type: types.SET_ANSWER,
-                                        id,
-                                        answer: e.target.value
-                                    })} />
+                                    onClick={e => {
+                                        answerQuestionAPI(token, id, e.target.value);
+                                        setAnswer(e.target.value);
+                                        setState(prevState => {
+                                            return {
+                                                ...prevState,
+                                                answered : {
+                                                    ...prevState.answered,
+                                                    [id] : e.target.value
+                                                }
+                                            }
+                                        })
+                                    }} />
                                 <span className={`rounded-circle border text-center mr-2 ${answer === val.value ? classes.optionHightlight : classes.option}`} >
                                     {val.value}
                                 </span>
