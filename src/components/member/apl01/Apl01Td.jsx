@@ -118,7 +118,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
 
     return (<tr >
         <td>{customData.title}</td>
-        <td> 
+        <td className='text-center' > 
             {customData.is_verified ? <span className={`badge badge-success ${classes.status}`}>Terverifikasi</span> : customData.value ? <span className={`badge badge-warning ${classes.status}`}>Belum diverifikasi</span> : <span className={`badge badge-warning ${classes.status}`}>Data kosong</span> } 
         </td> 
         {
@@ -135,6 +135,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
             </div>
         </td> 
         }
+         <td>{customData.verification_note || '-' }</td>
     </tr>)
 }
 

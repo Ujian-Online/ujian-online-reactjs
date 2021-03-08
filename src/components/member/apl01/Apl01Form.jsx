@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import DatePicker from '../../reuseable/DatePicker';
 import { useHistory } from 'react-router-dom'
-// import SignatureCanvas from 'react-signature-canvas'
+import SignatureCanvas from 'react-signature-canvas'
 import { getApl01Action, postApl01Action } from '../../../redux/actions/apl01.action'
 import moment from 'moment'
 import Apl01CustomData from './Apl01CustomData'
@@ -69,11 +69,23 @@ const Apl01 = () => {
 
     let sigPad = useRef()
 
-    const onSave = () => {
+    const onSave = async () => {
         dispatch(postApl01Action(auth.token, {
             ...stateForm,
             birth_date: moment(stateForm.birth_date).format('YYYY-MM-DD')
+        }, {
+            upload_profile: await getBlobCanvas() ,
+            upload_sign: await getBlobCanvas()
         }))
+    }
+
+    const getBlobCanvas = () => {
+        return new Promise(res => {
+            const canvas = sigPad.getCanvas()
+            canvas.toBlob(blob => {
+                res(blob)
+            })
+        })       
     }
 
     const renderErrorMsg = (message) => {
@@ -404,7 +416,7 @@ const Apl01 = () => {
                 </div>
             </div>
 
-            {/* <div className='row mt-4 ' >
+            <div className='row mt-4 ' >
                 <div className='col-3 ' >
                     <label className=' mb-0 ' >
                         Tanda Tangan
@@ -419,14 +431,14 @@ const Apl01 = () => {
                         sigPad.clear()
                     }} >Ulangi Tanda Tangan</a>
                 </div >
-            </div>  */}
+            </div> 
 
             <div className='row mt-4 ' >
                 <div className='col ' >
                     {
-                        isDisabled ? (<button className='btn btn-primary float-right ' onClick={() => history.push('/member/apl-02')} >
+                        isDisabled ? (/*<button className='btn btn-primary float-right ' onClick={() => history.push('/member/apl-02')} >
                             Selanjutnya
-                        </button>) :
+                        </button>*/'') :
                             (<button className='btn btn-success float-right ' onClick={onSave} >
                                 Simpan
                             </button>)
