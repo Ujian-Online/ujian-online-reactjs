@@ -155,7 +155,7 @@ const MyExam = (props) => {
     return (
     <>
     <div className='container mt-4'>
-        <div className="card">
+        <div className="card" style={{ boxShadow: '0 2px 2px #ccc' , border: 'none' }} >
             <h5 className="card-header text-center bg-white">Ujian Saya</h5>
             <div className="card-body">
                 <DataTable
