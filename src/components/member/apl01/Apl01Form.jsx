@@ -8,6 +8,9 @@ import moment from 'moment'
 import Apl01CustomData from './Apl01CustomData'
 import { MdCreate } from 'react-icons/md'
 import { createUseStyles } from 'react-jss'
+import { getProfileAction } from "../../../redux/actions/auth.action";
+import { Spinner } from 'react-bootstrap'
+
 const useStyles = createUseStyles({
     container: {
         '& input[disabled], & textarea[disabled], & select[disabled], & input[disabled]~.form-check-label': {
@@ -28,6 +31,7 @@ const Apl01 = () => {
     const history = useHistory()
     const auth = useSelector(state => state.auth)
     const apl01 = useSelector(state => state.apl01)
+    const [isLoading, setLoading] = useState(false)
     const [isDisabled, setDisable] = useState(true)
     const [stateForm, setStateForm] = useState({
         name: '',
@@ -52,7 +56,7 @@ const Apl01 = () => {
     }, [])
 
     useEffect(() => {
-        if (apl01.apl01.id ) {
+        if (apl01.apl01.id) {
             const birth_date = moment(apl01.apl01.birth_date, 'YYYY-MM-DD').toDate()
             setStateForm({
                 ...apl01.apl01,
@@ -70,13 +74,20 @@ const Apl01 = () => {
     let sigPad = useRef()
 
     const onSave = async () => {
+        setLoading(true)
         dispatch(postApl01Action(auth.token, {
             ...stateForm,
             birth_date: moment(stateForm.birth_date).format('YYYY-MM-DD')
         }, {
-            upload_profile: await getBlobCanvas() ,
             upload_sign: await getBlobCanvas()
         }))
+        .then(() => {
+            dispatch(getProfileAction(auth.token))
+            .then(() => setLoading(false))
+            .catch(() => setLoading(false))
+        })
+        .catch(() => setLoading(false))
+
     }
 
     const getBlobCanvas = () => {
@@ -85,7 +96,7 @@ const Apl01 = () => {
             canvas.toBlob(blob => {
                 res(blob)
             })
-        })       
+        })
     }
 
     const renderErrorMsg = (message) => {
@@ -95,6 +106,25 @@ const Apl01 = () => {
     }
 
     const errors = apl01.errMessage && apl01.errMessage.errors && apl01.errMessage.errors
+
+    const renderSigPad = () => (<>
+        <SignatureCanvas penColor='black'
+            ref={ref => sigPad = ref}
+            canvasProps={{
+                height: 150, className: 'sigCanvas border ', style: { width: '100%', height: '150px', background: '#fff' },
+
+            }} />
+        <a href='/#' className='float-right' onClick={(e) => {
+            e.preventDefault()
+            sigPad.clear()
+        }} >Ulangi Tanda Tangan</a>
+    </>)
+
+    const renderLoading = () => (
+        <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+        </Spinner>
+    )
 
 
     return (
@@ -110,9 +140,9 @@ const Apl01 = () => {
                             <MdCreate /> Edit Form
                         </button>) :
                             <button className='btn btn-sm btn-secondary text-white ' onClick={() => {
-                                    dispatch(getApl01Action(auth.token))    
-                                    setDisable(true)
-                                }} >
+                                dispatch(getApl01Action(auth.token))
+                                setDisable(true)
+                            }} >
                                 Batal
                     </button>
                     }
@@ -132,13 +162,13 @@ const Apl01 = () => {
                 </div>
             </div> */}
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         No. Identitas
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9' >
+                <div className='col-sm-9' >
                     <input className='form-control   '
                         disabled={isDisabled}
                         value={stateForm.no_ktp}
@@ -147,13 +177,13 @@ const Apl01 = () => {
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         Nama Lengkap
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9' >
+                <div className='col-sm-9' >
                     <input className='form-control   '
                         value={stateForm.name}
                         disabled={isDisabled}
@@ -162,13 +192,13 @@ const Apl01 = () => {
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         Tempat & Tanggal Lahir
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9' >
+                <div className='col-sm-9' >
                     <div className=' d-flex flex-wrap align-items-center ' >
                         <input className='form-control   ' style={{ flex: 1 }}
                             disabled={isDisabled}
@@ -185,13 +215,13 @@ const Apl01 = () => {
                 </div>
             </div>
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         Jenis Kelamin
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9 d-flex flex-wrap ' >
+                <div className='col-sm-9 d-flex flex-wrap ' >
                     <div className={`form-check mr-2 ` + ((isDisabled && stateForm.gender !== 'pria') ? 'd-none' : '')}
                         style={{ width: 100 }} >
                         <input className="form-check-input"
@@ -237,13 +267,13 @@ const Apl01 = () => {
             </div> */}
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex justify-content-between ' >
+                <div className='col-sm-3 d-flex justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         Alamat
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9' >
+                <div className='col-sm-9' >
                     <textarea className='form-control  py-2 px-3 '
                         value={stateForm.address}
                         disabled={isDisabled}
@@ -254,29 +284,29 @@ const Apl01 = () => {
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         No. Telp
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9' >
+                <div className='col-sm-9' >
                     <input type='number' className='form-control   '
                         value={stateForm.phone_number}
                         disabled={isDisabled}
                         onChange={onChangeField('phone_number')} />
-                    {errors && errors.phone_number && renderErrorMsg(errors.phone_number[0]) }
+                    {errors && errors.phone_number && renderErrorMsg(errors.phone_number[0])}
                 </div>
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         Pendidikan Terakhir
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9' >
+                <div className='col-sm-9' >
                     <select className='form-control   '
                         value={stateForm.pendidikan_terakhir}
                         disabled={isDisabled}
@@ -290,13 +320,13 @@ const Apl01 = () => {
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 d-flex align-items-center justify-content-between ' >
+                <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                     <label className=' mb-0 ' >
                         Pekerjaan
                     </label>
                     <span>:</span>
                 </div>
-                <div className='col-9 d-flex flex-wrap ' >
+                <div className='col-sm-9 d-flex flex-wrap ' >
                     <div className={`form-check mr-2 ` + ((isDisabled && !stateForm.has_job) ? 'd-none' : '')}
                         style={{ width: 100 }} >
                         <input className="form-check-input"
@@ -312,7 +342,7 @@ const Apl01 = () => {
                         </label>
                     </div>
                     <div className={`form-check ` + ((isDisabled && stateForm.has_job) ? 'd-none' : '')} >
-                        <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false" 
+                        <input className="form-check-input" type="radio" name="pekerjaan" id="tidak_bekerja" value="false"
                             checked={!stateForm.has_job}
                             disabled={isDisabled}
                             onChange={e => setStateForm({
@@ -328,82 +358,82 @@ const Apl01 = () => {
             {stateForm.has_job ? <>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center justify-content-between ' >
+                    <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                         <label className=' mb-0 ' >
                             Nama Perusahaan
                         </label>
                         <span>:</span>
                     </div>
-                    <div className='col-9' >
+                    <div className='col-sm-9' >
                         <input className='form-control   '
                             value={stateForm.company_name}
                             disabled={isDisabled}
                             onChange={onChangeField('company_name')} />
-                        {errors && errors.company_name && renderErrorMsg(errors.company_name[0]) }
+                        {errors && errors.company_name && renderErrorMsg(errors.company_name[0])}
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center justify-content-between ' >
+                    <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                         <label className=' mb-0 ' >
                             Jabatan
                         </label>
                         <span>:</span>
                     </div>
-                    <div className='col-9' >
+                    <div className='col-sm-9' >
                         <input className='form-control   '
                             value={stateForm.job_title}
                             disabled={isDisabled}
                             onChange={onChangeField('job_title')} />
-                        {errors && errors.job_title && renderErrorMsg(errors.job_title[0]) }
+                        {errors && errors.job_title && renderErrorMsg(errors.job_title[0])}
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex justify-content-between ' >
+                    <div className='col-sm-3 d-flex justify-content-sm-between ' >
                         <label className='mb-0 ' >
                             Alamat Pekerjaan
                         </label>
                         <span>:</span>
                     </div>
-                    <div className='col-9' >
+                    <div className='col-sm-9' >
                         <textarea className='form-control  py-2 px-3 '
                             value={stateForm.job_address}
                             disabled={isDisabled}
                             onChange={onChangeField('job_address')} />
-                        {errors && errors.job_address && renderErrorMsg(errors.job_address[0]) }
+                        {errors && errors.job_address && renderErrorMsg(errors.job_address[0])}
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center justify-content-between ' >
+                    <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                         <label className=' mb-0 ' >
                             Email Perusahaan
                         </label>
                         <span>:</span>
                     </div>
-                    <div className='col-9' >
+                    <div className='col-sm-9' >
                         <input className='form-control   '
                             value={stateForm.company_email}
                             disabled={isDisabled}
                             onChange={onChangeField('company_email')} />
-                        {errors && errors.company_email && renderErrorMsg(errors.company_email[0]) }
+                        {errors && errors.company_email && renderErrorMsg(errors.company_email[0])}
                     </div>
                 </div>
 
                 <div className='row mt-4 ' >
-                    <div className='col-3 d-flex align-items-center justify-content-between ' >
+                    <div className='col-sm-3 d-flex align-items-center justify-content-sm-between ' >
                         <label className=' mb-0 ' >
                             No. Telp Perusahaan
                         </label>
                         <span>:</span>
                     </div>
-                    <div className='col-9' >
+                    <div className='col-sm-9' >
                         <input type='number' className='form-control   '
                             value={stateForm.company_phone}
                             disabled={isDisabled}
                             onChange={onChangeField('company_phone')} />
-                        {errors && errors.company_phone && renderErrorMsg(errors.company_phone[0]) }
+                        {errors && errors.company_phone && renderErrorMsg(errors.company_phone[0])}
                     </div>
                 </div>
 
@@ -412,26 +442,24 @@ const Apl01 = () => {
 
             <div className='row mt-4 ' >
                 <div className='col ' >
-                    <Apl01CustomData apl01={apl01} isDisabled={isDisabled} refresh={() => dispatch(getApl01Action(auth.token)) } />
+                    <Apl01CustomData apl01={apl01} isDisabled={isDisabled} refresh={() => dispatch(getApl01Action(auth.token))} />
                 </div>
             </div>
 
             <div className='row mt-4 ' >
-                <div className='col-3 ' >
+                <div className='col-sm-3 ' >
                     <label className=' mb-0 ' >
                         Tanda Tangan
                     </label>
                 </div>
-                <div className='col-9' >
-                    <SignatureCanvas penColor='black'
-                        ref={ref => sigPad = ref}
-                        canvasProps={{ height: 150, className: 'sigCanvas', style: { width: '100%', background: '#fff' } }} />
-                    <a href='/#' className='float-right' onClick={(e) => {
-                        e.preventDefault()
-                        sigPad.clear()
-                    }} >Ulangi Tanda Tangan</a>
+                <div className='col-sm-9' >
+                    {isDisabled ? auth.user.media_url_sign_user && <img className='sigCanvas w-100 bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''
+                        :
+                        renderSigPad()
+                    }
+
                 </div >
-            </div> 
+            </div>
 
             <div className='row mt-4 ' >
                 <div className='col ' >
@@ -440,7 +468,7 @@ const Apl01 = () => {
                             Selanjutnya
                         </button>*/'') :
                             (<button className='btn btn-success float-right ' onClick={onSave} >
-                                Simpan
+                                { isLoading ? renderLoading() : 'Simpan' } 
                             </button>)
                     }
                 </div>

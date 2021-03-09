@@ -5,6 +5,7 @@ import { createUseStyles } from 'react-jss'
 import { startExamAPI ,detailQuestionExamAPI} from '../../../redux/api/exam.api';
 import { useSelector } from 'react-redux';
 import {useParams, useHistory} from 'react-router-dom';
+import { Spinner , Modal } from 'react-bootstrap'
 
 const useStyles = createUseStyles({
     noExamDefault: {
@@ -29,6 +30,8 @@ const Exam = () => {
         sisa_waktu : 0,
         waktu : "00 : 00 : 00"
     });
+    const [ msgModal , setMsgModal ] = useState('');
+    let actionCloseModal
 
     const getTime = passes => {
         if(state.sisa_waktu >= passes) {
@@ -76,8 +79,8 @@ const Exam = () => {
                     })
                 })
             }).catch(err => {
-                alert('Anda tidak terdaftar ujian ini atau ujian telah berakhir');
-                history.push('/member/ujian-saya')
+                setMsgModal('Anda tidak terdaftar ujian ini atau ujian telah berakhir');
+                actionCloseModal = () => history.push('/member/ujian-saya')
             })
         }
     })
@@ -88,12 +91,28 @@ const Exam = () => {
         }
     }
 
+    
+
+    const renderModal = () => (
+        <Modal show={msgModal !== ''} onHide={() => {
+                setMsgModal('') 
+                actionCloseModal && actionCloseModal()
+            }} className='rounded' >
+            <Modal.Header className='border-0' closeButton style={{ height: '10px' , padding: '2px 10px' }} >
+            </Modal.Header>
+            <Modal.Body className='text-center'>
+                { msgModal }
+            </Modal.Body>
+        </Modal>
+    )
 
     return (
         <div className='container my-4' >
-            {state.loading ? (
-                <h1>Loading.....</h1>
-            ) :
+            {state.loading ? (<div className='text-center' >
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+            </div>) :
                 (
                     <>
                         <div className='row'>
@@ -142,6 +161,7 @@ const Exam = () => {
 
                     </>
                 )}
+                {renderModal() }
         </div>
     )
 }
