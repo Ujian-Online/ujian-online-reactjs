@@ -4,8 +4,9 @@ import Essay from './Essay'
 import { createUseStyles } from 'react-jss'
 import { DetailUjian, submitUjian } from '../../../redux/api/ujian.api';
 import { useDispatch, useSelector } from 'react-redux';
-import {useParams, useHistory} from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import * as types from '../../../redux/types/ujian.type';
+import { Spinner , Modal } from 'react-bootstrap'
 
 const useStyles = createUseStyles({
     noExamDefault: {
@@ -26,8 +27,10 @@ const Exam = () => {
         firstRender: true,
         loading: true,
         soal_ganda: [],
-        soal_essay : [],
+        soal_essay: [],
     });
+    const [ msgModal , setMsgModal ] = useState('');
+    let actionCloseModal
 
     useEffect(() => {
         if (state.firstRender) {
@@ -35,13 +38,13 @@ const Exam = () => {
                 setState(prevState => {
                     return {
                         ...prevState,
-                        soal_ganda: (res.ujianasesijawaban).filter(v => v.question_type == 'multiple_option').sort((a,b) => a.urutan - b.urutan),
-                        soal_essay: (res.ujianasesijawaban).filter(v => v.question_type == 'essay').sort((a,b) => a.urutan - b.urutan),
+                        soal_ganda: (res.ujianasesijawaban).filter(v => v.question_type == 'multiple_option').sort((a, b) => a.urutan - b.urutan),
+                        soal_essay: (res.ujianasesijawaban).filter(v => v.question_type == 'essay').sort((a, b) => a.urutan - b.urutan),
                         loading: false,
                         firstRender: false
                     }
                 })
-                if(ujianReducer.soal_id !== params.id) {
+                if (ujianReducer.soal_id !== params.id) {
                     dispatch({
                         type: types.SET_SOAL_ID,
                         id: params.id
@@ -51,41 +54,57 @@ const Exam = () => {
                     })
                 }
             }).catch(err => {
-                alert('Anda tidak terdaftar ujian ini atau ujian telah berakhir');
-                history.push('/member/ujian-saya')
+                setMsgModal('Anda tidak terdaftar ujian ini atau ujian telah berakhir');
+                actionCloseModal = () => history.push('/member/ujian-saya')
             })
         }
     })
 
     const onSubmit = async () => {
-        if(window.confirm('Apa anda yakin untuk menyelesaikan ujian nya?')) {
+        if (window.confirm('Apa anda yakin untuk menyelesaikan ujian nya?')) {
             let success = [];
-            for(const index of Object.keys(ujianReducer.answer)) {
+            for (const index of Object.keys(ujianReducer.answer)) {
                 const data = {
-                    "id" : index,
-                    "answer" : ujianReducer.answer[index]
+                    "id": index,
+                    "answer": ujianReducer.answer[index]
                 };
                 await submitUjian(token, data).then(res => success.push(res))
             }
-            if(success.length !== Object.keys(ujianReducer.answer).length) {
-                alert('Terjadi kesalahan, mohon untuk submit jawaban sekali lagi!');
-                alert(`${success.length} || ${Object.keys(ujianReducer.answer).length}`)
+            if (success.length !== Object.keys(ujianReducer.answer).length) {
+                setMsgModal(`Terjadi kesalahan, mohon untuk submit jawaban sekali lagi!
+                            ${success.length} || ${Object.keys(ujianReducer.answer).length}`);
             } else {
                 dispatch({
                     type: types.CLEAR_ANWSER
                 })
-                alert('Terimakasih sudah menyelesaikan Ujian');
-                history.push('/member/ujian-saya')
+                setMsgModal('Terimakasih sudah menyelesaikan Ujian');
+                actionCloseModal = () => history.push('/member/ujian-saya')
             }
         }
     }
 
+    
+
+    const renderModal = () => (
+        <Modal show={msgModal !== ''} onHide={() => {
+                setMsgModal('') 
+                actionCloseModal && actionCloseModal()
+            }} className='rounded' >
+            <Modal.Header className='border-0' closeButton style={{ height: '10px' , padding: '2px 10px' }} >
+            </Modal.Header>
+            <Modal.Body className='text-center'>
+                { msgModal }
+            </Modal.Body>
+        </Modal>
+    )
 
     return (
         <div className='container my-4' >
-            {state.loading ? (
-                <h1>Loading.....</h1>
-            ) :
+            {state.loading ? (<div className='text-center' >
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+            </div>) :
                 (
                     <>
                         <div className='row'>
@@ -124,7 +143,7 @@ const Exam = () => {
                                         <strong className='card-header bg-white text-center py-2' > Soal Essay </strong>
                                         <div className='card-body d-flex flex-wrap' >
                                             {(state.soal_essay).map((v, i) => (
-                                                    <button className={`btn btn-${(ujianReducer.answer[v.id] && ujianReducer.answer[v.id] !== "") ? 'success' : 'secondary ' + classes.noExamDefault} mr-2 mt-1`} > {i + 1} </button>
+                                                <button className={`btn btn-${(ujianReducer.answer[v.id] && ujianReducer.answer[v.id] !== "") ? 'success' : 'secondary ' + classes.noExamDefault} mr-2 mt-1`} > {i + 1} </button>
                                             ))}
                                         </div>
                                     </div>
@@ -134,6 +153,7 @@ const Exam = () => {
 
                     </>
                 )}
+                {renderModal() }
         </div>
     )
 }
