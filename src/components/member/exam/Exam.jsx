@@ -50,7 +50,7 @@ const Exam = () => {
             })
         }
     } 
-    
+     
     useEffect(() => {
         if (state.firstRender) {
             startExamAPI(token, params.id).then(res => {
