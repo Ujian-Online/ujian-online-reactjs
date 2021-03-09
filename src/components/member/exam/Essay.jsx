@@ -1,13 +1,10 @@
-import { createUseStyles } from 'react-jss'
-import { useState } from 'react'
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {answerQuestionAPI} from '../../../redux/api/exam.api';
 
-const Essay = ({ title, content, multipleChoice }) => {
-    const [answer, setAnswer] = useState(null)
-    content = (<span>
-        Udang ronggeng memiliki duri-duri yang keras, terutama di bagian atas kepala dan antena. Badannya yang besar dilindungi kulit keras yang mengandung zat kapur dan mempunyai bentuk tubuh yang menyerupai belalang. Habitat hidup udang ini di perairan karang, suatu kawasan laut yang banyak terdapat karang-karang, terumbu karang, batuan granit, atau vulkanis.
-        <br />
-        Makna istilah kata vulkanis pada kutipan teks tersebut adalah ….
-    </span>)
+const Essay = ({ title, content, id, setState, defaultAnswer }) => {
+    const [answer, setAnswer] = useState(defaultAnswer)
+    const token = useSelector(state => state.auth.token)
 
     return (
         <div className='card mt-2' >
@@ -23,7 +20,23 @@ const Essay = ({ title, content, multipleChoice }) => {
                         className='form-control p-2' 
                         placeholder='Ketik jawaban kamu disini...' 
                         rows='3' 
-                        onChange={ (e) => setAnswer(e.target.value) } ></textarea>      
+                        value={answer}
+                        onChange={ e => {
+                            setAnswer(e.target.value)
+                            setState(prevState => {
+                                return {
+                                    ...prevState,
+                                    answered : {
+                                        ...prevState.answered,
+                                        [id] : e.target.value
+                                    }
+                                }
+                            });
+                        } }
+                        onBlur={() => {
+                            answerQuestionAPI(token, id, answer)
+                        }}
+                        ></textarea>      
                 </div>
             </div>
         </div>
