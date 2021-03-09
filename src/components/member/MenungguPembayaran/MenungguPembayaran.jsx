@@ -182,7 +182,7 @@ const MenungguPembayaran=(props)=>{
     return(
         <>
         <div className='container mt-4'>
-            <div className="card">
+            <div className="card mb-4 " style={{ boxShadow: '0 2px 2px #ccc' , border: 'none' }} >
                 <h5 className="card-header text-center bg-white">List Pembayaran</h5>
                 <div className="card-body">
                     <DataTable
