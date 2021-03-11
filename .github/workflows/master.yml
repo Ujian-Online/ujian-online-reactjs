@@ -44,6 +44,7 @@ jobs:
       - name: Build ReactJS Artifact
         env:
           CI: false
+          REACT_APP_API_URL: ${{ secrets.ADMIN_API_PRODUCTION }}
         run: npm run build
 
       - name: Share artifact inside workflow
