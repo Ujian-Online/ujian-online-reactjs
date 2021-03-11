@@ -6,15 +6,7 @@ export const getApl01Action = (token)=>{
         try {
            dispatch({type:types.APL01_LOADING})
            const response = await getApl01 (token)
-           const asesicustomdata = response.data.asesicustomdata || []
-           const customData = (response.customdata || []).map( cmd => {
-                const asesiCmd = asesicustomdata.find( ascmd => ascmd.title === cmd.title ) 
-                if(asesiCmd) {
-                    cmd.value = asesiCmd.value
-                    cmd.is_verified = asesiCmd.is_verified
-                }
-                return cmd
-            })
+           const customData = response.customdata || []
            dispatch({type:types.GET_APL01 , apl01 : response.data , customData })
         }catch(err) {
             dispatch({type:types.APL01_FAILED , errMessage : err })

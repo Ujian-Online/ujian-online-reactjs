@@ -133,6 +133,9 @@ const Skema = () => {
                     onChangePage={(page) => {
                         dispatch(getSertifikasiAction({ ...sertifikasi.query, offset: (page - 1) * sertifikasi.query.limit }))
                     }}
+                    onChangeRowsPerPage={(limit) => {
+                        dispatch(getSertifikasiAction({ ...sertifikasi.query , limit: limit  }))
+                    }}
                 />
             </div>
         </>
