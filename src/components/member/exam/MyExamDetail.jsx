@@ -74,7 +74,7 @@ const MyExamDetail = (props) => {
     // }, [ detailExam.isStart ])
 
     const clickButton=()=>{
-        if(detailExam.status=="paket_soal_assigned" && detailExam.apl02_status=="form_terverifikasi"){
+        if(detailExam.status==="paket_soal_assigned" && detailExam.apl02_status==="form_terverifikasi"){
             // console.log('lanjutkan')
             dispatch(postStartExamAction (auth.token,id));
             history.push(`/member/ujian-saya/${id}/soal`) 

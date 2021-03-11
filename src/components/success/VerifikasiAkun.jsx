@@ -1,9 +1,5 @@
 import { createUseStyles } from 'react-jss'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { closeErrorMessageAction, resendEmailAction, verifiedEmailAction, verifiedEmailErrorAction, verifikasiAction } from '../../redux/actions/auth.action'
-import { Spinner, Modal } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles({
     container: {

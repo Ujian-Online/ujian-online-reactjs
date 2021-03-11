@@ -14,9 +14,15 @@ const Navbar = () => {
     const [isDisplayUser, toggleUser] = useState(false)
     const renderActiveMenu = (pathCurrent) => pathCurrent === pathname ? 'active cursor text-primary' : ''
 
+    
+
     useEffect(() => {
-        auth.token && dispatch(getProfileAction(auth.token))
-    }, [])
+        const initGetProfile = () => {
+            auth.token && dispatch(getProfileAction(auth.token))
+        }
+
+        initGetProfile()
+    } , [auth.token])
 
     const logout = () => dispatch(logoutAction())    
 

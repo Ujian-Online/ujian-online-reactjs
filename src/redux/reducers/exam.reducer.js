@@ -7,7 +7,7 @@ const initialState = {
     errMessage: null
 }
 
-export default(state=initialState,action={})=>{
+const reducer = (state=initialState,action={})=>{
     switch (action.type){
         case types.GET_EXAM:return{
             ...state,
@@ -43,4 +43,4 @@ export default(state=initialState,action={})=>{
 }
 
 
-
+export default reducer

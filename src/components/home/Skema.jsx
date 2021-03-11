@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action'
-import { useMemo } from 'react'
 
 const customStyles = {
     headCells: {
@@ -40,9 +39,11 @@ const Skema = () => {
     const dispatch = useDispatch()
     const sertifikasi = useSelector(state => state.sertifikasi)
     const [schemes, setScheme] = useState([])
-    useEffect(() => {
+    const initGetSertifikasi = () => {
         dispatch(getSertifikasiAction(sertifikasi.query))
-    }, [])
+    }
+    
+    useEffect( initGetSertifikasi, [])
 
     useEffect(() => {
         console.log('sertifikasi', sertifikasi)

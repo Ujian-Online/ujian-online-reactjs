@@ -1,18 +1,7 @@
-import { createUseStyles } from 'react-jss'
 import { Link } from 'react-router-dom'
 import ResetForm from './ResetForm'
 
-const useStyles = createUseStyles({
-    container : {
-        height : '100vh'
-    },
-    sidebar : {
-        backgroundSize : '100% 100%'
-    }
-})
-
 const ResetPage = () => {
-    const classes = useStyles()
 
     return (
     <div className={`container-fluid`}  >

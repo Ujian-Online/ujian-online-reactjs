@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import MultipleChoice from './MultipleChoice'
 import Essay from './Essay'
 import { createUseStyles } from 'react-jss'
-import { startExamAPI ,detailQuestionExamAPI} from '../../../redux/api/exam.api';
+import { startExamAPI, detailQuestionExamAPI, finishExamAPI } from '../../../redux/api/exam.api';
 import { useSelector } from 'react-redux';
-import {useParams, useHistory} from 'react-router-dom';
-import { Spinner , Modal } from 'react-bootstrap'
+import { useParams, useHistory } from 'react-router-dom';
+import { Spinner, Modal } from 'react-bootstrap'
 
 const useStyles = createUseStyles({
     noExamDefault: {
@@ -16,6 +16,28 @@ const useStyles = createUseStyles({
 })
 
 
+const ModalExam = ({ modal , setModal }) => {
+
+    const close = () => {
+        setModal({...modal , message : '' , actionYesModal : null , actionCloseModal: null , isShow : false })
+        modal.actionCloseModal && modal.actionCloseModal()
+    }
+    return (<Modal show={modal.isShow } onHide={close} className='rounded' >
+        <Modal.Header className='border-0' closeButton style={{ height: '10px', padding: '2px 10px' }} >
+        </Modal.Header>
+        <Modal.Body className='text-center'>
+            {modal.message }
+        </Modal.Body>
+        { modal.actionYesModal && <Modal.Footer>
+            <button className='btn btn-default ' onClick={close} >Tidak</button>
+            <button className='btn btn-primary ' onClick={() => {                
+                modal.actionYesModal && modal.actionYesModal()
+                close()
+            }} >Ya</button>
+        </Modal.Footer> }
+    </Modal>)
+}
+
 const Exam = () => {
     const classes = useStyles();
     const token = useSelector(state => state.auth.token);
@@ -25,23 +47,28 @@ const Exam = () => {
         firstRender: true,
         loading: true,
         soal_ganda: [],
-        soal_essay : [],
+        soal_essay: [],
         answered: {},
-        sisa_waktu : 0,
-        waktu : "00 : 00 : 00"
+        sisa_waktu: 0,
+        waktu: "00 : 00 : 00"
     });
-    const [ msgModal , setMsgModal ] = useState('');
-    let actionCloseModal
+    const [ modal , setModal ] = useState({
+        isShow: false,
+        message: '',
+        actionCloseModal: null , 
+        actionYesModal: null
+    })
+    
 
     const getTime = passes => {
-        if(state.sisa_waktu >= passes) {
+        if (state.sisa_waktu >= passes) {
             let hours = Math.floor((state.sisa_waktu - passes) / 3600);
             let minutes = Math.floor((state.sisa_waktu - passes) / 60) % 60;
             let seconds = (state.sisa_waktu - passes) % 60;
             hours = hours < 10 ? `0${hours}` : hours;
             minutes = minutes < 10 ? `0${minutes}` : minutes;
             seconds = seconds < 10 ? `0${seconds}` : seconds;
-    
+
             setState(prevState => {
                 return {
                     ...prevState,
@@ -49,8 +76,8 @@ const Exam = () => {
                 }
             })
         }
-    } 
-     
+    }
+
     useEffect(() => {
         if (state.firstRender) {
             startExamAPI(token, params.id).then(res => {
@@ -71,40 +98,38 @@ const Exam = () => {
                     setState(prevState => {
                         return {
                             ...prevState,
-                            soal_ganda: (res.ujianasesijawaban).filter(v => v.question_type == 'multiple_option').sort((a,b) => a.urutan - b.urutan),
-                            soal_essay: (res.ujianasesijawaban).filter(v => v.question_type == 'essay').sort((a,b) => a.urutan - b.urutan),
+                            soal_ganda: (res.ujianasesijawaban).filter(v => v.question_type === 'multiple_option').sort((a, b) => a.urutan - b.urutan),
+                            soal_essay: (res.ujianasesijawaban).filter(v => v.question_type === 'essay').sort((a, b) => a.urutan - b.urutan),
                             loading: false,
                             firstRender: false,
                         }
                     })
                 })
             }).catch(err => {
-                setMsgModal('Anda tidak terdaftar ujian ini atau ujian telah berakhir');
-                actionCloseModal = () => history.push('/member/ujian-saya')
+                setModal({ 
+                    ...modal , 
+                    message : 'Anda tidak terdaftar ujian ini atau ujian telah berakhir' , 
+                    isShow : true,
+                    actionCloseModal: () => history.push('/member/ujian-saya')
+                })
             })
         }
     })
 
     const doneExam = () => {
-        if(window.confirm('Apa anda ingin mengakhiri ujian?')) {
-            history.push('/member/ujian-saya')
-        }
+        setModal({ ...modal , 
+            message : 'Apa anda ingin mengakhiri ujian?' , 
+            isShow : true,
+            actionYesModal: () => {
+                finishExamAPI(token, params.id)
+                    .then(() => {
+                        history.push('/member/ujian-saya')
+                    })
+            }
+        })
     }
 
-    
 
-    const renderModal = () => (
-        <Modal show={msgModal !== ''} onHide={() => {
-                setMsgModal('') 
-                actionCloseModal && actionCloseModal()
-            }} className='rounded' >
-            <Modal.Header className='border-0' closeButton style={{ height: '10px' , padding: '2px 10px' }} >
-            </Modal.Header>
-            <Modal.Body className='text-center'>
-                { msgModal }
-            </Modal.Body>
-        </Modal>
-    )
 
     return (
         <div className='container my-4' >
@@ -142,7 +167,7 @@ const Exam = () => {
                                         <strong className='card-header bg-white text-center py-2' > Soal Pilihan Ganda </strong>
                                         <div className='card-body d-flex flex-wrap' >
                                             {(state.soal_ganda).map((v, i) => (
-                                                <button className={`btn btn-${(state.answered[v.id] || (v.user_answer && v.user_answer !== "")) ? 'success' : 'secondary ' + classes.noExamDefault} mr-2 mt-1`} > {i + 1} </button>
+                                                <button key={i} className={`btn btn-${(state.answered[v.id] || (v.user_answer && v.user_answer !== "")) ? 'success' : 'secondary ' + classes.noExamDefault} mr-2 mt-1`} > {i + 1} </button>
                                             ))}
                                         </div>
                                     </div>
@@ -151,7 +176,7 @@ const Exam = () => {
                                         <strong className='card-header bg-white text-center py-2' > Soal Essay </strong>
                                         <div className='card-body d-flex flex-wrap' >
                                             {(state.soal_essay).map((v, i) => (
-                                                    <button className={`btn btn-${((state.answered[v.id] && state.answered[v.id] !== "") || (v.user_answer && v.user_answer !== "")) ? 'success' : 'secondary ' + classes.noExamDefault} mr-2 mt-1`} > {i + 1} </button>
+                                                <button key={i} className={`btn btn-${((state.answered[v.id] && state.answered[v.id] !== "") || (v.user_answer && v.user_answer !== "")) ? 'success' : 'secondary ' + classes.noExamDefault} mr-2 mt-1`} > {i + 1} </button>
                                             ))}
                                         </div>
                                     </div>
@@ -161,7 +186,8 @@ const Exam = () => {
 
                     </>
                 )}
-                {renderModal() }
+            { <ModalExam modal={modal} 
+                            setModal={setModal} /> }
         </div>
     )
 }

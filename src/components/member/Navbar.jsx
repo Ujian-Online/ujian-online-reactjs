@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction , logoutAction } from '../../redux/actions/auth.action'
-import { MdAccountCircle , MdHome , MdPowerSettingsNew } from 'react-icons/md'
+import { MdAccountCircle , MdPowerSettingsNew } from 'react-icons/md'
 
 const Navbar = () => {
 

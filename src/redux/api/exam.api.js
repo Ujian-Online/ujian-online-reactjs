@@ -56,3 +56,12 @@ export const answerQuestionAPI = async (token, id, answer) => {
     }).then(res => res.data)
 }
 
+export const finishExamAPI = async (token,id) => {
+    return await API({
+        url : `/api/ujian/${id}/finish`,
+        method : 'POST',
+        headers : {
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}

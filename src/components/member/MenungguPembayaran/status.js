@@ -1,6 +1,3 @@
-import {Link, useHistory} from 'react-router-dom'
-import {useState} from 'react'
-import {Button,Modal} from 'react-bootstrap'
 
 export const status_bayar = {
     'waiting_payment' : <span className='badge badge-primary' style={{ fontSize : '12px' }} >Menunggu Pembayaran</span> ,

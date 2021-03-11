@@ -1,10 +1,10 @@
 import DataTable from 'react-data-table-component'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useState,useEffect } from 'react'
-import { status_ujian , apl_02 } from './status'
+import { status_ujian } from './status'
 import { useDispatch, useSelector } from 'react-redux'
 import { getExamAction } from '../../../redux/actions/exam.action'
-import { MdControlPoint,MdEdit } from 'react-icons/md'
+import { MdEdit } from 'react-icons/md'
 import { Modal } from 'react-bootstrap'
 import moment from 'moment'
 
@@ -37,7 +37,7 @@ const customStyles = {
 
 
 
-const MyExam = (props) => {
+const MyExam = () => {
 
     const history = useHistory()
    
@@ -135,7 +135,6 @@ const MyExam = (props) => {
     //Modal untuk kesalahan klik
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false)
-    const handleShowModal = () => setShowModal(true);
    
     const renderModalRow = () => (
         <Modal show={showModal} onHide={handleCloseModal}>
