@@ -311,6 +311,13 @@ const Apl01 = () => {
                         value={stateForm.pendidikan_terakhir}
                         disabled={isDisabled}
                         onChange={onChangeField('pendidikan_terakhir')} >
+                        <option value="SMA" >S3</option>
+                        <option value="SMA" >S2</option>
+                        <option value="SMA" >S1</option>
+                        <option value="SMA" >D4</option>
+                        <option value="SMA" >D3</option>
+                        <option value="SMA" >D2</option>
+                        <option value="SMA" >D1</option>
                         <option value="SMA" >SMA Sederajat</option>
                         <option value="SMP" >SMP Sederajat</option>
                         <option value="SD" >SD Sederajat</option>
