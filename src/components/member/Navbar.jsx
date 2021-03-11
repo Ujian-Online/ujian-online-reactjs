@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction , logoutAction } from '../../redux/actions/auth.action'
-import { MdAccountCircle , MdHome , MdPowerSettingsNew } from 'react-icons/md'
+import { MdAccountCircle , MdPowerSettingsNew } from 'react-icons/md'
 
 const Navbar = () => {
 
@@ -60,7 +60,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="navbar row navbar-expand-lg navbar-light bg-white px-lg-5 ">
+        <nav className="navbar row navbar-expand-lg navbar-light bg-white px-lg-5 shadow-sm ">
             <Link className="navbar-brand" to="/member/ujian-baru">
                 <img src='/assets/img/bg-logo.png' alt='logo' width='50px' />
             </Link>

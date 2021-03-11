@@ -27,7 +27,8 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
     const [messageError, setError] = useState(null)
     const [customDataState, setStateCustomData] = useState({
         customdataid: customData.id,
-        value: customData.value
+        value: customData.value,
+        type: customData.type
     })
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
     }, [customData.value ])
 
     const onChange = (value) => {
-        setStateCustomData({ customdataid: customData.id, value })
+        setStateCustomData({ customdataid: customData.id, value , type: customData.type })
     }
 
     const onSave = () => {

@@ -4,11 +4,8 @@ import { MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import {getHolderSertifikatAction} from '../../redux/actions/pemegangSertifikat.action'
 
-const nowYear = (new Date()).getFullYear()
-const arrPerTahun = [...Array(5)].map((val, index) => nowYear - index )
 const DataPemegang = () => {
 
-    const [ filterTahun , setFilterTahun ] = useState(nowYear)
     const dispatch=useDispatch()
     const [schemes,setScheme]=useState([])
     const holder=useSelector(state=>state.holder)

@@ -1,8 +1,8 @@
-import { Dropdown, ButtonGroup, Button } from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap'
 import { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { MdFilterList, MdSearch } from 'react-icons/md'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getSertifikasiAction } from '../../redux/actions/sertifikasi.action'
@@ -110,7 +110,7 @@ const DaftarUjianBaru = () => {
         <>
 
             <div className='container py-4'>
-                <div className="card">
+                <div className="card" style={{ boxShadow: '0 2px 2px #ccc' , border: 'none' }} >
                     <div className="card-header bg-white">
                         <h5 className="text-center">Ujian Saya</h5>
                         {renderSearch()} {/*Filter()*/}
@@ -131,6 +131,9 @@ const DaftarUjianBaru = () => {
                             paginationTotalRows={sertifikasi.query.count}
                             onChangePage={(page) => {
                                 dispatch(getSertifikasiAction({ ...sertifikasi.query , offset: (page-1)*sertifikasi.query.limit  }))
+                            }}
+                            onChangeRowsPerPage={(limit) => {
+                                dispatch(getSertifikasiAction({ ...sertifikasi.query , limit: limit  }))
                             }}
                         />
                     </div>

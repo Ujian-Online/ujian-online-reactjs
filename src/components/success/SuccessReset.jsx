@@ -1,8 +1,5 @@
 import { createUseStyles } from 'react-jss'
-import { Link, useLocation,useHistory} from 'react-router-dom'
 import {useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import {setTokenAction} from '../../redux/actions/auth.action'
 
 
 
@@ -21,8 +18,6 @@ const useStyles = createUseStyles({
 
 const SuccessRegister = () => {
     const classes = useStyles()
-    const dispatch=useDispatch()
-    const history=useHistory()
     
     useEffect(()=>{
        

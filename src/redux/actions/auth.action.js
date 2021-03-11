@@ -66,7 +66,7 @@ export const forgetPasswordAction = ({  email = '', password='',token}) => {
                 type : types.FORGET_PASSWORD , 
                 token : response.data && response.data.token })
         }catch(err){
-            const data = err.response && err.response.data && err.response.data||{}
+            const data = (err.response && err.response.data && err.response.data) || {}
             console.error('[Lupa_Password]', data)
             dispatch({ 
                 type : types.ON_ERROR, 

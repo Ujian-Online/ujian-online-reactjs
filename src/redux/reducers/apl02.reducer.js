@@ -9,7 +9,7 @@ const initialState = {
     isSuccessPost: false
 }
 
-export default(state=initialState,action={})=>{
+const reducer = (state=initialState,action={})=>{
     switch (action.type){
         case types.GET_APL02:return{
             ...state,
@@ -53,5 +53,4 @@ export default(state=initialState,action={})=>{
     }
 }
 
-
-
+export default reducer

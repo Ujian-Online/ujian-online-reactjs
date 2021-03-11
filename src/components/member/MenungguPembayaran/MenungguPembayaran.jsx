@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import {useState} from 'react'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux'
-import {  Link, Route, useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { getOrderAction} from '../../../redux/actions/order.action'
 import {status_bayar} from './status'
 
@@ -34,7 +34,7 @@ const customStyles = {
 
 }
 
-const MenungguPembayaran=(props)=>{
+const MenungguPembayaran=()=>{
     const history = useHistory()
 
     //deklarasi reducer untuk token
@@ -57,7 +57,7 @@ const MenungguPembayaran=(props)=>{
         setSkema([ ...(order.order || [] ).map(o=>({
             no:no++,
             id:o.id,
-            skema_sertifikasi: o.sertifikasi && o.sertifikasi.title || 'skema sertifikasi ini tidak tersedia',
+            skema_sertifikasi: (o.sertifikasi && o.sertifikasi.title)|| 'skema sertifikasi ini tidak tersedia',
             status_bayar:o.status,
             transfer_from_bank_name:o.transfer_from_bank_name,
             transfer_to_bank_name:o.transfer_to_bank_name,
@@ -182,7 +182,7 @@ const MenungguPembayaran=(props)=>{
     return(
         <>
         <div className='container mt-4'>
-            <div className="card">
+            <div className="card mb-4 " style={{ boxShadow: '0 2px 2px #ccc' , border: 'none' }} >
                 <h5 className="card-header text-center bg-white">List Pembayaran</h5>
                 <div className="card-body">
                     <DataTable

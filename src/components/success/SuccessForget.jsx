@@ -1,5 +1,5 @@
 import { createUseStyles } from 'react-jss'
-import { Link, useLocation,useHistory} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {setTokenAction} from '../../redux/actions/auth.action'
