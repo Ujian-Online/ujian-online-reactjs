@@ -124,7 +124,6 @@ const Skema = () => {
                     subHeader
                     onRowClicked={onClickRow}
                     subHeaderComponent={subHeaderComponent()}
-                    pagination
                     paginationServer={true}
                     paginationServerOptions={{
                         persistSelectedOnPageChange: true

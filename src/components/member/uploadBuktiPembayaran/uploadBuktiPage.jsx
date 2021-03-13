@@ -112,23 +112,45 @@ const UploadPembayaranPage = (props) => {
                                         Transfer Melalui :
                                     </h6>
                                 </div>
-                                <div className='row mt-2 px-md-4' >
-                                    <div className='col-12 d-flex align-items-start ' >
-                                        <img src='/assets/img/mandiri.png' alt='mandiri' />
-                                        <div className='ml-2 '>
-                                            <h6>Bank Mandiri</h6>
-                                            <h6>LSP MERCUBUANA</h6>
-                                            <h6>2506 1845</h6>
-                                        </div>
+                                <div className='row mt-2 px-md-4'>
+                                
+                                <div className='col-12 d-flex align-items-start ' >
+                                    <img src='/assets/img/mandiri.png' alt='mandiri' />
+                                    <div className='ml-2 '>
+                                    {bank.filter(bk => bk.bank_name === "Mandiri").map(filteredBankAccount => (
+                                    <div>
+                                    <h6>
+                                    Mandiri
+                                    </h6>
+                                    <h6>
+                                    {filteredBankAccount.account_name}
+                                    </h6>
+                                    <h6>
+                                    {filteredBankAccount.account_number}
+                                    </h6>
+                                    </div>
+                                ))}
                                     </div>
                                 </div>
-                                <div className='row mt-2 px-md-4' >
+                            </div>
+                                <div className='row mt-2 px-md-4'>
+                                
                                     <div className='col-12 d-flex align-items-start ' >
                                         <img src='/assets/img/BCA.png' alt='bca' />
                                         <div className='ml-2 '>
-                                            <h6>Bank Central Asia</h6>
-                                            <h6>LSP MERCUBUANA</h6>
-                                            <h6>2355 1903</h6>
+                                        {bank.filter(bk => bk.bank_name === "BCA").map(filteredBankAccount => (
+                                        <div>
+                                        <h6>
+                                        Bank Central Asia
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_name}
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_number}
+                                        </h6>
+                                        </div>
+                                    ))}
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +204,7 @@ const UploadPembayaranPage = (props) => {
                                     </div>
 
                                     <div className='mb-2 ' >
-                                        <div>Nomor Bank</div>
+                                        <div>Tanggal Pengiriman bukti</div>
                                         <DatePicker
                                             className='form-control w-100 '
                                             selected={stateForm.transfer_date }

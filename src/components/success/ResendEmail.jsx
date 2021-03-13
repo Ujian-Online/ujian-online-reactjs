@@ -1,7 +1,7 @@
 import { createUseStyles } from 'react-jss'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import * as actionAPI from '../../redux/actions/auth.action'
 
 const useStyles = createUseStyles({
