@@ -28,15 +28,12 @@ export const getApl02DetailAction = (token,payload)=>{
     }
 }
 
-export const postApl02Action = (token , payload )=>{
-    return async dispatch =>{
+export const postApl02Action = (token , payload ) =>{
+    return async () =>{
         try {
-           dispatch({type:types.APL02_LOADING})
            await postApl02 (token , payload )
-           dispatch({ type:types.APL02_POST_SUCCESS })
         }catch(err) {
-            dispatch({type:types.APL02_FAILED , errMessage : err })
-            console.error('[postApl02Action]', err)
+            throw Error(err.response.data.message)
         }
     }
 }

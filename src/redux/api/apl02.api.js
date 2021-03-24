@@ -16,9 +16,16 @@ export const getApl02 = async (token ) => {
 
 export const postApl02 = async (token , payload ) => {
 
+    if( typeof payload.value === 'string'){
+        delete payload.value
+    }
+
     const formData = new FormData()
-    formData.set('id' , payload.id )
-    formData.set('value' , payload.value )
+    Object.keys(payload).forEach( key => {
+        if(payload[key]){
+            formData.set(key , payload[key] )
+        }
+    })
 
     return await API({
         url : '/api/apl02' ,

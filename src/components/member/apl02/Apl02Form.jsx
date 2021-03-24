@@ -1,32 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, Link, useParams } from 'react-router-dom'
-import { Modal, Button } from 'react-bootstrap'
-import SignatureCanvas from 'react-signature-canvas'
+import {  useParams } from 'react-router-dom'
+// import { Modal, Button } from 'react-bootstrap'
+// import SignatureCanvas from 'react-signature-canvas'
 import { getApl02DetailAction } from '../../../redux/actions/apl02.action'
 import Apl2asuk from './apl02ASUK'
+import { MdCreate } from 'react-icons/md'
 
 
-const ModalAplError = ({ showModal, handleCloseModal, errMessage }) => {
-    return (<Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-            <Modal.Title>Terjadi Masalah</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-            <p>{errMessage || 'Cobalah beberapa saat lagi.'}</p>
-        </Modal.Body>
-
-        <Modal.Footer className='border-top-0' >
-            <Button variant="light" onClick={handleCloseModal}>Tutup</Button>
-        </Modal.Footer>
-    </Modal>)
-}
-
-const Apl02Form = (props) => {
-    const history = useHistory()
-    let sigPad = useRef()
+const Apl02Form = () => {
+    // let sigPad = useRef()
     const dispatch = useDispatch()
+    const [isEdit , setEdit ] = useState(true)
 
     //reducer auth.token
     const auth = useSelector(state => state.auth)
@@ -36,29 +21,25 @@ const Apl02Form = (props) => {
     const detailApl = apl02.detailApl || {}
     const sertifikasi = detailApl.sertifikasi || {}
     const { id } = useParams()
-    const [showModalError, setShowModalError] = useState(false);
 
     useEffect(() => {
         dispatch(getApl02DetailAction(auth.token, id))
-    }, [])
-
-    useEffect(() => {
-        if (apl02.isSuccessPost) {
-            dispatch(getApl02DetailAction(auth.token, id))
-        }
-    }, [apl02.isSuccessPost])
-
-    useEffect(() => {
-        if (apl02.errMessage) {
-            setShowModalError(true)
-        }
-    }, [apl02.errMessage])
-
-
+    }, [])   
 
     return (
         <>
             <div className='container mt-5'>
+                <div className='row ' >
+                {
+                        isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
+                                        Batal
+                                    </button>) : 
+                        (<button className='btn btn-sm btn-warning text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(true)} >
+                            <MdCreate /> Edit Form
+                        </button>) 
+                        
+                    }
+                </div>
                 <div className="form-group row mb-5">
                     <label htmlFor="inputSkemaSertifikasi" className="col-sm-2 col-form-label">Judul Skema Sertifikasi</label>
                     <div className="col-sm-10">
@@ -88,12 +69,11 @@ const Apl02Form = (props) => {
                                     </tr>
                                     <tr>
                                         <th scope="col" colSpan="2" style={{ width: '50%' }} >Pertanyaan</th>
-                                        <th scope="col" className='text-center' >Bukti Relevan</th>
                                         <th scope="col" className='text-center' >Status</th>
-                                        <th scope="col" >Catatan</th>
+                                        <th scope="col" className='text-center' >Catatan</th>
                                     </tr>
                                     {(uk.asesisertifikasiunitkompetensielement || []).map((asuk, keyy) => (
-                                        <Apl2asuk asuk={asuk} key={keyy} />
+                                        <Apl2asuk asuk={asuk} key={keyy} isEdit={ isEdit } />
                                     ))
                                     }
 
@@ -104,7 +84,6 @@ const Apl02Form = (props) => {
                     </table>
                 </div>
             </div>
-            <ModalAplError showModal={showModalError} handleCloseModal={() => setShowModalError(false)} />
         </>
     )
 }
