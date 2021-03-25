@@ -11,7 +11,7 @@ import { MdCreate } from 'react-icons/md'
 const Apl02Form = () => {
     // let sigPad = useRef()
     const dispatch = useDispatch()
-    const [isEdit , setEdit ] = useState(true)
+    const [isEdit , setEdit ] = useState(false)
 
     //reducer auth.token
     const auth = useSelector(state => state.auth)

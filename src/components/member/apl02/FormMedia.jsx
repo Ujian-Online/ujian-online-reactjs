@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 
 const FormMedia = ({ media = {} , asuk }) => {
     const [ form , setForm ] = useState({
-        element_id: asuk.asesi_id , 
+        element_id: asuk.id , 
         type : media.id ? 'update' : 'new',
         description: media.description,
         media_id : media.id,
@@ -23,10 +23,11 @@ const FormMedia = ({ media = {} , asuk }) => {
     const onSubmit = (e) => {
             e.preventDefault()
             setState({  isLoading: true , error: null })
-            dispatch(postApl02Action(auth.token, form))
+            dispatch(postApl02Action(auth.token, {...form}))
             .then(() => {
                 dispatch(getApl02DetailAction(auth.token, id))
                 setState({ isLoading: false  })
+                clearForm()
             })
             .catch( err => {
                 setState({ isLoading: false , error: err.message })
@@ -34,26 +35,40 @@ const FormMedia = ({ media = {} , asuk }) => {
         
     }
 
+    const clearForm = () => {
+        if(!form.media_id){
+            setForm({ ...form , description : '' , value: '' })
+        }
+    }
+
     const onChangeFile = (e) => {
         setForm({ ...form , value : e.target.files[0] })
         setState({ ...state, error: null })
     }
 
-    return (
-    <form className='text-right ' onSubmit={onSubmit} >
+    const renderMedia = () => (
         <label className="d-block p-2 rounded mt-2 bg-light text-center cursor-pointer " >
             <input type="file" className="d-none" accept=".jpg, .png, .jpeg, .pdf" onChange={onChangeFile} />
             <span>{form.value && form.value.name ? form.value.name : 
                 form.value ? form.value : 'Browse file ...'}</span>
         </label>
+    )
+
+    const renderTextarea = () => (
         <textarea 
             className='form-control p-2 ' 
             onChange={({ target }) => {
                 setForm({ ...form , description : target.value }) 
                 setState({ state , error: null })
-            }} >
-                { form.description }
+            }}
+            value={form.description} >
         </textarea>
+    )
+
+    return (
+    <form className='text-right ' onSubmit={onSubmit} >
+        { renderMedia() }
+        { renderTextarea() }
             { state.error ? <span className='alert alert-danger text-center my-2 d-block ' >{ state.error }</span> : '' }
         <button className='btn btn-primary btn-sm mt-2 ' disabled={ state.isLoading } >
              { state.isLoading ? 'Loading ...' : media.id ? 'Edit Media' : 'Tambah Media' } 

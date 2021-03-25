@@ -9,10 +9,23 @@ import FormMedia from './FormMedia'
 const Apl02ASUK = ({ asuk , isEdit }) => {
     const [isDispalyInstruction, toggleDisplayInstruction ] = useState(false)
    
+    const rowSpanAnswer = () => {
+        if(isDispalyInstruction && isEdit ){
+            return asuk.media.length + 3
+        }
+        else if(isDispalyInstruction && asuk.media.length ){
+            return asuk.media.length + 2
+        }
+        else if(isDispalyInstruction){
+            return 2    
+        }else {
+           return 1
+        }
+    } 
 
     return (<>
         <tr  >
-            <td colSpan="2" rowSpan={asuk.media.length && isDispalyInstruction && isEdit ? asuk.media.length + 2 : isDispalyInstruction && isEdit ? 3 : 1 } >
+            <td colSpan="2" rowSpan={ rowSpanAnswer() } >
                 <ul className='list-unstyled mb-0 ' >
                     <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
