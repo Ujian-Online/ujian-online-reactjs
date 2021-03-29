@@ -112,30 +112,49 @@ const UploadPembayaranPage = (props) => {
                                         Transfer Melalui :
                                     </h6>
                                 </div>
-                                <div className='row mt-2 px-md-4'>
-                                
-                                <div className='col-12 d-flex align-items-start ' >
-                                    <img src='/assets/img/mandiri.png' alt='mandiri' />
-                                    <div className='ml-2 '>
-                                    {bank.filter(bk => bk.bank_name === "Mandiri").map(filteredBankAccount => (
-                                    <div>
-                                    <h6>
-                                    Mandiri
-                                    </h6>
-                                    <h6>
-                                    {filteredBankAccount.account_name}
-                                    </h6>
-                                    <h6>
-                                    {filteredBankAccount.account_number}
-                                    </h6>
+                                <div className='col-md-6'>
+                                        
+                                </div>
+                                <div className='row mt-2 px-md-3'>
+                                    <div className='col-6 d-flex align-items-start ' >
+                                        <img src='/assets/img/mandiri.png' alt='mandiri' />
+                                        <div className='ml-2 '>
+                                        {bank.filter(bk => bk.bank_name === "Mandiri").map(filteredBankAccount => (
+                                        <div>
+                                        <h6>
+                                        Mandiri
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_name}
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_number}
+                                        </h6>
+                                        </div>
+                                        ))}
+                                        </div>
                                     </div>
-                                ))}
+                                    <div className='col-6 d-flex align-items-start ' >
+                                        <img src='/assets/img/bri.png' alt='mandiri' style={{height:'50px', width:'100px'}}/>
+                                        <div className='ml-2 '>
+                                        {bank.filter(bk => bk.bank_name === "BRI").map(filteredBankAccount => (
+                                        <div>
+                                        <h6>
+                                        Bank Rakyat Indonesia
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_name}
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_number}
+                                        </h6>
+                                        </div>
+                                        ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                                <div className='row mt-2 px-md-4'>
-                                
-                                    <div className='col-12 d-flex align-items-start ' >
+                                <div className='row mt-2 px-md-3'>
+                                    <div className='col-6 d-flex align-items-start ' >
                                         <img src='/assets/img/BCA.png' alt='bca' />
                                         <div className='ml-2 '>
                                         {bank.filter(bk => bk.bank_name === "BCA").map(filteredBankAccount => (
@@ -153,7 +172,64 @@ const UploadPembayaranPage = (props) => {
                                     ))}
                                         </div>
                                     </div>
+                                    <div className='col-6 d-flex align-items-start ' >
+                                        <img src='/assets/img/btn.png' alt='btn'style={{height:'70px', width:'100px'}} />
+                                        <div className='ml-2 '>
+                                        {bank.filter(bk => bk.bank_name === "BTN").map(filteredBankAccount => (
+                                        <div>
+                                        <h6>
+                                        Bank Tabungan Negara
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_name}
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_number}
+                                        </h6>
+                                        </div>
+                                    ))}
+                                        </div>
+                                    </div>
                                 </div>
+                                <div className='row mt-2 px-md-3'>
+                                    <div className='col-6 d-flex align-items-start ' >
+                                        <img src='/assets/img/permata.png' alt='permata' style={{height:'50px', width:'100px'}} />
+                                        <div className='ml-2 '>
+                                        {bank.filter(bk => bk.bank_name === "Permata").map(filteredBankAccount => (
+                                        <div>
+                                        <h6>
+                                        Permata Bank
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_name}
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_number}
+                                        </h6>
+                                        </div>
+                                    ))}
+                                        </div>
+                                    </div>
+                                    <div className='col-6 d-flex align-items-start ' >
+                                        <img src='/assets/img/bni.png' alt='bni' style={{height:'50px', width:'100px'}} />
+                                        <div className='ml-2 '>
+                                        {bank.filter(bk => bk.bank_name === "BNI").map(filteredBankAccount => (
+                                        <div>
+                                        <h6>
+                                        Bank Negara Indonesia
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_name}
+                                        </h6>
+                                        <h6>
+                                        {filteredBankAccount.account_number}
+                                        </h6>
+                                        </div>
+                                    ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                             <div className={`col-md-4 ml-auto mr-auto ` + classes.detailInformasi} >
                                 <div className='rounded p-2 p-md-3 bg-light ' >
@@ -196,13 +272,19 @@ const UploadPembayaranPage = (props) => {
                                     </div>
 
                                     <div className='mb-2 d-flex flex-column ' >
-                                        <div>Nomor Bank</div>
+                                        <div>Nomor Rekening</div>
                                         <input type='text' className='form-control '
                                             onChange={(e) => setStateForm({ ...stateForm, transfer_from_bank_number: e.target.value })} />
                                         {order.errMessage && order.errMessage.errors 
                                             && order.errMessage.errors.transfer_from_bank_number &&  renderErrorMsg(order.errMessage.errors.transfer_from_bank_number[0]) }
                                     </div>
-
+                                    <div className='mb-2  d-flex flex-column  ' >
+                                        <div>Nama Pengirim</div>
+                                        <input type='text' className='form-control'
+                                            onChange={(e) => setStateForm({ ...stateForm, transfer_from_bank_account: e.target.value })} />
+                                        {order.errMessage && order.errMessage.errors 
+                                            && order.errMessage.errors.transfer_from_bank_account &&  renderErrorMsg(order.errMessage.errors.transfer_from_bank_account[0]) }
+                                    </div>
                                     <div className='mb-2 ' >
                                         <div>Tanggal Pengiriman bukti</div>
                                         <DatePicker
@@ -220,13 +302,7 @@ const UploadPembayaranPage = (props) => {
                                         </select>
                                     </div>
 
-                                    <div className='mb-2  d-flex flex-column  ' >
-                                        <div>Nama Pengirim</div>
-                                        <input type='text' className='form-control'
-                                            onChange={(e) => setStateForm({ ...stateForm, transfer_from_bank_account: e.target.value })} />
-                                        {order.errMessage && order.errMessage.errors 
-                                            && order.errMessage.errors.transfer_from_bank_account &&  renderErrorMsg(order.errMessage.errors.transfer_from_bank_account[0]) }
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
