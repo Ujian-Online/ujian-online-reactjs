@@ -135,7 +135,7 @@ const UploadPembayaranPage = (props) => {
                                         </div>
                                     </div>
                                     <div className='col-6 d-flex align-items-start ' >
-                                        <img src='/assets/img/bri.png' alt='mandiri' style={{height:'50px', width:'100px'}}/>
+                                        <img src='/assets/img/bri.png' alt='BRI'/>
                                         <div className='ml-2 '>
                                         {bank.filter(bk => bk.bank_name === "BRI").map(filteredBankAccount => (
                                         <div>
@@ -173,7 +173,7 @@ const UploadPembayaranPage = (props) => {
                                         </div>
                                     </div>
                                     <div className='col-6 d-flex align-items-start ' >
-                                        <img src='/assets/img/btn.png' alt='btn'style={{height:'70px', width:'100px'}} />
+                                        <img src='/assets/img/btn.png' alt='btn' />
                                         <div className='ml-2 '>
                                         {bank.filter(bk => bk.bank_name === "BTN").map(filteredBankAccount => (
                                         <div>
@@ -193,7 +193,7 @@ const UploadPembayaranPage = (props) => {
                                 </div>
                                 <div className='row mt-2 px-md-3'>
                                     <div className='col-6 d-flex align-items-start ' >
-                                        <img src='/assets/img/permata.png' alt='permata' style={{height:'50px', width:'100px'}} />
+                                        <img src='/assets/img/permata.png' alt='permata' />
                                         <div className='ml-2 '>
                                         {bank.filter(bk => bk.bank_name === "Permata").map(filteredBankAccount => (
                                         <div>
@@ -211,7 +211,7 @@ const UploadPembayaranPage = (props) => {
                                         </div>
                                     </div>
                                     <div className='col-6 d-flex align-items-start ' >
-                                        <img src='/assets/img/bni.png' alt='bni' style={{height:'50px', width:'100px'}} />
+                                        <img src='/assets/img/bni.png' alt='bni'/>
                                         <div className='ml-2 '>
                                         {bank.filter(bk => bk.bank_name === "BNI").map(filteredBankAccount => (
                                         <div>
