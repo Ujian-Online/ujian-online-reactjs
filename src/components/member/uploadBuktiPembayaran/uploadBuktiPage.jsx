@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { getDetailOrderAction, sendProofPaymentAction } from '../../../redux/actions/order.action'
 import { useDispatch, useSelector } from 'react-redux'
 import { createUseStyles } from 'react-jss'
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Modal } from 'react-bootstrap';
 import DatePicker from '../../reuseable/DatePicker';
 import moment from 'moment';
 import './uploadBuktiPage.css'
@@ -62,7 +62,35 @@ const UploadPembayaranPage = (props) => {
       </div>)
     }
 
-    return (<div className='container my-4 ' >
+
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => setShowModal(false)
+    const handleShowModal = () => setShowModal(true);
+   
+    const renderModalUpload = () => (
+        <Modal show={showModal} onHide={handleCloseModal}>
+               <Modal.Header closeButton>
+                   <Modal.Title> Terjadi Kesalahan, tolong Ulangi</Modal.Title>
+               </Modal.Header>
+               <Modal.Body>
+                    Ukuran gambar bukti transfer terlalu besar, maksimal ukuran gambar 100KB
+               </Modal.Body>
+        </Modal>
+    )
+
+    const clickUpload =()=>{
+        if (stateForm. bukti_transfer.size>1000000) {
+            handleShowModal()
+        }
+        else{
+            const transfer_date = moment(stateForm.transfer_date).format('YYYY-MM-DD')
+            dispatch(sendProofPaymentAction(auth.token, id, { ...stateForm , transfer_date }))
+        }
+    }
+
+    return (
+    <>
+    <div className='container my-4 ' >
         <div className='row ' >
             <div className='col-12 ' >
                 <div className='card p-2 ' >
@@ -308,10 +336,7 @@ const UploadPembayaranPage = (props) => {
                         </div>
                         <div className='row d-flex align-items-center justify-content-center flex-column my-4 ' >
                             <button
-                                onClick={() => {
-                                    const transfer_date = moment(stateForm.transfer_date).format('YYYY-MM-DD')
-                                    dispatch(sendProofPaymentAction(auth.token, id, { ...stateForm , transfer_date }))
-                                }}
+                                onClick={clickUpload}
                                 className='btn btn-primary' >
                                 {order.isLoading ? renderLoading() : 'Upload Pembayaran'}
                             </button>
@@ -323,6 +348,9 @@ const UploadPembayaranPage = (props) => {
                 </div>
             </div>
         </div>
-    </div>)
+    </div>
+    {renderModalUpload()}
+    </>
+    )
 }
 export default UploadPembayaranPage
