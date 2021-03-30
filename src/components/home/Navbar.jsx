@@ -31,7 +31,7 @@ const Navbar = () => {
             return (
                 <div className="btn-group">
                     <button type="button" 
-                            className="btn btn-default dropdown-toggle" 
+                            className="btn btn-default dropdown-toggle text-white " 
                             onClick={() => toggleUser(!isDisplayUser) }
                             onBlur={ () => setTimeout(() => toggleUser(false) , 200 ) } >
                         <MdAccountCircle style={{ fontSize : '25px' }} /> {auth.user.email}
@@ -55,9 +55,9 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="navbar row navbar-expand-lg navbar-light bg-white px-lg-5 shadow-sm ">
+        <nav className="navbar row navbar-expand-lg navbar-light px-lg-5 shadow-sm "  style={{ background: '#28a745' }} >
             <Link className="navbar-brand" to="/">
-                <img src='/assets/img/bg-logo.png' alt='logo' width='50px' />
+                <img src='/assets/img/bg-logo.png' alt='logo' width='50px'  className='rounded-circle bg-white ' />
             </Link>
             <button className="navbar-toggler" type="button" onClick={() => toggleMenu(!isDisplayMenu)}  >
                 <span className="navbar-toggler-icon"></span>
@@ -65,15 +65,15 @@ const Navbar = () => {
             <div className={`${isDisplayMenu ? '' : 'collapse'} navbar-collapse`} >
                 <ul className="navbar-nav mr-auto">
                     <li className='nav-item' >
-                        <Link className={`nav-link ${renderActiveMenu('/')} `} to='/'>
+                        <Link className={`nav-link ${renderActiveMenu('/')} text-white `} to='/'>
                             Skema Sertifikasi
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/pemegang-sertifikat')}`} to='/pemegang-sertifikat' >Data Pemegang Serifikat</Link>
+                        <Link className={`nav-link ${renderActiveMenu('/pemegang-sertifikat')} text-white `} to='/pemegang-sertifikat' >Data Pemegang Serifikat</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className={`nav-link ${renderActiveMenu('/petunjuk')}`} to='/petunjuk' >Petunjuk</Link>
+                        <Link className={`nav-link ${renderActiveMenu('/petunjuk')} text-white `} to='/petunjuk' >Petunjuk</Link>
                     </li>
                 </ul>
                 {renderRightMenu()}

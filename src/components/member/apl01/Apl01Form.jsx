@@ -30,11 +30,11 @@ const useStyles = createUseStyles({
 const Apl01 = () => {
     const dispatch = useDispatch()
     const classes = useStyles()
-    const history = useHistory()
     const auth = useSelector(state => state.auth)
     const apl01 = useSelector(state => state.apl01)
     const [isLoading, setLoading] = useState(false)
     const [isDisabled, setDisable] = useState(true)
+    const [ isChangeSign , setChangesSign ] = useState(false)
     const [stateForm, setStateForm] = useState({
         name: '',
         address: '',
@@ -81,12 +81,13 @@ const Apl01 = () => {
             ...stateForm,
             birth_date: moment(stateForm.birth_date).format('YYYY-MM-DD')
         }, {
-            upload_sign: await getBlobCanvas()
+            upload_sign: isChangeSign ? await getBlobCanvas() : null
         }))
-        .then(() => {
+        .then(() => {           
             dispatch(getProfileAction(auth.token))
             .then(() => setLoading(false))
-            .catch(() => setLoading(false))
+            .catch(() => setLoading(false))  
+            setChangesSign(false)         
         })
         .catch(() => setLoading(false))
 
@@ -110,10 +111,13 @@ const Apl01 = () => {
     const errors = apl01.errMessage && apl01.errMessage.errors && apl01.errMessage.errors
 
     const renderSigPad = () => (<>
-        <SignatureCanvas penColor='black'
+        <SignatureCanvas penColor='black'            
             ref={ref => sigPad = ref}
             canvasProps={{
-                height: 150, className: 'sigCanvas border ', style: { width: '100%', height: '150px', background: '#fff' },
+                onClick:() => {
+                    setChangesSign(true)
+                },
+                height: 150, width: 150, className: 'sigCanvas border bg-white ',
 
             }} />
         <a href='/#' className='float-right' onClick={(e) => {
@@ -461,8 +465,8 @@ const Apl01 = () => {
                         Tanda Tangan
                     </label>
                 </div>
-                <div className='col-sm-9' >
-                    {isDisabled ? auth.user.media_url_sign_user && <img className='sigCanvas w-100 bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''
+                <div className='col-sm-9 d-flex flex-column align-items-start ' >
+                    {isDisabled ? auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''
                         :
                         renderSigPad()
                     }

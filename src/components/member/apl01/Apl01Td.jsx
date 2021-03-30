@@ -35,14 +35,14 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
         onChange(customData.value)
     }, [customData.value ])
 
-    const onChange = (value) => {
+    const onChange = (value ) => {
         setStateCustomData({ customdataid: customData.id, value , type: customData.type })
     }
 
-    const onSave = () => {
+    const onSave = (value) => {
             setError(false)
             setLoading(true)
-            dispatch(postCustomDataAction(auth.token, { ...customDataState }))
+            dispatch(postCustomDataAction(auth.token, { ...customDataState , value }))
             .then(() => {
                 setLoading(false)
                 setError(null)
@@ -61,9 +61,10 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
         </Spinner>
     )
 
-    const onChangeInputFile = (e) => {
+    const onChangeInputFile = async (e) => {
         if(e.target.files.length) {
-            onChange(e.target.files[0] )
+            onChange(e.target.files[0])
+            onSave(e.target.files[0])
         }
     }
 
@@ -86,6 +87,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
             return (<input type='text'
                 value={customDataState.value}
                 onChange={(e) => onChange(e.target.value)}
+                onBlur={() => onSave(customDataState.value) }
                 className='form-control py-1 ' />)
         } else if (customData.input_type === 'dropdown'){
         
@@ -93,6 +95,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
                 <select className='form-control py-1 '
                     value={customDataState.value}
                     onChange={(e) => onChange(e.target.value)}
+                    onBlur={() => onSave(customDataState.value) }
                     style={{ height: '38px' }} >
                     <option value='' >Pilih ...</option>
                     { (customData.dropdown_option || '' ).split(',').map((val , key ) =>
@@ -130,9 +133,9 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
                     {renderActions()}
                     {messageError ? <div className="invalid-feedback position-absolute d-block bg-white ">{messageError }</div> : ''}
                 </div>
-                <button className='btn btn-sm btn-primary ml-2' onClick={onSave} >
-                    {isLoading ? renderLoading() : 'Simpan'}
-                </button>
+                <div >
+                    {isLoading ? renderLoading() : ''}
+                </div>
             </div>
         </td> 
         }

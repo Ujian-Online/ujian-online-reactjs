@@ -21,7 +21,7 @@ export const postApl01Action = (token , payload , payloadSign )=>{
         try {
            dispatch({type:types.APL01_LOADING})
            await postApl01 (token , payload )
-           await postSignUser (token , payloadSign )
+           payloadSign.upload_sign && await postSignUser (token , payloadSign )
            dispatch({ type:types.APL01_POST_SUCCESS })
         }catch(err) {
             dispatch({type:types.APL01_FAILED , errMessage : (err && err.response && err.response.data) || err })
