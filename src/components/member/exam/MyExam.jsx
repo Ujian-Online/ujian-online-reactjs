@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react'
 import { status_ujian } from './status'
 import { useDispatch, useSelector } from 'react-redux'
 import { getExamAction } from '../../../redux/actions/exam.action'
-import { MdEdit } from 'react-icons/md'
+import { MdEdit, MdControlPoint } from 'react-icons/md'
 import { Modal } from 'react-bootstrap'
 import moment from 'moment'
 
@@ -84,7 +84,25 @@ const MyExam = () => {
         { selector: 'apl_02', name: 'APL 02', sortable: true , 
         format:row=>{
             //view button berdasarkan badges
-            if(row.status_ujian==='menunggu_verifikasi_form_apl02' && row.apl_02=="menunggu_verifikasi"){     
+            if(row.status_ujian==='' && row.apl_02=="isi_form"){     
+                return <div className='row' >
+                <div className='col-12' >
+                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                    <MdControlPoint /> Isi Form
+                    </button>
+                </div>
+                </div>     
+            }
+            if(row.status_ujian==='ujian_dalam_penilaian' && row.apl_02=="isi_form"){     
+                return <div className='row' >
+                <div className='col-12' >
+                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                    <MdControlPoint /> Isi Form
+                    </button>
+                </div>
+                </div>     
+            }
+            else if(row.status_ujian==='menunggu_verifikasi_form_apl02' && row.apl_02=="menunggu_verifikasi"){     
                 return <div className='row' >
                 <div className='col-7 d-flex align-items-center' >
                     <span className='badge badge-warning' style={{ fontSize : '12px' }} >Menunggu Verifikasi</span>
