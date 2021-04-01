@@ -7,7 +7,7 @@ import Apl02Media from './apl02Media'
 import FormMedia from './FormMedia'
 
 const Apl02ASUK = ({ asuk , isEdit }) => {
-    const [isDispalyInstruction, toggleDisplayInstruction ] = useState(false)
+    const [isDispalyInstruction, toggleDisplayInstruction ] = useState(true)
    
     const rowSpanAnswer = () => {
         if(isDispalyInstruction && isEdit ){

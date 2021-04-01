@@ -7,8 +7,8 @@ export const status_ujian = {
     'menunggu_jadwal_ujian':'Menunggu jadwal ujian',
     'menunggu' : 'Menunggu jadwal ujian' ,
     'ujian_dalam_penilaian' : 'Ujian dalam penilaian' ,
-    'Kompeten' : <span className='badge badge-success' style={{ fontSize : '12px' }} > Kompeten </span> ,
-    'Tidak Kompeten' : <span className='badge badge-danger' style={{ fontSize : '12px' }} >Tidak Kompeten </span>
+    'kompeten' : <span className='badge badge-success' style={{ fontSize : '12px' }} > Kompeten </span> ,
+    ' tidak_kompeten' : <span className='badge badge-danger' style={{ fontSize : '12px' }} >Tidak Kompeten </span>
 }
 
 export const apl_02 = {
