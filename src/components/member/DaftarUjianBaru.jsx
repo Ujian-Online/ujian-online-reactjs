@@ -20,7 +20,6 @@ const customStyles = {
     },
     cells: {
         style: {
-            // backgroundColor: 'green',
             color: 'black',
             '&:hover': {
                 backgroundColor:'#DCDCDC'
