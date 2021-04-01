@@ -43,6 +43,6 @@ select.form-control {
 }
 
 .nav-item:hover{
-  opacity: 0.5;
+ background-color:aqua;
   transition: 0.5s;
 }
