@@ -285,7 +285,7 @@ const UploadPembayaranPage = (props) => {
                                                 onChange={(e) => {
                                                     setStateForm({ ...stateForm, bukti_transfer: e.target.files[0] })
                                                 }} />
-                                            <span>{ stateForm.bukti_transfer ? stateForm.bukti_transfer.name : 'Browse file ...' } </span>
+                                            <span style={{color:'black'}}>{ stateForm.bukti_transfer ? stateForm.bukti_transfer.name : 'Browse file ...' } </span>
                                         </label>
                                         {order.errMessage && order.errMessage.errors 
                                             && order.errMessage.errors.bukti_transfer &&  renderErrorMsg(order.errMessage.errors.bukti_transfer[0]) }
