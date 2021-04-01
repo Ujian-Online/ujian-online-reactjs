@@ -79,7 +79,7 @@ const UploadPembayaranPage = (props) => {
     )
 
     const clickUpload =()=>{
-        if (stateForm. bukti_transfer.size>3000000) {
+        if (stateForm. bukti_transfer.size>7000000) {
             handleShowModal()
         }
         else{
