@@ -30,7 +30,7 @@ const FormMedia = ({ media = {} , asuk }) => {
                 clearForm()
             })
             .catch( err => {
-                setState({ isLoading: false , error: err.message })
+                setState({ isLoading: false , error: "deskripsi wajib diisi" })
             })
         
     }
@@ -61,7 +61,9 @@ const FormMedia = ({ media = {} , asuk }) => {
                 setForm({ ...form , description : target.value }) 
                 setState({ state , error: null })
             }}
-            value={form.description} >
+            value={form.description}
+            placeholder="masukan deskripsi"
+            >
         </textarea>
     )
 
@@ -71,7 +73,7 @@ const FormMedia = ({ media = {} , asuk }) => {
         { renderTextarea() }
             { state.error ? <span className='alert alert-danger text-center my-2 d-block ' >{ state.error }</span> : '' }
         <button className='btn btn-primary btn-sm mt-2 ' disabled={ state.isLoading } >
-             { state.isLoading ? 'Loading ...' : media.id ? 'Edit Media' : 'Tambah Media' } 
+             { state.isLoading ? 'Loading ...' : media.id ? 'Update Dokumen' : 'Upload Dokumen' } 
         </button>
     </form>
     )
