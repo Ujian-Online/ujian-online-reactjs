@@ -132,13 +132,11 @@ const MyExam = () => {
             else if(row.status='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
                 <div className='col-10' >
-                <div className='col-5' >
                     <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdEdit /> Update Form
                     </button>
                 </div>
-                </div>
-                </div>     
+                </div>  
             }
             else if(row.status='menunggu'&& row.apl_02==="form_terverifikasi"){     
                 return  <div className='row' >
