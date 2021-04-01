@@ -41,3 +41,8 @@ select.form-control {
   box-shadow: 0 2px 2px #ccc;
   border: none;
 }
+
+.nav-item:hover{
+  opacity: 0.5;
+  transition: 0.5s;
+}

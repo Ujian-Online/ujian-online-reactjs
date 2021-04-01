@@ -71,7 +71,7 @@ const Navbar = () => {
                 <ul className="navbar-nav mr-auto">
                     <li className='nav-item ' >
                         <Link className={`nav-link ${renderActiveMenu('ujian-baru')} text-white `} to='/member/ujian-baru'>
-                           Daftar Ujian Baru
+                           Daftar Sertifikasi
                         </Link>
                     </li>
                     <li className='nav-item '>
@@ -86,7 +86,7 @@ const Navbar = () => {
                     </li>
                     <li className='nav-item '>
                         <Link className={`nav-link ${renderActiveMenu('menunggu-pembayaran')} text-white `} to='/member/menunggu-pembayaran' >
-                            Menunggu Pembayaran
+                            Data Pembayaran
                         </Link>
                     </li>
                 </ul>
