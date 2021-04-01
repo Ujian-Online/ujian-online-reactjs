@@ -101,7 +101,7 @@ const DaftarUjianForm = (props) => {
                 <div className='col-sm-9' >
                     <input
                         className='form-control bg-white'
-                        value={skema.nomor_skema}
+                        value={skema.title}
                         placeholder='Masukan skema sertifikasi'
                         readOnly />
                 </div>
@@ -109,11 +109,13 @@ const DaftarUjianForm = (props) => {
             <div className='row mt-4 ' >
                 <div className='col-sm-3 d-flex align-items-center' >
                     <label className=' mb-0 ' >
-                        Lokasi Uji Kompetensi
+                        Tempat Uji Kompetensi
                     </label>
                 </div>
                 <div className='col-sm-9' >
-                    <select className='form-control bg-white  ' >
+                    <select className='form-control bg-white'
+                     onChange={(e) => setStateForm({ ...stateForm, tuk_id: e.target.value })}
+                    >
                         {
                             (skema.sertifikasituk || []).map(tuk =>
                                 <option value={tuk.tuk_id} key={tuk.tuk_id} >{tuk.tuk.title }</option>
