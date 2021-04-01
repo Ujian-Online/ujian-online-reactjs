@@ -112,7 +112,7 @@ const DaftarUjianBaru = () => {
             <div className='container py-4'>
                 <div className="card" style={{ boxShadow: '0 2px 2px #ccc' , border: 'none' }} >
                     <div className="card-header bg-white">
-                        <h5 className="text-center">Ujian Saya</h5>
+                        <h5 className="text-center">Daftar sertifikasi</h5>
                         {renderSearch()} {/*Filter()*/}
                     </div>
                     <div className="card-body">
