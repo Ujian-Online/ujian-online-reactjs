@@ -88,9 +88,11 @@ const FormMedia = ({ media = {} , asuk }) => {
         <button className='btn btn-primary btn-sm mt-2 ' disabled={ state.isLoading } onClick={onUpload} >
              { state.isLoading ? 'Loading ...' : media.id ? 'Update Dokumen' : 'Upload Dokumen' } 
         </button>
-        <button className='btn btn-primary btn-sm mt-2 ml-3' onClick={onDelete} >
-             { media.id ? 'Hapus Dokumen' : 'Reset Dokumen' } 
-        </button>
+        { media.id ?  
+            <button className='btn btn-primary btn-sm mt-2 ml-3' onClick={onDelete} >
+            Hapus dokumen 
+            </button> : '' } 
+        
     </form>
 
     </>
