@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { postApl02Action , getApl02DetailAction } from '../../../redux/actions/apl02.action'
-import { useParams } from 'react-router-dom'
+import { postApl02Action , getApl02DetailAction, deleteApl02Action } from '../../../redux/actions/apl02.action'
+import { useHistory, useParams } from 'react-router-dom'
+import { Modal } from 'react-bootstrap'
 
 const FormMedia = ({ media = {} , asuk }) => {
+    const history = useHistory()
     const [ form , setForm ] = useState({
         element_id: asuk.id , 
         type : media.id ? 'update' : 'new',
@@ -20,7 +21,7 @@ const FormMedia = ({ media = {} , asuk }) => {
     const auth = useSelector( state => state.auth )
     const { id } = useParams()
 
-    const onSubmit = (e) => {
+    const onUpload = (e) => {
             e.preventDefault()
             setState({  isLoading: true , error: null })
             dispatch(postApl02Action(auth.token, {...form}))
@@ -34,6 +35,17 @@ const FormMedia = ({ media = {} , asuk }) => {
             })
         
     }
+
+    const onDelete = (e) => {
+        e.preventDefault()
+        dispatch(deleteApl02Action(auth.token, media.id))
+        .then(() => {
+          dispatch(getApl02DetailAction(auth.token, id))
+        })
+        .catch( err => {
+            clearForm()
+        })
+}
 
     const clearForm = () => {
         if(!form.media_id){
@@ -68,14 +80,20 @@ const FormMedia = ({ media = {} , asuk }) => {
     )
 
     return (
-    <form className='text-right ' onSubmit={onSubmit} >
+        <>
+    <form className='text-right ' >
         { renderMedia() }
         { renderTextarea() }
             { state.error ? <span className='alert alert-danger text-center my-2 d-block ' >{ state.error }</span> : '' }
-        <button className='btn btn-primary btn-sm mt-2 ' disabled={ state.isLoading } >
+        <button className='btn btn-primary btn-sm mt-2 ' disabled={ state.isLoading } onClick={onUpload} >
              { state.isLoading ? 'Loading ...' : media.id ? 'Update Dokumen' : 'Upload Dokumen' } 
         </button>
+        <button className='btn btn-primary btn-sm mt-2 ml-3' onClick={onDelete} >
+             { media.id ? 'Hapus Dokumen' : 'Reset Dokumen' } 
+        </button>
     </form>
+
+    </>
     )
 }
 export default FormMedia

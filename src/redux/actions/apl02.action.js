@@ -1,4 +1,4 @@
-import { getApl02, getDetailApl02, postApl02 } from '../api/apl02.api'
+import { deleteAPL02, getApl02, getDetailApl02, postApl02 } from '../api/apl02.api'
 import * as types from '../types/apl02.type'
 
 export const getApl02Action = (token)=>{
@@ -32,6 +32,16 @@ export const postApl02Action = (token , payload ) =>{
     return async () =>{
         try {
            await postApl02 (token , payload )
+        }catch(err) {
+            throw Error(err.response.data.message)
+        }
+    }
+}
+
+export const deleteApl02Action = (token , payload ) =>{
+    return async () =>{
+        try {
+           await deleteAPL02 (token , payload )
         }catch(err) {
             throw Error(err.response.data.message)
         }
