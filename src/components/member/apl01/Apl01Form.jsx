@@ -34,6 +34,7 @@ const Apl01 = () => {
     const apl01 = useSelector(state => state.apl01)
     const [isLoading, setLoading] = useState(false)
     const [isDisabled, setDisable] = useState(true)
+    const [isEditSign, setEditSign] = useState(false)
     const [ isChangeSign , setChangesSign ] = useState(false)
     const [stateForm, setStateForm] = useState({
         name: '',
@@ -466,9 +467,20 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-sm-9 d-flex flex-column align-items-start ' >
-                    {isDisabled ? auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''
-                        :
+                    {!isDisabled && isEditSign ? 
                         renderSigPad()
+                        :
+                        (
+                            <>
+                            {auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''}
+                            {!isDisabled && (
+                                <a href='/#' className='float-right' onClick={(e) => {
+                                    e.preventDefault()
+                                    setEditSign(true)
+                                }} >Tanda Tangan Ulang</a>
+                            )}
+                            </>
+                        )
                     }
 
                 </div >

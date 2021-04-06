@@ -51,3 +51,14 @@ export const getDetailApl02 = async (token , sertifikasiId ) => {
     }).then( res => res.data )
 }
 
+export const deleteAPL02 = async (token , mediaId ) => {
+
+    return await API({
+        url : '/api/apl02/'+ mediaId ,
+        method : 'DELETE',
+        headers : {
+            'Content-Type':'application/json',
+            Authorization : 'Bearer ' + token
+        }
+    }).then( res => res.data )
+}
