@@ -61,7 +61,7 @@ const MyExam = () => {
             no: no++,
             id:exm.id,
             sertifikasi_id:exm.sertifikasi_id,
-            skema_sertifikasi: exm.sertifikasi && exm.sertifikasi.title || '',
+            skema_sertifikasi: (exm.sertifikasi && exm.sertifikasi.title) || "",
             apl_02:exm.apl02_status,
             status_ujian:exm.ujian_status,
             jadwal:moment(exm.ujianjadwal.tanggal).format('DD-MM-YYYY'),
@@ -84,7 +84,7 @@ const MyExam = () => {
         { selector: 'apl_02', name: 'APL 02', sortable: true , 
         format:row=>{
             //view button berdasarkan badges
-            if(row.status_ujian==='' && row.apl_02=="isi_form"){     
+            if(row.status_ujian==="" && row.apl_02==="isi_form"){     
                 return <div className='row' >
                 <div className='col-12' >
                     <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
@@ -93,52 +93,52 @@ const MyExam = () => {
                 </div>
                 </div>     
             }
-            if(row.status_ujian==='ujian_dalam_penilaian' && row.apl_02=="isi_form"){     
+            if(row.status_ujian==="ujian_dalam_penilaian" && (row.apl_02==="isi_form" || row.apl_02==="menunggu_verifikasi"||row.apl_02==="form_terverifikasi")){     
                 return <div className='row' >
                 <div className='col-12' >
-                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
-                    <MdControlPoint /> Isi Form
+                    <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                        Lihat Form
                     </button>
                 </div>
                 </div>     
             }
-            else if(row.status_ujian==='menunggu_verifikasi_form_apl02' && row.apl_02=="menunggu_verifikasi"){     
+            if(row.status_ujian==="menunggu_verifikasi_form_apl02" && row.apl_02==="menunggu_verifikasi"){     
                 return <div className='row' >
                 <div className='col-7 d-flex align-items-center' >
                     <span className='badge badge-primary' style={{ fontSize : '12px' }} >Menunggu Verifikasi</span>
                 </div>
                 <div className='col-5' >
                     <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
-                        <MdEdit /> Update Form
+                        <MdEdit /> Update
                     </button> 
                 </div>
                 </div>     
             }
-            else if(row.status_ujian==="menunggu_jadwal_ujian"&& row.apl_02==="form_terverifikasi"){     
+            if(row.status_ujian==="menunggu_jadwal_ujian"&& row.apl_02==="form_terverifikasi"){     
                 return  <span className='badge badge-success' style={{ fontSize : '12px' }} >Terverifikasi</span>
             }
-            else if(row.status_ujian==="menunggu_verifikasi_form_apl02"&& row.apl_02==="form_ditolak"){     
+            if(row.status_ujian==="menunggu_verifikasi_form_apl02" && row.apl_02==="form_ditolak"){     
                 return  <div className='row' >
                 <div className='col-7 d-flex align-items-center' >
                     <span className='badge badge-danger' style={{ fontSize : '12px' }} >Form ditolak</span>
                 </div>
                 <div className='col-5' >
                     <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
-                        <MdEdit /> Update Form
+                        <MdEdit /> Update
                     </button>
                 </div>
                 </div>     
             }
-            else if(row.status='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
+            if(row.status==="menunggu"&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
                 <div className='col-10' >
                     <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
-                        <MdEdit /> Update Form
+                        <MdEdit /> Update
                     </button>
                 </div>
                 </div>  
             }
-            else if(row.status='menunggu'&& row.apl_02==="form_terverifikasi"){     
+            if(row.status==="menunggu"&& row.apl_02==="form_terverifikasi"){     
                 return  <div className='row' >
                      <div className='col-7 d-flex align-items-center' >
                     <span className='badge badge-success' style={{ fontSize : '12px' }} >Form Terverifikasi</span>

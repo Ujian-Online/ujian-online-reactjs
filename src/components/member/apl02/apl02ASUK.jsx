@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import { MdKeyboardArrowUp, MdKeyboardArrowDown , MdCancel } from 'react-icons/md'
-
-import { useDispatch , useSelector } from 'react-redux'
-import {  postApl02Action } from '../../../redux/actions/apl02.action'
+import { MdKeyboardArrowUp, MdKeyboardArrowDown} from 'react-icons/md'
 import Apl02Media from './apl02Media'
 import FormMedia from './FormMedia'
 
