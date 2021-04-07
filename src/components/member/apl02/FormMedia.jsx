@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postApl02Action , getApl02DetailAction, deleteApl02Action } from '../../../redux/actions/apl02.action'
-import { useHistory, useParams } from 'react-router-dom'
-import { Modal } from 'react-bootstrap'
+import {  useParams } from 'react-router-dom'
 
 const FormMedia = ({ media = {} , asuk }) => {
-    const history = useHistory()
     const [ form , setForm ] = useState({
         element_id: asuk.id , 
         type : media.id ? 'update' : 'new',
