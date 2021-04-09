@@ -37,13 +37,11 @@ const UploadPembayaranPage = (props) => {
         transfer_date: new Date()
     })
 
-    const setOrder = useCallback(() => {
-        setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
-    }, [setStateForm , stateForm ])
+
 
     useEffect(() => {
-        setOrder()
-    }, [order , setOrder ] )
+        setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
+    }, [order ] )
 
     useEffect(() => {
         dispatch(getDetailOrderAction(auth.token, id))
