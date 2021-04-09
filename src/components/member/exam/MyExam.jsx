@@ -17,14 +17,19 @@ const customStyles = {
                 dispaly: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-            }
+            },
+            
         },
     },
     cells: {
         style: {
             fontSize: '14px' ,
+            color: 'black',
+            '&:hover': {
+                backgroundColor:'#DCDCDC'
+            },
             cursor: 'pointer',
-            '&:nth-child(1)': {
+            '&:nth-child(1)' : {
                 maxWidth: '50px',
                 dispaly: 'flex',
                 alignItems: 'center',
