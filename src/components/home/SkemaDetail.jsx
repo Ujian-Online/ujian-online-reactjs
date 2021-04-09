@@ -23,8 +23,8 @@ const SkemaDetail = () => {
     
 
     const columns = [
-        { selector : 'tuk.code' , name : 'Kode Unit' , sortable : true },
-        { selector : 'tuk.title' , name : 'Unit Kompetensi' , sortable : true },
+        { selector : 'unitkompetensi.kode_unit_kompetensi' , name : 'Kode Unit' , sortable : true },
+        { selector : 'unitkompetensi.title' , name : 'Unit Kompetensi' , sortable : true },
     ];
     
     return (
@@ -48,7 +48,7 @@ const SkemaDetail = () => {
              <DataTable
                 title='DAFTAR UNIT KOMPENTESI'
                 columns={columns}
-                data={ detailSertifikasi.sertifikasituk || [] } />
+                data={ detailSertifikasi.sertifikasiunitkompentensi || [] } />
             <br />
         </div>
     )

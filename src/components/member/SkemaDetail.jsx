@@ -26,8 +26,8 @@ const SkemaDetail = () => {
 
 
     const columns = [
-        { selector: 'tuk.code', name: 'Kode Unit', sortable: true },
-        { selector: 'tuk.title', name: 'Unit Kompetensi', sortable: true },
+        { selector: 'unitkompetensi.kode_unit_kompetensi', name: 'Kode Unit', sortable: true },
+        { selector: 'unitkompetensi.title', name: 'Unit Kompetensi', sortable: true },
     ];
 
     const clickDaftar = () => {
@@ -56,7 +56,7 @@ const SkemaDetail = () => {
                 <DataTable
                     title='DAFTAR UNIT KOMPENTESI'
                     columns={columns}
-                    data={detailSertifikasi.sertifikasituk || []} />
+                    data={detailSertifikasi.sertifikasiunitkompentensi || []} />
                 <br />
                 <div className="form-group mt-3 col-md-3 col-sm-5 mr-auto ml-auto mb-5">
                     <button onClick={clickDaftar} type="submit" className="btn btn-primary btn-block ">
