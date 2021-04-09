@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MdCancel , MdVisibility } from 'react-icons/md';
+import { MdCancel } from 'react-icons/md';
 import { Spinner } from 'react-bootstrap'
 import { postCustomDataAction } from '../../../redux/actions/apl01.action'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,11 +13,11 @@ const useStyles = createUseStyles({
     }
 })
 
-const customDataTypes = {
-    text: "Teks",
-    dropdown: "Pilihan",
-    upload_image: "Unduh gambar"
-}
+// const customDataTypes = {
+//     text: "Teks",
+//     dropdown: "Pilihan",
+//     upload_image: "Unduh gambar"
+// }
 
 const TdTable = ({ customData, isDisabled , refresh }) => {
     const classes = useStyles()

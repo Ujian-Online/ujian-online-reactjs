@@ -145,11 +145,11 @@ const DaftarUjianForm = (props) => {
                         <label className="form-check-label" htmlFor="training">
                             Training
                         </label>
-                        {stateForm.training && <div className={classes.Training}>
+                        {(stateForm.training && <div className={classes.Training}>
                             <label>
                                 (Pemilihan training akan ada tambahan biaya training)
                             </label>
-                        </div> || ''}
+                        </div>) || ''}
                     </div>
 
                     <div className="form-check">
