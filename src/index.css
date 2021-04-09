@@ -43,7 +43,7 @@ select.form-control {
 }
 
 .nav-item:hover{
- background-color:		#006400;
+ background-color:		#4d864d;
   transition: 0.5s;
   border-radius: 5px;
 }
