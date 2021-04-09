@@ -1,8 +1,6 @@
-import {useRef, useState , useEffect } from 'react'
+import { useState , useEffect } from 'react'
 import { useDispatch , useSelector } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
-import {Modal,Button} from 'react-bootstrap'
-import SignatureCanvas from 'react-signature-canvas'
+import { useHistory } from 'react-router-dom'
 import { getApl02Action } from '../../../redux/actions/apl02.action'
 import DataTable from 'react-data-table-component'
 
@@ -33,9 +31,8 @@ const customStyles = {
 
 }
 
-const Apl02Form=(props)=>{
+const Apl02Form=()=>{
     const history = useHistory()
-    let sigPad = useRef()
     const dispatch = useDispatch()
 
     //reducer auth.token

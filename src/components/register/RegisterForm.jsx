@@ -4,6 +4,7 @@ import { Link , useHistory } from 'react-router-dom'
 import { Modal, Spinner, InputGroup, FormControl , Form } from 'react-bootstrap'
 import { MdAccountCircle, MdLock, MdLockOutline } from 'react-icons/md'
 import { registerUserAction , closeErrorMessageAction } from '../../redux/actions/auth.action'
+import { useCallback } from 'react'
 
 const RegisterForm = () => {
 
@@ -16,15 +17,17 @@ const RegisterForm = () => {
         dispatch(closeErrorMessageAction())
     };
     const handleShowModal = () => setShowModal(true);
-
-    useEffect(() => {
+    const redirectVerifikasiAkun = useCallback(() => {
         if (auth.succesRegister) {
             history.push('/verifikasi-akun')
         }
         if (auth.errMessage) {
             handleShowModal()
         }
-    }, [auth.succesRegister, auth.errMessage])
+    }, [history , auth ])
+    useEffect(() => {
+        redirectVerifikasiAkun()
+    }, [auth.succesRegister, auth.errMessage, redirectVerifikasiAkun ])
 
     const [user, setUser] = useState({
         username: '',
