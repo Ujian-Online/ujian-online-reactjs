@@ -36,19 +36,24 @@ const UploadPembayaranPage = (props) => {
         transfer_date: new Date()
     })
 
+    const setBank = () => {
+        setStateForm({ ...stateForm , bank_id :  (bank[0] && bank[0].id) || ''  })   
+    }
+    
     useEffect(() => {
-        setStateForm({ ...stateForm , bank_id :  bank[0] && bank[0].id || ''  })        
-    }, [order ] )
+        setBank()
+    }, [order , setBank ] )
+
 
     useEffect(() => {
         dispatch(getDetailOrderAction(auth.token, id))
-    }, [])
+    }, [ auth.token , dispatch , id ])
 
     useEffect(() => {
         if (order.isSuccessPost) {
             history.push('/member/upload-bukti-pembayaran-detail/sukses')
         }
-    }, [order.isSuccessPost])
+    }, [order.isSuccessPost , history ])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">

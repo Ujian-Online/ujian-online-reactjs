@@ -8,15 +8,14 @@ const EmailVerify = () => {
     const history = useHistory()
     const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    const query = new URLSearchParams(useLocation().search);   
-
+    const query = new URLSearchParams(useLocation().search);  
 
     useEffect(() => {
         if(query.get('token')) {
 
             dispatch(verifikasiAction(query.get('token')))
         }
-    }, [])
+    }, [ dispatch , query ])
 
     useEffect(() => {
         if(!auth.needVerify){

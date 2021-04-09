@@ -11,7 +11,7 @@ const DataPemegang = () => {
     const holder=useSelector(state=>state.holder)
     useEffect(()=>{
         dataPemilik()
-   },[])
+   },[ dataPemilik ])
 
    useEffect(()=>{
        console.log('Pemilik sertifikasi',holder)

@@ -5,7 +5,7 @@ const Apl02Media = ({ media , asuk , isEdit }) => {
   
     const renderMedia = () => {
         return(<div className='d-flex align-items-center justify-content-center ' >
-        <a href={`${media.media_url}`} target="_blank" >Lihat media</a>        
+        <a href={`${media.media_url}`} rel="noreferrer" target="_blank" >Lihat media</a>        
         </div>)
     }
 

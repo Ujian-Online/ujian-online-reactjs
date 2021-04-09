@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MdCancel , MdVisibility } from 'react-icons/md';
+import { MdCancel  } from 'react-icons/md';
 import { Spinner } from 'react-bootstrap'
 import { postCustomDataAction } from '../../../redux/actions/apl01.action'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,11 +13,11 @@ const useStyles = createUseStyles({
     }
 })
 
-const customDataTypes = {
-    text: "Teks",
-    dropdown: "Pilihan",
-    upload_image: "Unduh gambar"
-}
+// const customDataTypes = {
+//     text: "Teks",
+//     dropdown: "Pilihan",
+//     upload_image: "Unduh gambar"
+// }
 
 const TdTable = ({ customData, isDisabled , refresh }) => {
     const classes = useStyles()
@@ -77,7 +77,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
 
     const renderMedia = () => {
         return(<div className='d-flex align-items-center justify-content-center ' >
-        <a href={`${customDataState.value}`} target="_blank" >Lihat media</a>
+        <a href={`${customDataState.value}`} rel="noreferrer" target="_blank" >Lihat media</a>
         <button className="btn btn-link rounded-circle text-danger d-flex " onClick={() => onChange('')} ><MdCancel /></button>
         </div>)
     }
@@ -114,7 +114,7 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
         if ((customData.input_type === 'text' || customData.input_type === 'dropdown') && customDataState.value ) {
             return customData.value;
         }else if (customData.input_type === 'upload_image' && customDataState.value ) {
-            return(<a href={`${customDataState.value}`} target="_blank" >Lihat media</a> )
+            return(<a href={`${customDataState.value}`} rel="noreferrer" target="_blank" >Lihat media</a> )
         }
 
         return 'Belum diisi'

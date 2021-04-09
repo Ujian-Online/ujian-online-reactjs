@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { MdKeyboardArrowUp, MdKeyboardArrowDown , MdCancel } from 'react-icons/md'
+import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 
-import { useDispatch , useSelector } from 'react-redux'
-import {  postApl02Action } from '../../../redux/actions/apl02.action'
 import Apl02Media from './apl02Media'
 import FormMedia from './FormMedia'
 
@@ -31,9 +29,9 @@ const Apl02ASUK = ({ asuk , isEdit }) => {
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {isDispalyInstruction && <li className='ml-2 '>
+                    {(isDispalyInstruction && <li className='ml-2 '>
                         {asuk.upload_instruction || '-'}
-                    </li> || ''}
+                    </li>) || ''}
                 </ul>
             </td>
             <td className='text-center' >{asuk.is_verified ? 'K' : 'BK'}</td>

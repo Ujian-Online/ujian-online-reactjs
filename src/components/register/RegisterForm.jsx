@@ -24,7 +24,7 @@ const RegisterForm = () => {
         if (auth.errMessage) {
             handleShowModal()
         }
-    }, [auth.succesRegister, auth.errMessage])
+    }, [auth.succesRegister, auth.errMessage, history ])
 
     const [user, setUser] = useState({
         username: '',

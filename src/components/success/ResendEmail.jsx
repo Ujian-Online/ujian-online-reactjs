@@ -25,7 +25,7 @@ const ResendEmail = () => {
     useEffect(()=>{
         !auth.token && history.push('/login')
         auth.token && dispatch(actionAPI.resendAction(auth.token)) && history.push('/sukses-resend')
-    },[])
+    },[ auth , dispatch , history ])
 
     const onSubmit=(e)=>{
         dispatch(actionAPI.resendAction(auth.token))

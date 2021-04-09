@@ -11,7 +11,8 @@ import moment from 'moment'
 const customStyles = {
     headCells: {
         style: {
-            background : '#ccc' ,
+            background : '#47a846' ,
+            color : '#fff' ,
             '&:nth-child(1)': {
                 maxWidth: '50px',
                 dispaly: 'flex',
@@ -61,7 +62,7 @@ const MyExam = () => {
             no: no++,
             id:exm.id,
             sertifikasi_id:exm.sertifikasi_id,
-            skema_sertifikasi: exm.sertifikasi && exm.sertifikasi.title || '',
+            skema_sertifikasi: (exm.sertifikasi && exm.sertifikasi.title) || '',
             apl_02:exm.apl02_status,
             status_ujian:exm.ujian_status,
             jadwal:moment(exm.ujianjadwal.tanggal).format('DD-MM-YYYY'),
@@ -84,7 +85,7 @@ const MyExam = () => {
         { selector: 'apl_02', name: 'APL 02', sortable: true , 
         format:row=>{
             //view button berdasarkan badges
-            if(row.status_ujian==='menunggu_verifikasi_form_apl02' && row.apl_02=="menunggu_verifikasi"){     
+            if(row.status_ujian==='menunggu_verifikasi_form_apl02' && row.apl_02==="menunggu_verifikasi"){     
                 return <div className='row' >
                 <div className='col-7 d-flex align-items-center' >
                     <span className='badge badge-warning' style={{ fontSize : '12px' }} >Menunggu Verifikasi</span>
@@ -111,7 +112,7 @@ const MyExam = () => {
                 </div>
                 </div>     
             }
-            else if(row.status='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
+            else if(row.status==='menunggu'&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
                 <div className='col-10' >
                     <button className='btn btn-warning' style={{ padding: '5px 15px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
@@ -120,7 +121,7 @@ const MyExam = () => {
                 </div>
                 </div>     
             }
-            else if(row.status='menunggu'&& row.apl_02==="form_terverifikasi"){     
+            else if(row.status==='menunggu'&& row.apl_02==="form_terverifikasi"){     
                 return  <div className='row' >
                 <div className='col-10' >
                     <span className='badge badge-success' style={{ fontSize : '12px' }} >Terverifikasi</span>

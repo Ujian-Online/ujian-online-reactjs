@@ -24,7 +24,7 @@ const ResetForm = () => {
         if(auth.errMessage){
             handleShowModal()
         }
-    },[auth.resetPasswordSuccess,auth.errMessage])
+    },[ auth.resetPasswordSuccess , auth.errMessage , history ])
 
     const[user,setUser]=useState({
         email:''

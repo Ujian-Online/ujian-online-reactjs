@@ -466,7 +466,7 @@ const Apl01 = () => {
                     </label>
                 </div>
                 <div className='col-sm-9 d-flex flex-column align-items-start ' >
-                    {isDisabled ? auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''
+                    {isDisabled ? (auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' />) || ''
                         :
                         renderSigPad()
                     }

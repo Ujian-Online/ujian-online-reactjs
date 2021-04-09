@@ -18,7 +18,7 @@ const MyExamDetail = (props) => {
     const { id } = useParams()
     useEffect(() => {
        detailListExam()
-    }, [])
+    }, [ ])
 
     //get sertifikasi detail action dan masukan id
     const dispatch = useDispatch()
