@@ -7,7 +7,7 @@ import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action
 const SkemaDetail = () => {
     //tampil data ke dalam datatable
     const { detailSertifikasi } = useSelector( state => state.sertifikasi ) || {}
-
+    console.log('detailSertifikasi', detailSertifikasi)
     //ekstrak id kemudian fetch ke dalam action
     const {id} =useParams()
     useEffect(()=>{
@@ -23,8 +23,8 @@ const SkemaDetail = () => {
     
 
     const columns = [
-        { selector : 'kode_unit_kompetensi' , name : 'Kode Unit' , sortable : true },
-        { selector : 'title' , name : 'Unit Kompetensi' , sortable : true },
+        { selector : 'unitkompetensi.kode_unit_kompetensi' , name : 'Kode Unit' , sortable : true },
+        { selector : 'unitkompetensi.title' , name : 'Unit Kompetensi' , sortable : true },
     ];
     
     return (
@@ -48,7 +48,7 @@ const SkemaDetail = () => {
              <DataTable
                 title='DAFTAR UNIT KOMPENTESI'
                 columns={columns}
-                data={ detailSertifikasi.unitkompentensi || [] } />
+                data={ detailSertifikasi.sertifikasiunitkompentensi || [] } />
             <br />
         </div>
     )
