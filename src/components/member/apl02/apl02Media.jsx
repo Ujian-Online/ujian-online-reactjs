@@ -1,7 +1,7 @@
 import FormMedia from "./FormMedia"
 
 
-const Apl02Media = ({ media , asuk , isEdit }) => {
+const Apl02Media = ({ media , asuk, sertifikasi , isEdit }) => {
   
     const renderMedia = () => {
         return(<div className='d-flex align-items-center justify-content-center ' >
@@ -11,7 +11,7 @@ const Apl02Media = ({ media , asuk , isEdit }) => {
 
     return (
         <tr  >
-            { isEdit ? <td colSpan='2' > <FormMedia media={ media } asuk={ asuk } /> </td>
+            { isEdit ? <td colSpan='2' > <FormMedia media={ media } asuk={ asuk } sertifikasi={sertifikasi} /> </td>
             : <>
              <td className='text-center ' >{ renderMedia() } </td>
             <td >{media.description }</td>
