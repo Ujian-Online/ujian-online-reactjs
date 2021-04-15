@@ -19,7 +19,7 @@ const DataPemegang = () => {
        setScheme([ ...(holder.holder || []).map(ps=>({
            no:no++,
            name:ps.name,
-           nomor_register:ps.nomor_register,
+           nomor_register:ps.nomor_registrasi,
            sertifikasi_nomor_skema:ps.sertifikasi_nomor_skema,
            sertifikasi_title:ps.sertifikasi_title,
            tanggal_sertifikasi:ps.tanggal_sertifikasi,
