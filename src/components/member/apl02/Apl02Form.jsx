@@ -32,7 +32,7 @@ const Apl02Form = () => {
                 <div className='row ' >
                 {
                         isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
-                                        Batal
+                                       Selesai
                                     </button>) : 
                         (<button className='btn btn-sm btn-warning text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(true)} >
                             <MdCreate /> Edit Form
