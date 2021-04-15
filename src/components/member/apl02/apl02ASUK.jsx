@@ -3,7 +3,7 @@ import { MdKeyboardArrowUp, MdKeyboardArrowDown} from 'react-icons/md'
 import Apl02Media from './apl02Media'
 import FormMedia from './FormMedia'
 
-const Apl02ASUK = ({ asuk , isEdit }) => {
+const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
     const [isDispalyInstruction, toggleDisplayInstruction ] = useState(true)
    
     const rowSpanAnswer = () => {
@@ -44,7 +44,7 @@ const Apl02ASUK = ({ asuk , isEdit }) => {
         { isEdit ?  
         <tr>
             <td colSpan='2' >
-                <FormMedia asuk={ asuk } />
+                <FormMedia asuk={ asuk } sertifikasi={sertifikasi} />
             </td>
         </tr>
          : '' }
@@ -52,8 +52,9 @@ const Apl02ASUK = ({ asuk , isEdit }) => {
         <Apl02Media 
             key={ key }
             media={ media } 
-            asuk={ asuk } 
-            isEdit={ isEdit } />)}
+            asuk={ asuk }
+            sertifikasi={ sertifikasi }
+            isEdit={ isEdit }></Apl02Media>)}
         </>
         : '' }
     </>)

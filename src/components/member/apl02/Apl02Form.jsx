@@ -73,7 +73,7 @@ const Apl02Form = () => {
                                         <th scope="col" className='text-center' >Catatan</th>
                                     </tr>
                                     {(uk.asesisertifikasiunitkompetensielement || []).map((asuk, keyy) => (
-                                        <Apl2asuk asuk={asuk} key={keyy} isEdit={ isEdit } />
+                                        <Apl2asuk asuk={asuk} sertifikasi={sertifikasi} key={keyy} isEdit={ isEdit } />
                                     ))
                                     }
 
