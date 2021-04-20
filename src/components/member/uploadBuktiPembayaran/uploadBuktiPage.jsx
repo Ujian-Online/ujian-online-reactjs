@@ -7,7 +7,6 @@ import { Spinner, Modal } from 'react-bootstrap';
 import DatePicker from '../../reuseable/DatePicker';
 import moment from 'moment';
 import './uploadBuktiPage.css'
-import { useCallback } from 'react'
 
 const useStyles = createUseStyles({
     detailInformasi: {
@@ -36,8 +35,6 @@ const UploadPembayaranPage = (props) => {
         bank_id : '',
         transfer_date: new Date()
     })
-
-
 
     useEffect(() => {
         setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
