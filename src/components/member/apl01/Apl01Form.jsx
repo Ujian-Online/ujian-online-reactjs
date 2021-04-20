@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import DatePicker from '../../reuseable/DatePicker';
-import { useHistory } from 'react-router-dom'
+
 import SignatureCanvas from 'react-signature-canvas'
 import { getApl01Action, postApl01Action } from '../../../redux/actions/apl01.action'
 import moment from 'moment'
@@ -472,7 +472,7 @@ const Apl01 = () => {
                         :
                         (
                             <>
-                            {auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' /> || ''}
+                            {(auth.user.media_url_sign_user && <img width='150' height='150' className='sigCanvas bg-white border ' src={auth.user.media_url_sign_user} alt='media_url_sign_user' />) || ''}
                             {!isDisabled && (
                                 <a href='/#' className='float-right' onClick={(e) => {
                                     e.preventDefault()

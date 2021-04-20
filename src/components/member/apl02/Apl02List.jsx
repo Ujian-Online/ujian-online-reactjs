@@ -53,10 +53,8 @@ const Apl02Form=()=>{
             no:no++,
             id:lstapl02.sertifikasi_id,
             nomor_skema:lstapl02.sertifikasi.nomor_skema,
-            title: lstapl02.sertifikasi && lstapl02.sertifikasi.title || '',
+            title: (lstapl02.sertifikasi && lstapl02.sertifikasi.title) || '',
             status:lstapl02.sertifikasi.is_active?'aktif':'tidak aktif',
-
-           
         }))])
     },[apl02.apl02])
 

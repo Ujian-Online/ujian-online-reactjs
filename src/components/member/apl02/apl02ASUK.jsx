@@ -29,7 +29,7 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                     </button>
                     {asuk.desc}
                     {(isDispalyInstruction && <li className='ml-2 '>
-                        {asuk.upload_instruction || '-'}
+                        {(asuk.upload_instruction) || '-'}
                     </li>) || ''}
                 </ul>
             </td>
