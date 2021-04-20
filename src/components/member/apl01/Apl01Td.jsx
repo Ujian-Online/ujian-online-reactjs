@@ -104,6 +104,8 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
                 </select>)
         }else if (customData.input_type === 'upload_image') {
             return(typeof customDataState.value === 'string' && customDataState.value ? renderMedia() : renderUploadBukti() )
+        }else if (customData.input_type === 'upload_pdf') {
+            return(typeof customDataState.value === 'string' && customDataState.value ? renderMedia() : renderUploadBukti() )
         }
 
         return ''
@@ -114,6 +116,9 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
         if ((customData.input_type === 'text' || customData.input_type === 'dropdown') && customDataState.value ) {
             return customData.value;
         }else if (customData.input_type === 'upload_image' && customDataState.value ) {
+            return(<a href={`${customDataState.value}`} target="_blank" >Lihat media</a> )
+        }
+        else if (customData.input_type === 'upload_pdf' && customDataState.value ) {
             return(<a href={`${customDataState.value}`} target="_blank" >Lihat media</a> )
         }
 
