@@ -10,7 +10,8 @@ import {status_bayar} from './status'
 const customStyles = {
     headCells: {
         style: {
-            background : '#ccc' ,
+            background : 'rgb(40, 167, 69)' ,
+            color: '#fff',
             '&:nth-child(1)': {
                 maxWidth: '50px',
                 dispaly: 'flex',
@@ -153,7 +154,7 @@ const MenungguPembayaran=()=>{
                                 Upload Pembayaran
                             </button>
                 }
-                else if(row.status_bayar =='pending_verification' || row.status_bayar == 'payment_rejected'){
+                else if(row.status_bayar === 'pending_verification' || row.status_bayar == 'payment_rejected'){
                     return <div className='row' >
                         <div className='col-7 d-flex align-items-center' >
                             <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}

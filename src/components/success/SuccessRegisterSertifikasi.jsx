@@ -8,7 +8,7 @@ const SuccessRegisterUjiSertifikasi = () => {
 
     useEffect(() => {
         dispatch(resetReducerOrderAction())
-    }, [])
+    }, [dispatch ])
 
     return (
     <div className={`container-fluid`}  >

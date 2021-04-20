@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {  useParams } from 'react-router-dom'
 // import { Modal, Button } from 'react-bootstrap'
@@ -32,7 +32,7 @@ const Apl02Form = () => {
                 <div className='row ' >
                 {
                         isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
-                                        Batal
+                                       Selesai
                                     </button>) : 
                         (<button className='btn btn-sm btn-warning text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(true)} >
                             <MdCreate /> Edit Form
@@ -73,7 +73,7 @@ const Apl02Form = () => {
                                         <th scope="col" className='text-center' >Catatan</th>
                                     </tr>
                                     {(uk.asesisertifikasiunitkompetensielement || []).map((asuk, keyy) => (
-                                        <Apl2asuk asuk={asuk} key={keyy} isEdit={ isEdit } />
+                                        <Apl2asuk asuk={asuk} sertifikasi={sertifikasi} key={keyy} isEdit={ isEdit } />
                                     ))
                                     }
 

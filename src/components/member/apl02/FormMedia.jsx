@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { postApl02Action , getApl02DetailAction, deleteApl02Action } from '../../../redux/actions/apl02.action'
 import {  useParams } from 'react-router-dom'
 
-const FormMedia = ({ media = {} , asuk,sertifikasi={} }) => {
+const FormMedia = ({ media = {} , asuk, sertifikasi }) => {
     const [ form , setForm ] = useState({
         element_id: asuk.id , 
         type : media.id ? 'update' : 'new',

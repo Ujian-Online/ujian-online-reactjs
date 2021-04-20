@@ -7,6 +7,7 @@ import { Spinner, Modal } from 'react-bootstrap';
 import DatePicker from '../../reuseable/DatePicker';
 import moment from 'moment';
 import './uploadBuktiPage.css'
+import { useCallback } from 'react'
 
 const useStyles = createUseStyles({
     detailInformasi: {
@@ -36,19 +37,21 @@ const UploadPembayaranPage = (props) => {
         transfer_date: new Date()
     })
 
+
+
     useEffect(() => {
-        setStateForm({ ...stateForm , bank_id :  bank[0] && bank[0].id || ''  })        
+        setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
     }, [order ] )
 
     useEffect(() => {
         dispatch(getDetailOrderAction(auth.token, id))
-    }, [])
+    }, [ dispatch , auth , id ])
 
     useEffect(() => {
         if (order.isSuccessPost) {
             history.push('/member/upload-bukti-pembayaran-detail/sukses')
         }
-    }, [order.isSuccessPost])
+    }, [order.isSuccessPost , history ])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">
@@ -79,7 +82,7 @@ const UploadPembayaranPage = (props) => {
     )
 
     const clickUpload =()=>{
-        if (stateForm. bukti_transfer.size>7000000) {
+        if (stateForm.bukti_transfer.size>7000000) {
             handleShowModal()
         }
         else{

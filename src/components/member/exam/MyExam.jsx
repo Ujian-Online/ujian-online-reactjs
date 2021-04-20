@@ -11,7 +11,8 @@ import moment from 'moment'
 const customStyles = {
     headCells: {
         style: {
-            background : '#ccc' ,
+            background : 'rgb(40, 167, 69)' ,
+            color: '#fff',
             '&:nth-child(1)': {
                 maxWidth: '50px',
                 dispaly: 'flex',

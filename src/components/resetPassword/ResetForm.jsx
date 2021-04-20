@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Modal, Spinner } from 'react-bootstrap'
 import { EmailErrorMessageAction, resetPasswordAction } from '../../redux/actions/auth.action'
+import { useCallback } from 'react'
 
 const ResetForm = () => {
     const auth=useSelector(state=>state.auth)
@@ -15,16 +16,19 @@ const ResetForm = () => {
     };
     const handleShowModal=()=>setShowModal(true);
 
+    const redirectPasswordSuccess = useCallback(() => {
+        if(auth.resetPasswordSuccess){
+            history.push('/sukses-reset-password')
+         }
+         
+         if(auth.errMessage){
+             handleShowModal()
+         }
+    }, [history , auth ])
 
     useEffect(()=>{
-        if(auth.resetPasswordSuccess){
-           history.push('/sukses-reset-password')
-        }
-        
-        if(auth.errMessage){
-            handleShowModal()
-        }
-    },[auth.resetPasswordSuccess,auth.errMessage])
+        redirectPasswordSuccess()
+    },[auth.resetPasswordSuccess,auth.errMessage, redirectPasswordSuccess ])
 
     const[user,setUser]=useState({
         email:''
