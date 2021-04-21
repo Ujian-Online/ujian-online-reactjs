@@ -22,7 +22,7 @@ const Navbar = () => {
         }
 
         initGetProfile()
-    } , [auth.token])
+    } , [auth.token,dispatch])
 
     const logout = () => dispatch(logoutAction())    
 

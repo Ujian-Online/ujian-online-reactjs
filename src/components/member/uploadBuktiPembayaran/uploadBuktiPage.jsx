@@ -38,7 +38,7 @@ const UploadPembayaranPage = (props) => {
 
     useEffect(() => {
         setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
-    }, [order ] )
+    }, [order,stateForm] )
 
     useEffect(() => {
         dispatch(getDetailOrderAction(auth.token, id))

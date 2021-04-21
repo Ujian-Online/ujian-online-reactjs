@@ -43,7 +43,7 @@ const DaftarUjianForm = (props) => {
         if(order.isSuccessPost) {
             history.push('/member/order/sertifikasi/sukses')
         }
-    }, [order.isSuccessPost ])
+    }, [order.isSuccessPost,history])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">

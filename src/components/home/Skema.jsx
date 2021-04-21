@@ -47,7 +47,7 @@ const Skema = () => {
         dispatch(getSertifikasiAction(sertifikasi.query))
     }
     
-    useEffect( initGetSertifikasi, [])
+    useEffect( initGetSertifikasi, [dispatch,sertifikasi.query])
 
     useEffect(() => {
         console.log('sertifikasi', sertifikasi)
@@ -58,7 +58,7 @@ const Skema = () => {
             nomor_skema: s.nomor_skema,
             title: s.title,
         }))])
-    }, [sertifikasi.sertifikasi])
+    }, [sertifikasi.sertifikasi,sertifikasi])
 
 
     const columns = [

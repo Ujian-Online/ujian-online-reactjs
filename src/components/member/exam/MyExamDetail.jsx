@@ -10,21 +10,15 @@ import moment from 'moment'
 const MyExamDetail = (props) => {
 
     const history = useHistory()
-    
+    const dispatch = useDispatch()
     //reducer token
     const auth=useSelector(state=>state.auth)
 
     //ekstrak id kemudian fetch ke dalam action
     const { id } = useParams()
     useEffect(() => {
-       detailListExam()
-    }, [])
-
-    //get sertifikasi detail action dan masukan id
-    const dispatch = useDispatch()
-    const detailListExam = () => {
         dispatch(getDetailExamAction(auth.token,id))
-    }
+    }, [auth.token,dispatch,id])
 
     //list reducer exam detail
     //reducer exam

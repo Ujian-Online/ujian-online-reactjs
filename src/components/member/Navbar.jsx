@@ -22,15 +22,14 @@ const Navbar = () => {
         if(auth.needVerify){
             history.push('/email/verification')
         }
-
-    }, [])
+    }, [auth.needVerify,history,auth.token,dispatch,auth.user])
 
     
     useEffect(() => {
         if(auth.needVerify){
             history.push('/email/verification')
         }
-    }, [ auth.needVerify ] )
+    }, [ auth.needVerify,history] )
 
     const logout = () => {
         dispatch(logoutAction())

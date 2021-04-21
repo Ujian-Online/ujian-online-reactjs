@@ -1,7 +1,7 @@
-import { Dropdown } from 'react-bootstrap'
+// import { Dropdown } from 'react-bootstrap'
 import { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { MdFilterList, MdSearch } from 'react-icons/md'
+import {MdSearch } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -44,7 +44,7 @@ const DaftarUjianBaru = () => {
     const [schemes, setScheme] = useState([])
     useEffect(() => {
         dispatch(getSertifikasiAction(sertifikasi.query))
-    }, [])
+    }, [dispatch,sertifikasi])
 
     useEffect(() => {
         console.log('sertifikasi', sertifikasi)
@@ -55,7 +55,7 @@ const DaftarUjianBaru = () => {
             nomor_skema: s.nomor_skema,
             title: s.title,
         }))])
-    }, [sertifikasi.sertifikasi])
+    }, [sertifikasi.sertifikasi,sertifikasi])
 
 
 
@@ -89,21 +89,21 @@ const DaftarUjianBaru = () => {
         )
     }
 
-    const Filter = () => {
-        return (
-            <div className="col-sm-6 mb-3">
-                <Dropdown>
-                    <Dropdown.Toggle variant="light" id="dropdown-basic">
-                        <MdFilterList /> Filter
-                </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Staff</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Manajer</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Supervisor</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </div>)
-    }
+    // const Filter = () => {
+    //     return (
+    //         <div className="col-sm-6 mb-3">
+    //             <Dropdown>
+    //                 <Dropdown.Toggle variant="light" id="dropdown-basic">
+    //                     <MdFilterList /> Filter
+    //             </Dropdown.Toggle>
+    //                 <Dropdown.Menu>
+    //                     <Dropdown.Item href="#/action-1">Staff</Dropdown.Item>
+    //                     <Dropdown.Item href="#/action-2">Manajer</Dropdown.Item>
+    //                     <Dropdown.Item href="#/action-3">Supervisor</Dropdown.Item>
+    //                 </Dropdown.Menu>
+    //             </Dropdown>
+    //         </div>)
+    // }
 
     const onClickRow = (row) => {
         history.push(`/member/detail-skema-sertifikasi/${row.id}`)

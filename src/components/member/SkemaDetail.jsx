@@ -7,23 +7,15 @@ import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action
 const SkemaDetail = () => {
 
     const history = useHistory()
-
+    const dispatch = useDispatch()
     //tampil data ke dalam datatable
     const { detailSertifikasi } = useSelector(state => state.sertifikasi) || {}
 
     //ekstrak id kemudian fetch ke dalam action
     const { id } = useParams()
     useEffect(() => {
-        skemaSertifikasiDetail()
-    }, [])
-
-    //get sertifikasi detail action dan masukan id
-    const dispatch = useDispatch()
-    const skemaSertifikasiDetail = () => {
         dispatch(getSertikasiDetailAction(id))
-    }
-
-
+    }, [dispatch,id])
 
     const columns = [
         { selector: 'unitkompetensi.kode_unit_kompetensi', name: 'Kode Unit', sortable: true },

@@ -54,7 +54,7 @@ const MyExam = () => {
     const dispatch=useDispatch()
     useEffect(()=>{
        dispatch(getExamAction(auth.token))
-    },[])
+    },[auth.token,dispatch])
 
     //deklarasi reducer exam
     const exam = useSelector(state =>state.exam)

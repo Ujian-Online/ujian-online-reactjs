@@ -25,12 +25,12 @@ const ForgetForm = () => {
         if(auth.errMessage){
             handleShowModal()
         }
-    },[auth.resetPasswordSuccess,auth.errMessage])
+    },[auth.resetPasswordSuccess,auth.errMessage,history])
     useEffect(()=>{
         const token=query.get('token')
         dispatch(setTokenAction(token))
 
-    },[])
+    },[dispatch,query])
 
     const[user,setUser]=useState({
         email:'',

@@ -45,7 +45,7 @@ const MenungguPembayaran=()=>{
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(getOrderAction(auth.token))
-    },[])
+    },[dispatch,auth.token])
 
     //deklarasi reducer order
     const order=useSelector(state=>state.order)
@@ -65,7 +65,7 @@ const MenungguPembayaran=()=>{
             transfer_from_bank_account:o.transfer_from_bank_account,
             bukti:o.media_url_bukti_transfer
         }))])
-    },[order.order])
+    },[order.order,order])
 
     
    
@@ -154,7 +154,7 @@ const MenungguPembayaran=()=>{
                                 Upload Pembayaran
                             </button>
                 }
-                else if(row.status_bayar === 'pending_verification' || row.status_bayar == 'payment_rejected'){
+                else if(row.status_bayar === 'pending_verification' || row.status_bayar === 'payment_rejected'){
                     return <div className='row' >
                         <div className='col-7 d-flex align-items-center' >
                             <button className='btn btn-warning' style={{ padding: '2px 10px' , fontSize : '14px' }}

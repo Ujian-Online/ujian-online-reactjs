@@ -56,7 +56,7 @@ const Apl01 = () => {
 
     useEffect(() => {
         dispatch(getApl01Action(auth.token))
-    }, [])
+    }, [dispatch,auth.token])
 
     useEffect(() => {
         if (apl01.apl01.id) {

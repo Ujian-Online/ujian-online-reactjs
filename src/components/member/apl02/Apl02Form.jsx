@@ -24,7 +24,7 @@ const Apl02Form = () => {
 
     useEffect(() => {
         dispatch(getApl02DetailAction(auth.token, id))
-    }, [])   
+    }, [dispatch,auth.token,id])   
 
     return (
         <>

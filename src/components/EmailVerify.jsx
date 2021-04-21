@@ -2,7 +2,7 @@ import { useDispatch , useSelector } from 'react-redux'
 import { resendAction , verifikasiAction } from '../redux/actions/auth.action'
 
 import { useLocation , useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect,useCallback } from 'react';
 
 const EmailVerify = () => {
     const history = useHistory()
@@ -13,16 +13,15 @@ const EmailVerify = () => {
 
     useEffect(() => {
         if(query.get('token')) {
-
             dispatch(verifikasiAction(query.get('token')))
         }
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if(!auth.needVerify){
             history.push('/sukses-register')
         }
-    }, [ auth.needVerify ])
+    }, [ auth.needVerify,history])
 
     const onSubmit = (e) => {
         e.preventDefault()

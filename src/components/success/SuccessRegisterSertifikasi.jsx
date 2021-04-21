@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-
 import { resetReducerOrderAction  } from '../../redux/actions/order.action'
 
 const SuccessRegisterUjiSertifikasi = () => {
@@ -8,7 +7,7 @@ const SuccessRegisterUjiSertifikasi = () => {
 
     useEffect(() => {
         dispatch(resetReducerOrderAction())
-    }, [dispatch ])
+    }, [dispatch])
 
     return (
     <div className={`container-fluid`}  >

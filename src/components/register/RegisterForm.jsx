@@ -24,7 +24,7 @@ const RegisterForm = () => {
         if (auth.errMessage) {
             handleShowModal()
         }
-    }, [history , auth ])
+    }, [history,auth ])
     useEffect(() => {
         redirectVerifikasiAkun()
     }, [auth.succesRegister, auth.errMessage, redirectVerifikasiAkun ])
