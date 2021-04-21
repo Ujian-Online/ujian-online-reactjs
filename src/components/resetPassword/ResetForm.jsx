@@ -20,11 +20,10 @@ const ResetForm = () => {
         if(auth.resetPasswordSuccess){
             history.push('/sukses-reset-password')
          }
-         
          if(auth.errMessage){
              handleShowModal()
          }
-    }, [history , auth ])
+    }, [history,auth ])
 
     useEffect(()=>{
         redirectPasswordSuccess()

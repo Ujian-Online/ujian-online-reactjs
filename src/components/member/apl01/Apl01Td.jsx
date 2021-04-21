@@ -4,7 +4,6 @@ import { Spinner } from 'react-bootstrap'
 import { postCustomDataAction } from '../../../redux/actions/apl01.action'
 import { useSelector, useDispatch } from 'react-redux'
 import { createUseStyles } from 'react-jss'
-import { useCallback } from "react";
 
 const useStyles = createUseStyles({
     status : {
@@ -33,8 +32,9 @@ const TdTable = ({ customData, isDisabled , refresh }) => {
     })
 
     useEffect(() => {
-        onChange(customData.value)
-    }, [customData.value ])
+        setStateCustomData({ customdataid: customData.id, value:customData.value , type: customData.type })
+        // onChange(customData.value)
+    }, [customData.value,customData.id,customData.type])
     
     const onChange =(value ) => {
         setStateCustomData({ customdataid: customData.id, value , type: customData.type })

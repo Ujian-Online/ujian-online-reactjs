@@ -41,7 +41,7 @@ const Apl02Form=()=>{
     //showDetailby auth.token
     useEffect(() => {
         dispatch(getApl02Action(auth.token))
-    }, [] )
+    }, [dispatch,auth.token] )
 
     //reducer apl02
     const apl02=useSelector(state=>state.apl02)

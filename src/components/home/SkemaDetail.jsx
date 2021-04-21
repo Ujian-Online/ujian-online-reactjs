@@ -5,6 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action';
 
 const SkemaDetail = () => {
+    const dispatch=useDispatch()
     const history = useHistory()
     const auth = useSelector(state => state.auth)
     //tampil data ke dalam datatable
@@ -13,15 +14,10 @@ const SkemaDetail = () => {
     //ekstrak id kemudian fetch ke dalam action
     const {id} =useParams()
     useEffect(()=>{
-        skemaSertifikasiDetail()
-    },[])
-
-    //get sertifikasi detail action dan masukan id
-    const dispatch=useDispatch()
-    const skemaSertifikasiDetail =()=>{
         dispatch(getSertikasiDetailAction(id))
-    }
+    },[dispatch,id])
 
+   
     
 
     const columns = [

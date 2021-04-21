@@ -10,8 +10,8 @@ const DataPemegang = () => {
     const [schemes,setScheme]=useState([])
     const holder=useSelector(state=>state.holder)
     useEffect(()=>{
-        dataPemilik()
-   },[])
+        dispatch(getHolderSertifikatAction())
+   },[dispatch])
 
    useEffect(()=>{
        console.log('Pemilik sertifikasi',holder)
@@ -24,11 +24,7 @@ const DataPemegang = () => {
            sertifikasi_title:ps.sertifikasi_title,
            tanggal_sertifikasi:ps.tanggal_sertifikasi,
        }))])
-   },[holder.holder])
-
-   const dataPemilik=()=>{
-    dispatch(getHolderSertifikatAction())
-    }
+   },[holder.holder,holder])
     
     const columns = [
         { selector : 'name' , name : 'Name', sortable : true },
