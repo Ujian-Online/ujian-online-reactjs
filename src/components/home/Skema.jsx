@@ -43,11 +43,14 @@ const Skema = () => {
     const dispatch = useDispatch()
     const sertifikasi = useSelector(state => state.sertifikasi)
     const [schemes, setScheme] = useState([])
-    const initGetSertifikasi = () => {
-        dispatch(getSertifikasiAction(sertifikasi.query))
-    }
     
-    useEffect( initGetSertifikasi, [dispatch,sertifikasi.query])
+    
+    useEffect(() => {
+        const initGetSertifikasi = () => {
+            dispatch(getSertifikasiAction(sertifikasi.query))
+        }
+        initGetSertifikasi()
+    }, [])
 
     useEffect(() => {
         console.log('sertifikasi', sertifikasi)

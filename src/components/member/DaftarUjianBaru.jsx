@@ -43,8 +43,11 @@ const DaftarUjianBaru = () => {
     const sertifikasi = useSelector(state => state.sertifikasi)
     const [schemes, setScheme] = useState([])
     useEffect(() => {
-        dispatch(getSertifikasiAction(sertifikasi.query))
-    }, [dispatch,sertifikasi])
+        const getSertifikasi = () => {
+            dispatch(getSertifikasiAction(sertifikasi.query))
+        }
+        getSertifikasi()
+    }, [])
 
     useEffect(() => {
         console.log('sertifikasi', sertifikasi)
