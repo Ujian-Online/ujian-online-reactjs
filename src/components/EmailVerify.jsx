@@ -2,7 +2,7 @@ import { useDispatch , useSelector } from 'react-redux'
 import { resendAction , verifikasiAction } from '../redux/actions/auth.action'
 
 import { useLocation , useHistory } from 'react-router-dom';
-import { useEffect,useCallback } from 'react';
+import { useEffect } from 'react';
 
 const EmailVerify = () => {
     const history = useHistory()
@@ -15,7 +15,8 @@ const EmailVerify = () => {
         if(query.get('token')) {
             dispatch(verifikasiAction(query.get('token')))
         }
-    }, [dispatch])
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
+    }, [])
 
     useEffect(() => {
         if(!auth.needVerify){

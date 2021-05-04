@@ -50,6 +50,7 @@ const Skema = () => {
             dispatch(getSertifikasiAction(sertifikasi.query))
         }
         initGetSertifikasi()
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
     }, [])
 
     useEffect(() => {

@@ -38,6 +38,7 @@ const UploadPembayaranPage = (props) => {
 
     useEffect(() => {
         setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
     }, [order,stateForm] )
 
     useEffect(() => {

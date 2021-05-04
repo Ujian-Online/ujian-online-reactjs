@@ -47,6 +47,7 @@ const DaftarUjianBaru = () => {
             dispatch(getSertifikasiAction(sertifikasi.query))
         }
         getSertifikasi()
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
     }, [])
 
     useEffect(() => {
