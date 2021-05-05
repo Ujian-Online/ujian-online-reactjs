@@ -23,7 +23,7 @@ const LoginForm = () => {
         if (auth.errMessage) {
             handleShowModal()
         }
-    }, [auth.token, auth.errMessage])
+    }, [auth.token, auth.errMessage,history])
 
 
 

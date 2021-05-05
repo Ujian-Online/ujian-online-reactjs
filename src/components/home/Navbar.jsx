@@ -12,7 +12,7 @@ const Navbar = () => {
     const { location : { pathname } } = useHistory()
     const [isDisplayMenu, toggleMenu] = useState(false)
     const [isDisplayUser, toggleUser] = useState(false)
-    const renderActiveMenu = (pathCurrent) => pathCurrent === pathname ? 'active cursor text-primary' : ''
+    const renderActiveMenu = (pathCurrent) => pathCurrent === pathname ? 'active cursor font-weight-bold' : ''
 
     
 
@@ -22,7 +22,7 @@ const Navbar = () => {
         }
 
         initGetProfile()
-    } , [auth.token])
+    } , [auth.token,dispatch])
 
     const logout = () => dispatch(logoutAction())    
 

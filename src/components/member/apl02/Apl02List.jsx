@@ -1,8 +1,6 @@
-import {useRef, useState , useEffect } from 'react'
+import { useState , useEffect } from 'react'
 import { useDispatch , useSelector } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
-import {Modal,Button} from 'react-bootstrap'
-import SignatureCanvas from 'react-signature-canvas'
+import { useHistory } from 'react-router-dom'
 import { getApl02Action } from '../../../redux/actions/apl02.action'
 import DataTable from 'react-data-table-component'
 
@@ -33,9 +31,8 @@ const customStyles = {
 
 }
 
-const Apl02Form=(props)=>{
+const Apl02Form=()=>{
     const history = useHistory()
-    let sigPad = useRef()
     const dispatch = useDispatch()
 
     //reducer auth.token
@@ -44,7 +41,7 @@ const Apl02Form=(props)=>{
     //showDetailby auth.token
     useEffect(() => {
         dispatch(getApl02Action(auth.token))
-    }, [] )
+    }, [dispatch,auth.token] )
 
     //reducer apl02
     const apl02=useSelector(state=>state.apl02)
@@ -56,10 +53,8 @@ const Apl02Form=(props)=>{
             no:no++,
             id:lstapl02.sertifikasi_id,
             nomor_skema:lstapl02.sertifikasi.nomor_skema,
-            title: lstapl02.sertifikasi && lstapl02.sertifikasi.title || '',
+            title: (lstapl02.sertifikasi && lstapl02.sertifikasi.title) || '',
             status:lstapl02.sertifikasi.is_active?'aktif':'tidak aktif',
-
-           
         }))])
     },[apl02.apl02])
 

@@ -28,9 +28,9 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {isDispalyInstruction && <li className='ml-2 '>
-                        {asuk.upload_instruction || '-'}
-                    </li> || ''}
+                    {(isDispalyInstruction && <li className='ml-2 '>
+                        {(asuk.upload_instruction) || '-'}
+                    </li>) || ''}
                 </ul>
             </td>
             <td className='text-center' >{asuk.is_verified ? 'K' : 'BK'}</td>

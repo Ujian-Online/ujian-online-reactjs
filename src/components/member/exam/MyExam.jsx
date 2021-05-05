@@ -11,7 +11,8 @@ import moment from 'moment'
 const customStyles = {
     headCells: {
         style: {
-            background : '#ccc' ,
+            background : 'rgb(40, 167, 69)' ,
+            color: '#fff',
             '&:nth-child(1)': {
                 maxWidth: '50px',
                 dispaly: 'flex',
@@ -53,7 +54,7 @@ const MyExam = () => {
     const dispatch=useDispatch()
     useEffect(()=>{
        dispatch(getExamAction(auth.token))
-    },[])
+    },[auth.token,dispatch])
 
     //deklarasi reducer exam
     const exam = useSelector(state =>state.exam)
@@ -109,26 +110,26 @@ const MyExam = () => {
             }
             if(row.status_ujian==="menunggu_verifikasi_form_apl02" && row.apl_02==="menunggu_verifikasi"){     
                 return <div className='row' >
-                <div className='col-7 d-flex align-items-center' >
-                    <span className='badge badge-primary' style={{ fontSize : '12px' }} >Menunggu Verifikasi</span>
+                <div className='col-12 mt-2 d-flex align-items-center' >
+                    <span className='badge badge-primary' style={{ fontSize : '14px' }} >Menunggu Verifikasi</span>
                 </div>
-                <div className='col-5' >
-                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                <div className='col-12 mt-2' >
+                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdEdit /> Update
                     </button> 
                 </div>
                 </div>     
             }
             if(row.status_ujian==="menunggu_jadwal_ujian"&& row.apl_02==="form_terverifikasi"){     
-                return  <span className='badge badge-success' style={{ fontSize : '12px' }} >Terverifikasi</span>
+                return  <span className='badge badge-success' style={{ fontSize : '14px' }} >Terverifikasi</span>
             }
             if(row.status_ujian==="menunggu_verifikasi_form_apl02" && row.apl_02==="form_ditolak"){     
                 return  <div className='row' >
-                <div className='col-7 d-flex align-items-center' >
-                    <span className='badge badge-danger' style={{ fontSize : '12px' }} >Form ditolak</span>
+                <div className='col-12 mt-2 d-flex align-items-center' >
+                    <span className='badge badge-danger' style={{ fontSize : '14px' }} >Form ditolak</span>
                 </div>
-                <div className='col-5' >
-                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                <div className='col-12 mt-2' >
+                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdEdit /> Update
                     </button>
                 </div>
@@ -136,8 +137,8 @@ const MyExam = () => {
             }
             if(row.status==="menunggu"&& row.apl_02==="menunggu_verifikasi"){     
                 return  <div className='row' >
-                <div className='col-10' >
-                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
+                <div className='col-12' >
+                    <button className='btn btn-primary' style={{ padding: '2px 10px' , fontSize : '14px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         <MdEdit /> Update
                     </button>
                 </div>
@@ -145,10 +146,10 @@ const MyExam = () => {
             }
             if(row.status==="menunggu"&& row.apl_02==="form_terverifikasi"){     
                 return  <div className='row' >
-                     <div className='col-7 d-flex align-items-center' >
-                    <span className='badge badge-success' style={{ fontSize : '12px' }} >Form Terverifikasi</span>
+                     <div className='col-12 mt-2 d-flex align-items-center' >
+                    <span className='badge badge-success' style={{ fontSize : '14px' }} >Form Terverifikasi</span>
                 </div>
-                <div className='col-5' >
+                <div className='col-12 mt-2' >
                     <button className='btn btn-success' style={{ padding: '2px 10px' , fontSize : '12px'  }} onClick={clickButton(row.sertifikasi_id)} >
                         Lihat Form
                     </button>

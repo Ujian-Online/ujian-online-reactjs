@@ -13,16 +13,16 @@ const EmailVerify = () => {
 
     useEffect(() => {
         if(query.get('token')) {
-
             dispatch(verifikasiAction(query.get('token')))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
     }, [])
 
     useEffect(() => {
         if(!auth.needVerify){
             history.push('/sukses-register')
         }
-    }, [ auth.needVerify ])
+    }, [ auth.needVerify,history])
 
     const onSubmit = (e) => {
         e.preventDefault()

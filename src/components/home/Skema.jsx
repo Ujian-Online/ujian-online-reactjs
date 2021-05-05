@@ -43,11 +43,15 @@ const Skema = () => {
     const dispatch = useDispatch()
     const sertifikasi = useSelector(state => state.sertifikasi)
     const [schemes, setScheme] = useState([])
-    const initGetSertifikasi = () => {
-        dispatch(getSertifikasiAction(sertifikasi.query))
-    }
     
-    useEffect( initGetSertifikasi, [])
+    
+    useEffect(() => {
+        const initGetSertifikasi = () => {
+            dispatch(getSertifikasiAction(sertifikasi.query))
+        }
+        initGetSertifikasi()
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
+    }, [])
 
     useEffect(() => {
         console.log('sertifikasi', sertifikasi)
@@ -58,7 +62,7 @@ const Skema = () => {
             nomor_skema: s.nomor_skema,
             title: s.title,
         }))])
-    }, [sertifikasi.sertifikasi])
+    }, [sertifikasi.sertifikasi,sertifikasi])
 
 
     const columns = [

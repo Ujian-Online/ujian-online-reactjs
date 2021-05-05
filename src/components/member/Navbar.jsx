@@ -13,7 +13,7 @@ const Navbar = () => {
     const { location : { pathname } } = history
     const [isDisplayMenu, toggleMenu] = useState(false)
     const [isDisplayUser, toggleUser] = useState(false)
-    const renderActiveMenu = (pathCurrent) => pathname.includes(pathCurrent) ? 'active cursor text-primary' : ''
+    const renderActiveMenu = (pathCurrent) => pathname.includes(pathCurrent) ? 'active cursor font-weight-bold' : ''
 
     useEffect(() => {
         !auth.token && history.push('/login')
@@ -22,15 +22,14 @@ const Navbar = () => {
         if(auth.needVerify){
             history.push('/email/verification')
         }
-
-    }, [])
+    }, [auth.needVerify,history,auth.token,dispatch,auth.user])
 
     
     useEffect(() => {
         if(auth.needVerify){
             history.push('/email/verification')
         }
-    }, [ auth.needVerify ] )
+    }, [ auth.needVerify,history] )
 
     const logout = () => {
         dispatch(logoutAction())

@@ -45,7 +45,7 @@ export const getProfileAction = (token) => {
             const response = await getProfileAPI(token)
             dispatch({ type : types.SET_USER , user : response.data })
         }catch(err) {
-            const message = err.response && err.response.data && err.response.data.message || ''
+            const message = (err.response && (err.response.data && err.response.data.message)) || ''
             if(message === 'Unauthenticated.' || err.response.statusCode === 401 ) {
                 dispatch({ type : types.LOGOUT })
             }else {

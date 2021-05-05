@@ -1,25 +1,23 @@
 import { useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { getSertikasiDetailAction } from '../../redux/actions/sertifikasi.action';
 
 const SkemaDetail = () => {
+    const dispatch=useDispatch()
+    const history = useHistory()
+    const auth = useSelector(state => state.auth)
     //tampil data ke dalam datatable
     const { detailSertifikasi } = useSelector( state => state.sertifikasi ) || {}
     console.log('detailSertifikasi', detailSertifikasi)
     //ekstrak id kemudian fetch ke dalam action
     const {id} =useParams()
     useEffect(()=>{
-        skemaSertifikasiDetail()
-    },[])
-
-    //get sertifikasi detail action dan masukan id
-    const dispatch=useDispatch()
-    const skemaSertifikasiDetail =()=>{
         dispatch(getSertikasiDetailAction(id))
-    }
+    },[dispatch,id])
 
+   
     
 
     const columns = [
@@ -27,6 +25,10 @@ const SkemaDetail = () => {
         { selector : 'unitkompetensi.title' , name : 'Unit Kompetensi' , sortable : true },
     ];
     
+    const clickDaftar = () => {
+        history.push('/member/order/sertifikasi', { ...detailSertifikasi })
+    }
+
     return (
         <div className='container' >
             <div className='bg-white ml-auto mr-auto py-3 px-3 my-5' >
@@ -50,6 +52,12 @@ const SkemaDetail = () => {
                 columns={columns}
                 data={ detailSertifikasi.sertifikasiunitkompentensi || [] } />
             <br />
+            { auth.user ? 
+            <div className="form-group mt-3 col-md-3 col-sm-5 mr-auto ml-auto mb-5">
+                <button onClick={clickDaftar} type="submit" className="btn btn-primary btn-block ">
+                    Daftar
+                </button>
+            </div> : '' }
         </div>
     )
 }

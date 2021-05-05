@@ -37,18 +37,19 @@ const UploadPembayaranPage = (props) => {
     })
 
     useEffect(() => {
-        setStateForm({ ...stateForm , bank_id :  bank[0] && bank[0].id || ''  })        
-    }, [order ] )
+        setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
+    }, [order,stateForm] )
 
     useEffect(() => {
         dispatch(getDetailOrderAction(auth.token, id))
-    }, [])
+    }, [ dispatch , auth , id ])
 
     useEffect(() => {
         if (order.isSuccessPost) {
             history.push('/member/upload-bukti-pembayaran-detail/sukses')
         }
-    }, [order.isSuccessPost])
+    }, [order.isSuccessPost , history ])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">
@@ -79,7 +80,7 @@ const UploadPembayaranPage = (props) => {
     )
 
     const clickUpload =()=>{
-        if (stateForm. bukti_transfer.size>7000000) {
+        if (stateForm.bukti_transfer.size>7000000) {
             handleShowModal()
         }
         else{
