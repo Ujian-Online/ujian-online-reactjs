@@ -36,14 +36,15 @@ const UploadPembayaranPage = (props) => {
         transfer_date: new Date()
     })
 
-    useEffect(() => {
+    useEffect(() => {        
         setStateForm({ ...stateForm , bank_id : ( bank[0] && bank[0].id) || ''  })
         // eslint-disable-next-line react-hooks/exhaustive-deps          
-    }, [order,stateForm] )
+    }, [order] )
 
     useEffect(() => {
         dispatch(getDetailOrderAction(auth.token, id))
-    }, [ dispatch , auth , id ])
+        // eslint-disable-next-line react-hooks/exhaustive-deps          
+    }, [])
 
     useEffect(() => {
         if (order.isSuccessPost) {
@@ -148,36 +149,24 @@ const UploadPembayaranPage = (props) => {
                                     <div className='col-md-6 d-flex align-items-start ' >
                                         <img src='/assets/img/mandiri.png' alt='mandiri' />
                                         <div className='ml-2 '>
-                                        {bank.filter(bk => bk.bank_name === "Mandiri").map(filteredBankAccount => (
-                                        <div>
-                                        <h6>
-                                        Mandiri
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_name}
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_number}
-                                        </h6>
-                                        </div>
+                                        {bank.filter(bk => bk.bank_name === "Mandiri").map((filteredBankAccount , key ) => (
+                                            <div key={key}>
+                                                <h6>Mandiri</h6>
+                                                <h6>{filteredBankAccount.account_name}</h6>
+                                                <h6>{filteredBankAccount.account_number}</h6>
+                                            </div>
                                         ))}
                                         </div>
                                     </div>
                                     <div className='col-md-6 col-xs-3 d-flex align-items-start ' >
                                         <img src='/assets/img/bri.png' alt='BRI'/>
                                         <div className='ml-2 '>
-                                        {bank.filter(bk => bk.bank_name === "BRI").map(filteredBankAccount => (
-                                        <div>
-                                        <h6>
-                                        Bank Rakyat Indonesia
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_name}
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_number}
-                                        </h6>
-                                        </div>
+                                        {bank.filter(bk => bk.bank_name === "BRI").map((filteredBankAccount , key ) => (
+                                            <div key={key} >
+                                                <h6>Bank Rakyat Indonesia</h6>
+                                                <h6>{filteredBankAccount.account_name}</h6>
+                                                <h6>{filteredBankAccount.account_number}</h6>
+                                            </div>
                                         ))}
                                         </div>
                                     </div>
@@ -186,17 +175,11 @@ const UploadPembayaranPage = (props) => {
                                     <div className='col-md-6 d-flex align-items-start ' >
                                         <img src='/assets/img/BCA.png' alt='bca' />
                                         <div className='ml-2 '>
-                                        {bank.filter(bk => bk.bank_name === "BCA").map(filteredBankAccount => (
-                                        <div>
-                                        <h6>
-                                        Bank Central Asia
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_name}
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_number}
-                                        </h6>
+                                        {bank.filter(bk => bk.bank_name === "BCA").map((filteredBankAccount , key ) => (
+                                        <div key={key} >
+                                            <h6>Bank Central Asia</h6>
+                                            <h6>{filteredBankAccount.account_name}</h6>
+                                            <h6>{filteredBankAccount.account_number}</h6>
                                         </div>
                                     ))}
                                         </div>
@@ -204,18 +187,12 @@ const UploadPembayaranPage = (props) => {
                                     <div className='col-md-6 col-xs-3 d-flex align-items-start ' >
                                         <img src='/assets/img/btn.png' alt='btn' />
                                         <div className='ml-2 '>
-                                        {bank.filter(bk => bk.bank_name === "BTN").map(filteredBankAccount => (
-                                        <div>
-                                        <h6>
-                                        Bank Tabungan Negara
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_name}
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_number}
-                                        </h6>
-                                        </div>
+                                        {bank.filter(bk => bk.bank_name === "BTN").map((filteredBankAccount , key ) => (
+                                            <div key={key} >
+                                                <h6>Bank Tabungan Negara</h6>
+                                                <h6>{filteredBankAccount.account_name}</h6>
+                                                <h6>{filteredBankAccount.account_number}</h6>
+                                            </div>
                                     ))}
                                         </div>
                                     </div>
@@ -224,36 +201,24 @@ const UploadPembayaranPage = (props) => {
                                     <div className='col-md-6 d-flex align-items-start ' >
                                         <img src='/assets/img/permata.png' alt='permata' />
                                         <div className='ml-2 '>
-                                        {bank.filter(bk => bk.bank_name === "Permata").map(filteredBankAccount => (
-                                        <div>
-                                        <h6>
-                                        Permata Bank
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_name}
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_number}
-                                        </h6>
-                                        </div>
+                                        {bank.filter(bk => bk.bank_name === "Permata").map((filteredBankAccount , key ) => (
+                                            <div key={key} >
+                                                <h6>Permata Bank</h6>
+                                                <h6>{filteredBankAccount.account_name}</h6>
+                                                <h6>{filteredBankAccount.account_number}</h6>
+                                            </div>
                                     ))}
                                         </div>
                                     </div>
                                     <div className='col-md-6 col-xs-3 d-flex align-items-start ' >
                                         <img src='/assets/img/bni.png' alt='bni'/>
                                         <div className='ml-2 '>
-                                        {bank.filter(bk => bk.bank_name === "BNI").map(filteredBankAccount => (
-                                        <div>
-                                        <h6>
-                                        Bank Negara Indonesia
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_name}
-                                        </h6>
-                                        <h6>
-                                        {filteredBankAccount.account_number}
-                                        </h6>
-                                        </div>
+                                        {bank.filter(bk => bk.bank_name === "BNI").map((filteredBankAccount , key ) => (
+                                            <div key={key} >
+                                                <h6>Bank Negara Indonesia</h6>
+                                                <h6>{filteredBankAccount.account_name}</h6>
+                                                <h6>{filteredBankAccount.account_number}</h6>
+                                            </div>
                                     ))}
                                         </div>
                                     </div>
