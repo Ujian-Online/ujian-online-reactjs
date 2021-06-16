@@ -314,17 +314,17 @@ const Apl01 = () => {
                     <span>:</span>
                 </div>
                 <div className='col-sm-9' >
-                    <select className='form-control   '
+                <select className='form-control   '
                         value={stateForm.pendidikan_terakhir}
                         disabled={isDisabled}
                         onChange={onChangeField('pendidikan_terakhir')} >
-                        <option value="SMA" >S3</option>
-                        <option value="SMA" >S2</option>
-                        <option value="SMA" >S1</option>
-                        <option value="SMA" >D4</option>
-                        <option value="SMA" >D3</option>
-                        <option value="SMA" >D2</option>
-                        <option value="SMA" >D1</option>
+                        <option value="S3" >S3</option>
+                        <option value="S2" >S2</option>
+                        <option value="S1" >S1</option>
+                        <option value="D4" >D4</option>
+                        <option value="D3" >D3</option>
+                        <option value="D2" >D2</option>
+                        <option value="D1" >D1</option>
                         <option value="SMA" >SMA Sederajat</option>
                         <option value="SMP" >SMP Sederajat</option>
                         <option value="SD" >SD Sederajat</option>
