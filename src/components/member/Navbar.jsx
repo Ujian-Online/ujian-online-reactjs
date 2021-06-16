@@ -80,7 +80,7 @@ const Navbar = () => {
                     </li>
                     <li className='nav-item '>
                         <Link className={`nav-link  ${ renderActiveMenu('ujian-saya')} text-white `} to='/member/ujian-saya' >
-                            Ujian Saya
+                           Penilaian Saya
                         </Link>
                     </li>
                     <li className='nav-item '>
