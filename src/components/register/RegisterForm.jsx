@@ -1,16 +1,18 @@
-import { useState , useEffect } from 'react'
+import { useState , useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link , useHistory } from 'react-router-dom'
 import { Modal, Spinner, InputGroup, FormControl , Form } from 'react-bootstrap'
 import { MdAccountCircle, MdLock, MdLockOutline } from 'react-icons/md'
 import { registerUserAction , closeErrorMessageAction } from '../../redux/actions/auth.action'
-import { useCallback } from 'react'
+import { useCallback } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const RegisterForm = () => {
 
     const auth = useSelector(state => state.auth)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const history = useHistory();
+
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => {
         setShowModal(false)
@@ -32,7 +34,8 @@ const RegisterForm = () => {
     const [user, setUser] = useState({
         username: '',
         password: '',
-        confirm_password : ''
+        confirm_password : '',
+        token: ""
     })    
 
     const onChangeState = (name) => (e) => {        
@@ -44,8 +47,9 @@ const RegisterForm = () => {
     )
     
     const onSubmit = (e) => {
-        e.preventDefault()
-        dispatch(registerUserAction({ email : user.username , password : user.password }))
+        console.log(user);
+        e.preventDefault();
+        dispatch(registerUserAction({ email : user.username , password : user.password, recaptcha: user.token }))
     }
 
     const renderLoading = () => (
@@ -119,6 +123,7 @@ const RegisterForm = () => {
                         placeholder="Password" />
                 </InputGroup>
             </div>
+            <ReCAPTCHA sitekey={process.env.PUBLIC_URL} onChange={token => setUser(prevState => ({...prevState, token}))} />
             {/* <div className="form-group form-check">
                 <small >
                     <input className="form-check-input" type="checkbox" id="aggrement" required />

@@ -1,11 +1,11 @@
 import { registerAPI , loginAPI , getProfileAPI,forgetPasswordAPI,resetPasswordAPI, verifikasiAPI, resendAPI} from '../api/auth.api'
 import * as types from '../types/auth.type'
 
-export const registerUserAction = ({  email = '' , password = '' }) => {
+export const registerUserAction = ({  email = '' , password = '', recaptcha = "" }) => {
     return async dispatch => {
         try {
             dispatch({ type : types.ON_LOADING })
-            await registerAPI({ email , password  })
+            await registerAPI({ email , password, recaptcha  })
             dispatch({ 
                 type : types.REGISTER_SUCCESS , 
                 succesRegister : true })

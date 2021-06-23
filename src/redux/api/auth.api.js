@@ -1,12 +1,13 @@
 import { API } from './middleware.api'
 
-export const registerAPI = async ({  email = '' , password = '' }) => {
+export const registerAPI = async ({  email = '' , password = '', recaptcha = '' }) => {
     return await API({
         url : '/api/register' ,
         method : 'POST',
         data : {
             email,
             password,
+            "g-recaptcha-response" : recaptcha
         }
     }).then( res => res.data )
 }
