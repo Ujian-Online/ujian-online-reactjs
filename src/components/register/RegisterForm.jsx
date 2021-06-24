@@ -123,7 +123,7 @@ const RegisterForm = () => {
                         placeholder="Password" />
                 </InputGroup>
             </div>
-            <ReCAPTCHA sitekey={process.env.PUBLIC_URL} onChange={token => setUser(prevState => ({...prevState, token}))} />
+            <ReCAPTCHA sitekey={process.env.REACT_APP_PUBLIC_TOKEN} onChange={token => setUser(prevState => ({...prevState, token}))} />
             {/* <div className="form-group form-check">
                 <small >
                     <input className="form-check-input" type="checkbox" id="aggrement" required />
