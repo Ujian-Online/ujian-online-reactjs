@@ -172,6 +172,25 @@ const DaftarUjianForm = (props) => {
             <div className='row mt-4 ' >
                 <div className='col-sm-3 d-flex align-items-center' >
                     <label className=' mb-0 ' >
+                       Tipe sertifikasi
+                    </label>
+                </div>
+                <div className='col-sm-9' >
+                    <select className='form-control   '
+                        // value={stateForm.pendidikan_terakhir}
+                    >
+                        <option value="sertifikasi" >Sertifikasi</option>
+                        <option value="perpanjang" >Sertifikasi Ulang</option>
+                        <option value="PKT" >Pengakuan Kompetensi terkini (PKT)</option>
+                        <option value="RPL" >Rekognisi Pembelajaran Lampau</option>
+                        <option value="lainnya" >Lainnya</option>
+                    </select>
+                
+                </div>
+            </div>
+            {/* <div className='row mt-4 ' >
+                <div className='col-sm-3 d-flex align-items-center' >
+                    <label className=' mb-0 ' >
                         Sertifikasi ulang
                     </label>
                 </div>
@@ -192,7 +211,7 @@ const DaftarUjianForm = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {stateForm.tipe_sertifikasi === 'perpanjang' ? <>
                 <div className='row mt-4 ' >
