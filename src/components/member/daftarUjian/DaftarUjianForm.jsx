@@ -26,6 +26,11 @@ const DaftarUjianForm = (props) => {
     const auth = useSelector(state => state.auth )
     const order = useSelector(state => state.order )
     const skema = props.location.state
+    // const [isDisabled, setDisable] = useState(true)
+
+    // const onChangeField = index => e => {
+    //     setStateForm({ ...stateForm, [index]: e.target.value })
+    // }
 
     const [stateForm, setStateForm] = useState({
         sertifikasi_id: skema.id,
@@ -178,11 +183,14 @@ const DaftarUjianForm = (props) => {
                 <div className='col-sm-9' >
                     <select className='form-control   '
                         // value={stateForm.pendidikan_terakhir}
+                        value={stateForm.tipe_sertifikasi}
+                        // disabled={isDisabled}
+                        onChange={(e) => setStateForm({ ...stateForm, tipe_sertifikasi: e.target.value })}
                     >
                         <option value="sertifikasi" >Sertifikasi</option>
                         <option value="perpanjang" >Sertifikasi Ulang</option>
-                        <option value="PKT" >Pengakuan Kompetensi terkini (PKT)</option>
-                        <option value="RPL" >Rekognisi Pembelajaran Lampau</option>
+                        <option value="pkt" >Pengakuan Kompetensi terkini (PKT)</option>
+                        <option value="rpl" >Rekognisi Pembelajaran Lampau</option>
                         <option value="lainnya" >Lainnya</option>
                     </select>
                 
