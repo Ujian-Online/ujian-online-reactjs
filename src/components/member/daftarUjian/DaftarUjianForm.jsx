@@ -177,42 +177,19 @@ const DaftarUjianForm = (props) => {
                 </div>
                 <div className='col-sm-9' >
                     <select className='form-control   '
-                        // value={stateForm.pendidikan_terakhir}
+                        value={stateForm.tipe_sertifikasi}
+                        onChange={(e) => setStateForm({ ...stateForm, tipe_sertifikasi: e.target.value })}
                     >
                         <option value="sertifikasi" >Sertifikasi</option>
                         <option value="perpanjang" >Sertifikasi Ulang</option>
-                        <option value="PKT" >Pengakuan Kompetensi terkini (PKT)</option>
-                        <option value="RPL" >Rekognisi Pembelajaran Lampau</option>
+                        <option value="pkt" >Pengakuan Kompetensi terkini (PKT)</option>
+                        <option value="rpl" >Rekognisi Pembelajaran Lampau</option>
                         <option value="lainnya" >Lainnya</option>
                     </select>
                 
                 </div>
             </div>
-            {/* <div className='row mt-4 ' >
-                <div className='col-sm-3 d-flex align-items-center' >
-                    <label className=' mb-0 ' >
-                        Sertifikasi ulang
-                    </label>
-                </div>
-                <div className='col-sm-9 d-flex flex-wrap ' >
-                    <div className="form-check mr-2">
-                        <input className="form-check-input"
-                            type="checkbox" name="sertifikasi_ulang" id="lama"                            
-                            onClick={(e) => {
-                                setStateForm({ ...stateForm, tipe_sertifikasi: e.target.checked ? 'perpanjang' : 'baru' })
-                            }} />
-                        <label className="form-check-label" htmlFor="lama">
-                            Ceklis jika perpanjangan sertifikasi sebelumnya
-                        </label>
-                        <div className={`${classes.Training}`}>
-                            {stateForm.tipe_sertifikasi === 'perpanjang' ? <label>
-                                (Silahkan upload Jobdesk, surat permohonan perpanjangan, surat pernyataan bahwa ybs masih bekerja dibidang SDM oleh atasan, dan upload sertifikat lama)
-                            </label> : ''}
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
+            
             {stateForm.tipe_sertifikasi === 'perpanjang' ? <>
                 <div className='row mt-4 ' >
                     <div className='col-sm-3 d-flex align-items-center' >

@@ -126,7 +126,7 @@ const UploadPembayaranPage = (props) => {
                                     </div>
                                 </div>
                                 <div className='row mt-2 px-md-4 ' >
-                                    <div className='col-sm-4 ' >Sertifikasi Ulang <span className='d-inline d-sm-none' >:</span></div>
+                                    <div className='col-sm-4 ' >Tipe sertifikasi <span className='d-inline d-sm-none' >:</span></div>
                                     <div className='col-sm-8 ' >
                                         <span className='d-none d-sm-inline' >:</span> <span className='ml-sm-2' >{detailOrder.tipe_sertifikasi || '-' }</span>
                                     </div>
