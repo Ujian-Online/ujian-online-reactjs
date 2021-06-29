@@ -45,6 +45,7 @@ jobs:
         env:
           CI: false
           REACT_APP_API_URL: ${{ secrets.ADMIN_API_PRODUCTION }}
+          REACT_APP_PUBLIC_TOKEN: ${{ secrets.GOOGLE_RECAPTCHA_SITEKEY }}
         run: npm run build
 
       - name: Share artifact inside workflow

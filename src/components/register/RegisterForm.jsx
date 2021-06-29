@@ -1,16 +1,18 @@
-import { useState , useEffect } from 'react'
+import { useState , useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link , useHistory } from 'react-router-dom'
 import { Modal, Spinner, InputGroup, FormControl , Form } from 'react-bootstrap'
 import { MdAccountCircle, MdLock, MdLockOutline } from 'react-icons/md'
 import { registerUserAction , closeErrorMessageAction } from '../../redux/actions/auth.action'
-import { useCallback } from 'react'
+import { useCallback } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const RegisterForm = () => {
 
     const auth = useSelector(state => state.auth)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const history = useHistory();
+
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => {
         setShowModal(false)
@@ -32,20 +34,24 @@ const RegisterForm = () => {
     const [user, setUser] = useState({
         username: '',
         password: '',
-        confirm_password : ''
-    })    
+        confirm_password : '',
+        token: ""
+    });
+    const isValidPassword = () => (
+        user.password === user.confirm_password && user.password !== '' && user.confirm_password !== ''
+    )
+    
+    const isDisabled = user.username && isValidPassword() && user.token ? false : true;
 
     const onChangeState = (name) => (e) => {        
         setUser(Object.assign({}, user, { [name]: e.target.value }))
     }
 
-    const isValidPassword = () => (
-        user.password === user.confirm_password && user.password !== '' && user.confirm_password !== ''
-    )
     
     const onSubmit = (e) => {
-        e.preventDefault()
-        dispatch(registerUserAction({ email : user.username , password : user.password }))
+        console.log(user);
+        e.preventDefault();
+        dispatch(registerUserAction({ email : user.username , password : user.password, recaptcha: user.token }))
     }
 
     const renderLoading = () => (
@@ -119,6 +125,7 @@ const RegisterForm = () => {
                         placeholder="Password" />
                 </InputGroup>
             </div>
+            <ReCAPTCHA sitekey={process.env.REACT_APP_PUBLIC_TOKEN} onChange={token => setUser(prevState => ({...prevState, token}))} />
             {/* <div className="form-group form-check">
                 <small >
                     <input className="form-check-input" type="checkbox" id="aggrement" required />
@@ -129,7 +136,7 @@ const RegisterForm = () => {
             </div> */}
             <hr />
             <div className="form-group ">
-                <button type="submit" className="btn btn-primary btn-block">
+                <button type="submit" className="btn btn-primary btn-block" disabled={isDisabled}>
                     { auth.isLoading ? renderLoading() : 'Register' } 
                 </button>
             </div>
