@@ -36,15 +36,17 @@ const RegisterForm = () => {
         password: '',
         confirm_password : '',
         token: ""
-    })    
+    });
+    const isValidPassword = () => (
+        user.password === user.confirm_password && user.password !== '' && user.confirm_password !== ''
+    )
+    
+    const isDisabled = user.username && isValidPassword() && user.token ? false : true;
 
     const onChangeState = (name) => (e) => {        
         setUser(Object.assign({}, user, { [name]: e.target.value }))
     }
 
-    const isValidPassword = () => (
-        user.password === user.confirm_password && user.password !== '' && user.confirm_password !== ''
-    )
     
     const onSubmit = (e) => {
         console.log(user);
@@ -134,7 +136,7 @@ const RegisterForm = () => {
             </div> */}
             <hr />
             <div className="form-group ">
-                <button type="submit" className="btn btn-primary btn-block">
+                <button type="submit" className="btn btn-primary btn-block" disabled={isDisabled}>
                     { auth.isLoading ? renderLoading() : 'Register' } 
                 </button>
             </div>

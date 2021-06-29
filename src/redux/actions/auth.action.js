@@ -14,7 +14,7 @@ export const registerUserAction = ({  email = '' , password = '', recaptcha = ""
             console.error('[register]', err)
             dispatch({ 
                 type : types.ON_ERROR , 
-                errMessage : data.err || data.message || 'An Error Occured' }) 
+                errMessage : data?.err || data?.message || 'An Error Occured' }) 
         }
         
     }
