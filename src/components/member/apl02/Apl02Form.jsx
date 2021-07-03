@@ -34,7 +34,7 @@ const Apl02Form = () => {
                  <div className='row ' >
                 {
                      exam.exam.filter(exm => exm.sertifikasi.id === sertifikasi.id).map(exm => {
-                        return exm.apl02_status=="form_terverifikasi" ?
+                        return exm.apl02_status==="form_terverifikasi" ?
                         <div className='text-white ml-auto mb-3 '>
                             <span className='badge badge-success' style={{ fontSize : '14px' }}>
                                 Terverifikasi
