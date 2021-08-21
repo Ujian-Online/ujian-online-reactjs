@@ -16,6 +16,7 @@ const MenungguPembayaran = lazy(()=>import('./MenungguPembayaran/MenungguPembaya
 const ViewApl02 =lazy(()=>import('./apl02/Apl02Form'))
 const ListApl02 =lazy(()=>import('./apl02/Apl02List'))
 const ViewApl01 = lazy(()=>import('./apl01/Apl01Form'))
+const Feedback = lazy( () => import('./FeedbackBanding'))
 
 const MemberPage = () => {
     return(
@@ -39,6 +40,7 @@ const MemberPage = () => {
                         <Route path='/member/apl-02/:id' component={ViewApl02} />
                         <Route path='/member/apl-02' component={ListApl02} />
                         <Route path='/member/apl-01' component={ViewApl01} />
+                        <Route path="/member/feedback" component={ Feedback } />
                     </Switch>
                 </Suspense>
             </Main>
