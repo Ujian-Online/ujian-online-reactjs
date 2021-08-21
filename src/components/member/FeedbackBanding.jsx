@@ -1,11 +1,5 @@
-import {  useState } from 'react'
-
 const Feedback = () => {
-    const [stateForm, setStateForm] = useState({
-        training: false,
-    });
     return (
-    
     <div className='container my-4 ' >
         <div className='row ' >
             <div className='col-12 ' >
