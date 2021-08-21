@@ -88,6 +88,11 @@ const Navbar = () => {
                             Data Pembayaran
                         </Link>
                     </li>
+                    <li className='nav-item '>
+                        <Link className={`nav-link ${renderActiveMenu('feedback')} text-white `} to='/member/feedback' >
+                        Umpan Balik dan Banding
+                        </Link>
+                    </li>
                 </ul>
                 {renderRightMenu()}
             </div>
