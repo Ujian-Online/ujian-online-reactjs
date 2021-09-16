@@ -23,7 +23,17 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
     return (<>
         <tr  >
             <td colSpan="2" rowSpan={ rowSpanAnswer() } >
-                <ul className='list-unstyled mb-0 ' >
+            {asuk.media < 1 ? 
+                <ul className='list-unstyled mb-0 ' style={{backgroundColor:'red', color:'white' }} >
+                    <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
+                        {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+                    </button>
+                    {asuk.desc}
+                    {(isDispalyInstruction && <li className='ml-2 '>
+                        {(asuk.upload_instruction) || '-'}
+                    </li>) || ''}
+                </ul> : 
+                <ul className='list-unstyled mb-0 ' style={{backgroundColor:'white' }}>
                     <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
@@ -32,6 +42,16 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                         {(asuk.upload_instruction) || '-'}
                     </li>) || ''}
                 </ul>
+            }
+                {/* <ul className='list-unstyled mb-0 ' >
+                    <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
+                        {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+                    </button>
+                    {asuk.desc}
+                    {(isDispalyInstruction && <li className='ml-2 '>
+                        {(asuk.upload_instruction) || '-'}
+                    </li>) || ''}
+                </ul> */}
             </td>
             <td className='text-center' >{asuk.is_verified ? 'K' : 'BK'}</td>
             <td>{asuk.verification_note}</td>
