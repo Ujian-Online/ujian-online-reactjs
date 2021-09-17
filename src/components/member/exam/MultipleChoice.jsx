@@ -36,9 +36,7 @@ const MultipleChoice = ({ title, content, multipleChoice, id, defaultAnswer, set
                 {title}
             </h5>
             <div className='card-body' >
-                <div className='border rounded p-2' >
-                    {content}
-                </div>
+                <div dangerouslySetInnerHTML={{ __html: content }} />
                 <div className='d-flex flex-column p-2' >
                     {
                         choices.map(val => (
