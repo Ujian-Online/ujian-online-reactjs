@@ -24,7 +24,7 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
         <tr  >
             <td colSpan="2" rowSpan={ rowSpanAnswer() } >
             {asuk.media < 1 ? 
-                <ul className='list-unstyled mb-0 ' style={{backgroundColor:'red', color:'white' }} >
+                <ul className='list-unstyled mb-0 ' style={{border:" 1px solid red" }} >
                     <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
