@@ -28,27 +28,26 @@ const Apl02Form = () => {
         dispatch(getApl02DetailAction(auth.token, id))
     }, [dispatch,auth.token,id])  
     console.log("status :",exam.exam)
+    const examSertifikasi = exam.exam.find(exm => exm.sertifikasi.id === sertifikasi.id)
+    
+    
     return (
         <>
             <div className='container mt-5'>
                  <div className='row ' >
                 {
-                     exam.exam.filter(exm => exm.sertifikasi.id === sertifikasi.id).map(exm => {
-                        return exm.apl02_status==="form_terverifikasi" ?
-                        <div className='text-white ml-auto mb-3 '>
-                            <span className='badge badge-success' style={{ fontSize : '14px' }}>
-                                Terverifikasi
-                            </span>
-                        </div>
-                        :
-                        isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
+                    examSertifikasi && examSertifikasi.apl02_status==="form_terverifikasi"?<div className='text-white ml-auto mb-3 '>
+                    <span className='badge badge-success' style={{ fontSize : '14px' }}>
+                        Terverifikasi
+                    </span>
+                </div>: isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
                         Selesai
                         </button>) : 
                         (<button className='btn btn-sm btn-warning text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(true)} >
                             <MdCreate /> Edit Form
                         </button>) 
-                    })
-                }
+                    }
+                
                 </div>
                 <div className="form-group row mb-5">
                     <label htmlFor="inputSkemaSertifikasi" className="col-sm-2 col-form-label">Judul Skema Sertifikasi</label>

@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postOrderAction } from '../../../redux/actions/order.action';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Modal } from 'react-bootstrap';
 import { useEffect } from 'react';
 
 
@@ -39,11 +39,35 @@ const DaftarUjianForm = (props) => {
 
     const history = useHistory()
 
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => setShowModal(false)
+    const handleShowModal = () => setShowModal(true);
+    
+    const renderModal = () => (
+        <Modal show={showModal} onHide={handleCloseModal}>
+               <Modal.Header closeButton>
+                   <Modal.Title>Pendaftaran tidak bisa dilanjutkan</Modal.Title>
+               </Modal.Header>
+               <Modal.Body>
+                   {order && order.errMessage}
+               </Modal.Body>
+        </Modal>
+    )
+
     useEffect(() => {
         if(order.isSuccessPost) {
             history.push('/member/order/sertifikasi/sukses')
         }
     }, [order.isSuccessPost,history])
+
+    useEffect(() => {
+        if(order.errMessage) {
+            handleShowModal()
+        }
+        // else{
+        //     handleShowModal()
+        // }
+    }, [order.errMessage])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">
@@ -51,6 +75,8 @@ const DaftarUjianForm = (props) => {
         </Spinner>
     )
 
+
+       
     const renderAction = () => {
         return (
             <div className='row mt-4 ' >
@@ -58,6 +84,7 @@ const DaftarUjianForm = (props) => {
                     <div className="form-group col-sm-4 col-md-4 ml-auto mr-auto">
                         <button
                             onClick={() => dispatch(postOrderAction(auth.token, {...stateForm }))}
+                            // onClick={clickPesan}
                             type="submit"
                             className="btn btn-primary btn-block">
                             { order.isLoading ? renderLoading() : 'Pesan Sekarang' }
@@ -244,6 +271,7 @@ const DaftarUjianForm = (props) => {
 
             </> : ''}
             {renderAction()}
+            {renderModal()}
         </div>
     )
 }
