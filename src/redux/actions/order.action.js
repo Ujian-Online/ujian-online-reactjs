@@ -21,7 +21,7 @@ export const postOrderAction=(token , payload )=>{
            await postOrderAPI(token , payload )
            dispatch({type:types.ORDER_POST_SUCCESS })
         }catch(err) {
-            dispatch({type:types.ORDER_FAILED , errMessage : (err && err.response && err.response.data) || err && err.message})
+            dispatch({type:types.ORDER_FAILED , errMessage : (err && err.response && err.response.data) || (err && err.message)})
             console.error('[postOrderAction]', err)
             
         }
