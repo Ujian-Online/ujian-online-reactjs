@@ -29,7 +29,7 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {(isDispalyInstruction && <li className='ml-2 '>
+                    {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }} >
                         {(asuk.upload_instruction) || '-'}
                     </li>) || ''}
                 </ul> : 
@@ -38,20 +38,11 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {(isDispalyInstruction && <li className='ml-2 '>
+                    {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }}>
                         {(asuk.upload_instruction) || '-'}
                     </li>) || ''}
                 </ul>
             }
-                {/* <ul className='list-unstyled mb-0 ' >
-                    <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
-                        {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
-                    </button>
-                    {asuk.desc}
-                    {(isDispalyInstruction && <li className='ml-2 '>
-                        {(asuk.upload_instruction) || '-'}
-                    </li>) || ''}
-                </ul> */}
             </td>
             <td className='text-center' >{asuk.is_verified ? 'K' : 'BK'}</td>
             <td>{asuk.verification_note}</td>
