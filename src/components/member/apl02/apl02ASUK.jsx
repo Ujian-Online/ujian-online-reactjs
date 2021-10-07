@@ -29,18 +29,24 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }} >
+                    <ol>
+                        {(isDispalyInstruction && asuk.upload_instruction.split(".").map(instruction => <li> {instruction} </li>))|| ''}
+                     </ol>
+                    {/* {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }} >
                         {(asuk.upload_instruction) || '-'}
-                    </li>) || ''}
+                    </li>) || ''} */}
                 </ul> : 
                 <ul className='list-unstyled mb-0 ' style={{backgroundColor:'white' }}>
                     <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }}>
+                    <ol>
+                    {(isDispalyInstruction && asuk.upload_instruction.split(".").map(instruction => <li> {instruction} </li>))|| ''}
+            </ol>
+                    {/* {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }}>
                         {(asuk.upload_instruction) || '-'}
-                    </li>) || ''}
+                    </li>) || ''} */}
                 </ul>
             }
             </td>
