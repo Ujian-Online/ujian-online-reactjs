@@ -30,11 +30,9 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                     </button>
                     {asuk.desc}
                     <ol>
-                        {(isDispalyInstruction && asuk.upload_instruction.split(".").map(instruction => <li> {instruction} </li>))|| ''}
-                     </ol>
-                    {/* {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }} >
-                        {(asuk.upload_instruction) || '-'}
-                    </li>) || ''} */}
+                        {(isDispalyInstruction && asuk.upload_instruction.split(".")
+                        .map(instruction => instruction ? <li> {instruction} </li> : '' )) || '' }
+                     </ol>                   
                 </ul> : 
                 <ul className='list-unstyled mb-0 ' style={{backgroundColor:'white' }}>
                     <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
@@ -42,11 +40,10 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
                     </button>
                     {asuk.desc}
                     <ol>
-                    {(isDispalyInstruction && asuk.upload_instruction.split(".").map(instruction => <li> {instruction} </li>))|| ''}
-            </ol>
-                    {/* {(isDispalyInstruction && <li className='ml-2 ' style={{whiteSpace:'break-spaces' }}>
-                        {(asuk.upload_instruction) || '-'}
-                    </li>) || ''} */}
+                        {(isDispalyInstruction && asuk.upload_instruction.split(".")
+                        .map(instruction => instruction && instruction.length ? <li> {instruction} </li> : '' )) || '' }
+                    </ol>
+                    
                 </ul>
             }
             </td>
