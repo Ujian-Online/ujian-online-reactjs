@@ -80,12 +80,17 @@ const Navbar = () => {
                     </li>
                     <li className='nav-item '>
                         <Link className={`nav-link  ${ renderActiveMenu('ujian-saya')} text-white `} to='/member/ujian-saya' >
-                            Ujian Saya
+                            Penilaian Saya
                         </Link>
                     </li>
                     <li className='nav-item '>
                         <Link className={`nav-link ${renderActiveMenu('menunggu-pembayaran')} text-white `} to='/member/menunggu-pembayaran' >
                             Data Pembayaran
+                        </Link>
+                    </li>
+                    <li className='nav-item '>
+                        <Link className={`nav-link ${renderActiveMenu('feedback')} text-white `} to='/member/feedback' >
+                        Umpan Balik dan Banding
                         </Link>
                     </li>
                 </ul>

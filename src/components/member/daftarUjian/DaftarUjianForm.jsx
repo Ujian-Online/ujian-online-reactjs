@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postOrderAction } from '../../../redux/actions/order.action';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Modal } from 'react-bootstrap';
 import { useEffect } from 'react';
 
 
@@ -39,11 +39,35 @@ const DaftarUjianForm = (props) => {
 
     const history = useHistory()
 
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => setShowModal(false)
+    const handleShowModal = () => setShowModal(true);
+    
+    const renderModal = () => (
+        <Modal show={showModal} onHide={handleCloseModal}>
+               <Modal.Header closeButton>
+                   <Modal.Title>Pendaftaran tidak bisa dilanjutkan</Modal.Title>
+               </Modal.Header>
+               <Modal.Body>
+                   {order && order.errMessage}
+               </Modal.Body>
+        </Modal>
+    )
+
     useEffect(() => {
         if(order.isSuccessPost) {
             history.push('/member/order/sertifikasi/sukses')
         }
     }, [order.isSuccessPost,history])
+
+    useEffect(() => {
+        if(order.errMessage) {
+            handleShowModal()
+        }
+        // else{
+        //     handleShowModal()
+        // }
+    }, [order.errMessage])
 
     const renderLoading = () => (
         <Spinner animation="border" role="status">
@@ -51,6 +75,8 @@ const DaftarUjianForm = (props) => {
         </Spinner>
     )
 
+
+       
     const renderAction = () => {
         return (
             <div className='row mt-4 ' >
@@ -58,6 +84,7 @@ const DaftarUjianForm = (props) => {
                     <div className="form-group col-sm-4 col-md-4 ml-auto mr-auto">
                         <button
                             onClick={() => dispatch(postOrderAction(auth.token, {...stateForm }))}
+                            // onClick={clickPesan}
                             type="submit"
                             className="btn btn-primary btn-block">
                             { order.isLoading ? renderLoading() : 'Pesan Sekarang' }
@@ -172,28 +199,24 @@ const DaftarUjianForm = (props) => {
             <div className='row mt-4 ' >
                 <div className='col-sm-3 d-flex align-items-center' >
                     <label className=' mb-0 ' >
-                        Sertifikasi ulang
+                       Tipe sertifikasi
                     </label>
                 </div>
-                <div className='col-sm-9 d-flex flex-wrap ' >
-                    <div className="form-check mr-2">
-                        <input className="form-check-input"
-                            type="checkbox" name="sertifikasi_ulang" id="lama"                            
-                            onClick={(e) => {
-                                setStateForm({ ...stateForm, tipe_sertifikasi: e.target.checked ? 'perpanjang' : 'baru' })
-                            }} />
-                        <label className="form-check-label" htmlFor="lama">
-                            Ceklis jika perpanjangan sertifikasi sebelumnya
-                        </label>
-                        <div className={`${classes.Training}`}>
-                            {stateForm.tipe_sertifikasi === 'perpanjang' ? <label>
-                                (Silahkan upload Jobdesk, surat permohonan perpanjangan, surat pernyataan bahwa ybs masih bekerja dibidang SDM oleh atasan, dan upload sertifikat lama)
-                            </label> : ''}
-                        </div>
-                    </div>
+                <div className='col-sm-9' >
+                    <select className='form-control   '
+                        value={stateForm.tipe_sertifikasi}
+                        onChange={(e) => setStateForm({ ...stateForm, tipe_sertifikasi: e.target.value })}
+                    >
+                        <option value="sertifikasi" >Sertifikasi</option>
+                        <option value="perpanjang" >Sertifikasi Ulang</option>
+                        <option value="pkt" >Pengakuan Kompetensi terkini (PKT)</option>
+                        <option value="rpl" >Rekognisi Pembelajaran Lampau</option>
+                        <option value="lainnya" >Lainnya</option>
+                    </select>
+                
                 </div>
             </div>
-
+            
             {stateForm.tipe_sertifikasi === 'perpanjang' ? <>
                 <div className='row mt-4 ' >
                     <div className='col-sm-3 d-flex align-items-center' >
@@ -248,6 +271,7 @@ const DaftarUjianForm = (props) => {
 
             </> : ''}
             {renderAction()}
+            {renderModal()}
         </div>
     )
 }

@@ -6,39 +6,48 @@ import {  useParams } from 'react-router-dom'
 import { getApl02DetailAction } from '../../../redux/actions/apl02.action'
 import Apl2asuk from './apl02ASUK'
 import { MdCreate } from 'react-icons/md'
+import { getExamAction } from '../../../redux/actions/exam.action'
 
 
 const Apl02Form = () => {
     // let sigPad = useRef()
     const dispatch = useDispatch()
     const [isEdit , setEdit ] = useState(false)
-
-    //reducer auth.token
+    const exam = useSelector(state =>state.exam)
     const auth = useSelector(state => state.auth)
-
-    //reducer apl02
     const apl02 = useSelector(state => state.apl02 || {})
     const detailApl = apl02.detailApl || {}
     const sertifikasi = detailApl.sertifikasi || {}
     const { id } = useParams()
+   
+    useEffect(()=>{
+        dispatch(getExamAction(auth.token))
+     },[auth.token,dispatch])
 
     useEffect(() => {
         dispatch(getApl02DetailAction(auth.token, id))
-    }, [dispatch,auth.token,id])   
-
+    }, [dispatch,auth.token,id])  
+    console.log("status :",exam.exam)
+    const examSertifikasi = exam.exam.find(exm => exm.sertifikasi.id === sertifikasi.id)
+    
+    
     return (
         <>
             <div className='container mt-5'>
-                <div className='row ' >
+                 <div className='row ' >
                 {
-                        isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
-                                       Selesai
-                                    </button>) : 
+                    examSertifikasi && examSertifikasi.apl02_status==="form_terverifikasi"?<div className='text-white ml-auto mb-3 '>
+                    <span className='badge badge-success' style={{ fontSize : '14px' }}>
+                        Terverifikasi
+                    </span>
+                </div>: isEdit ? (<button className='btn btn-sm btn-secondary text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(false) } >
+                        Selesai
+                        </button>) : 
                         (<button className='btn btn-sm btn-warning text-white  ml-auto mr-3 mb-2  ' onClick={() => setEdit(true)} >
                             <MdCreate /> Edit Form
                         </button>) 
-                        
                     }
+                
                 </div>
                 <div className="form-group row mb-5">
                     <label htmlFor="inputSkemaSertifikasi" className="col-sm-2 col-form-label">Judul Skema Sertifikasi</label>

@@ -23,15 +23,29 @@ const Apl02ASUK = ({ asuk , sertifikasi, isEdit }) => {
     return (<>
         <tr  >
             <td colSpan="2" rowSpan={ rowSpanAnswer() } >
-                <ul className='list-unstyled mb-0 ' >
+            {asuk.media < 1 ? 
+                <ul className='list-unstyled mb-0 ' style={{color:'red' }} >
                     <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
                         {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
                     </button>
                     {asuk.desc}
-                    {(isDispalyInstruction && <li className='ml-2 '>
-                        {(asuk.upload_instruction) || '-'}
-                    </li>) || ''}
+                    <ol>
+                        {(isDispalyInstruction && asuk.upload_instruction.split(".")
+                        .map(instruction => instruction ? <li> {instruction} </li> : '' )) || '' }
+                     </ol>                   
+                </ul> : 
+                <ul className='list-unstyled mb-0 ' style={{backgroundColor:'white' }}>
+                    <button className='btn px-2 py-1 rounded-circle ' onClick={() => toggleDisplayInstruction(!isDispalyInstruction)} >
+                        {isDispalyInstruction ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+                    </button>
+                    {asuk.desc}
+                    <ol>
+                        {(isDispalyInstruction && asuk.upload_instruction.split(".")
+                        .map(instruction => instruction && instruction.length ? <li> {instruction} </li> : '' )) || '' }
+                    </ol>
+                    
                 </ul>
+            }
             </td>
             <td className='text-center' >{asuk.is_verified ? 'K' : 'BK'}</td>
             <td>{asuk.verification_note}</td>
