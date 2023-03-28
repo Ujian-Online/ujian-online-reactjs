@@ -72,7 +72,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./react-github-actions-build/
-          server-dir: /frontend_staging/
+          server-dir: ./
           log-level: minimal
           security: loose
 
